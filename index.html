@@ -106,7 +106,12 @@
     section{margin:28px 0}
     .card{background:var(--card);border-radius:var(--radius-xl);box-shadow:var(--shadow-lg);padding:26px}
     .grid-2{display:grid;grid-template-columns:1.05fr .95fr;gap:22px}
-    @media (max-width:900px){.grid-2{grid-template-columns:1fr}}
+    @media (max-width:900px){
+      .grid-2{
+        grid-template-columns:1fr;
+        gap:0;
+      }
+    }
     h2{margin:0 0 14px;font-size:clamp(22px,3.4vw,30px);color:var(--tz-800)}
     h3{margin:0 0 10px;color:var(--tz-700)}
     .hr{height:1px;background:linear-gradient(90deg,transparent,var(--tz-200),transparent);margin:18px 0}
@@ -115,6 +120,7 @@
     ul.checks{list-style:none;padding:0;margin:0}
     ul.checks li{margin:10px 0;padding-inline-start:22px;position:relative}
     ul.checks li::before{content:"•";position:absolute;right:0;top:0;font-weight:900;color:var(--tz-600)}
+
 
     /* Next workshop */
     .next-box{border:1px solid var(--tz-200);background:#fff;border-radius:18px;padding:16px 18px}
