@@ -289,8 +289,7 @@
       <form id="leadForm"
             action="https://formspree.io/f/xwprqvqb"
             method="POST"
-            target="fs_silent"
-            onsubmit="showThanks(); delayedPaybox();">
+            target="fs_silent">
         <div>
           <label for="name">שם מלא</label>
           <input id="name" name="name" type="text" placeholder="שם ההורה" required />
@@ -303,6 +302,9 @@
           <label for="email">אימייל (לא חובה)</label>
           <input id="email" name="email" type="email" placeholder="example@mail.com" />
         </div>
+
+        <input type="hidden" name="source" id="source" />
+
         <div class="full">
           <label for="message">הודעה</label>
           <textarea id="message" name="message" placeholder="גיל התינוק/ת, האם יש מנשא, שאלות…"></textarea>
@@ -393,6 +395,17 @@
   </footer>
 
   <script>
+    // סקריפט זיהוי מקור ההגשה
+    document.addEventListener("DOMContentLoaded", function() {
+      const sourceField = document.getElementById('source');
+      if (sourceField) {
+        sourceField.value = window.location.href;
+      }
+    });
+  </script>
+
+
+  <script>
     // Drawer
     const openBtn = document.getElementById('openMenu');
     const drawer  = document.getElementById('drawer');
@@ -477,5 +490,114 @@
     "inLanguage":"he"
   }
   </script>
+
+  <script>
+  // === קונפיג: אותה כתובת Apps Script כמו בדף השני ===
+  const API_URL = "https://script.google.com/macros/s/AKfycbwujo1fbLVJrZ9XKJa11Gxn1WAqoUJ4ayRBC2hWTBCdGRTu413bjLj2l8X6Eb6NJrzb/exec";
+  const PAGE_ID = "arug_aroch_basis"; // מזהה ייחודי לדף הזה
+
+  // שכבת מסך עם טקסט מותאם (משתמשת ב-successMask הקיים שלך)
+  function showMaskText(text) {
+    const mask = document.getElementById('successMask');
+    if (!mask) return;
+    const msgEl = mask.querySelector('.success-box > div:first-child');
+    if (msgEl) msgEl.textContent = text;
+    mask.classList.add('show');
+    mask.setAttribute('aria-hidden', 'false');
+  }
+  function showThanks() {
+    showMaskText('תודה! מעבירה אותך לתשלום…');
+  }
+
+  // JSONP לספירת הרשמות לדף (עוקף CORS)
+  function getRegistrationCount(pageId) {
+    return new Promise((resolve, reject) => {
+      const cbName = 'countCb_' + Date.now() + '_' + Math.floor(Math.random()*1e6);
+      window[cbName] = function (data) {
+        try { resolve(Number(data && data.count || 0)); } finally {
+          delete window[cbName];
+          s.remove();
+        }
+      };
+      const s = document.createElement('script');
+      s.src = API_URL + '?fn=count&page_id=' + encodeURIComponent(pageId) + '&callback=' + cbName;
+      s.onerror = () => { delete window[cbName]; reject(new Error('count load error')); };
+      document.head.appendChild(s);
+    });
+  }
+
+  // רישום צפייה בדף בעת טעינה
+  window.addEventListener("DOMContentLoaded", () => {
+    fetch(API_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({ type: "pageview", page_id: PAGE_ID })
+    });
+  });
+
+  // לוגיקת ההרשמה עם הגבלת 5
+  (function () {
+    const form = document.getElementById("leadForm");
+    if (!form) return;
+
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault(); // לא שולחים עדיין — בודקים מקום
+
+      const fd = new FormData(form);
+      const name    = (fd.get("name")    || "").toString();
+      const phone   = (fd.get("phone")   || "").toString();
+      const email   = (fd.get("email")   || "").toString();
+      const message = (fd.get("message") || "").toString();
+
+      try {
+        // 1) בודקים כמה כבר נרשמו לדף הזה
+        showMaskText('בודקת זמינות…');
+        const count = await getRegistrationCount(PAGE_ID);
+
+        if (count >= 5) {
+          // 2) מלא — מציגים הודעה ושומרים ל־WaitingList. לא ממשיכים לתשלום.
+          showMaskText('הסדנה מלאה בתאריך הזה כבר,\nאבל שמרתי את הפרטים שלך ואכתוב לך כשיפתח מועד חדש.');
+
+          fetch(API_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "text/plain;charset=utf-8" },
+            body: JSON.stringify({
+              type: "waitinglist",
+              page_id: PAGE_ID,
+              name, phone, email, message
+            })
+          });
+          return; // לא שולחים ל-Formspree ולא מפנים לפייבוקס
+        }
+
+        // 3) יש מקום — רושמים ל-Registrations + Formspree + מפנים לפייבוקס
+        fetch(API_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({
+            type: "registration",
+            page_id: PAGE_ID,
+            name, phone, email, message
+          })
+        });
+
+        showThanks();    // שכבת "תודה! מעבירה אותך לתשלום…"
+        form.submit();   // שולח ל-Formspree (לתוך ה-iframe השקט)
+        delayedPaybox(); // יש לך כבר פונקציה קיימת שמעבירה אחרי 2 שניות
+
+      } catch (err) {
+        console.error('count error', err);
+        // במקרה תקלה – לא חונקים תהליך: שולחים רגיל ומפנים לתשלום
+        showThanks();
+        form.submit();
+        delayedPaybox();
+      }
+    });
+  })();
+</script>
+
 </body>
 </html>
