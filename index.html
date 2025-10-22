@@ -296,10 +296,7 @@
       <h2>הרשמה</h2>
       <p class="muted">מלאי פרטים ולאחר מכן תועברי אוטומטית לדף תשלום בפייבוקס.</p>
 
-      <form id="leadForm"
-            action="https://formspree.io/f/xwprqvqb"
-            method="POST"
-            target="fs_silent">
+      <form id="leadForm">
         <div>
           <label for="name">שם מלא</label>
           <input id="name" name="name" type="text" placeholder="שם ההורה" required />
@@ -325,8 +322,6 @@
         <div class="note">לאחר השליחה תועברי ישירות לתשלום בפייבוקס.</div>
       </form>
 
-      <!-- שליחה שקטה ל-Formspree (כדי שהעמוד הראשי יישאר 2 שניות עם הודעת תודה) -->
-      <iframe name="fs_silent" style="display:none" title="Formspree silent submit"></iframe>
     </section>
 
     <!-- Success overlay -->
@@ -605,25 +600,25 @@
 
   
   // לוגיקת ההרשמה עם הגבלת 5
-  (function () {
-    const form = document.getElementById("leadForm");
-    if (!form) return;
+(function () {
+  const form = document.getElementById("leadForm");
+  if (!form) return;
 
-    form.addEventListener("submit", async function (e) {
-      e.preventDefault(); // לא שולחים עדיין — בודקים מקום
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault(); // לא שולחים עדיין — בודקים מקום
 
-      const fd = new FormData(form);
-      const name    = (fd.get("name")    || "").toString();
-      const phone   = (fd.get("phone")   || "").toString();
-      const email   = (fd.get("email")   || "").toString();
-      const message = (fd.get("message") || "").toString();
+    const fd = new FormData(form);
+    const name    = (fd.get("name")    || "").toString();
+    const phone   = (fd.get("phone")   || "").toString();
+    const email   = (fd.get("email")   || "").toString();
+    const message = (fd.get("message") || "").toString();
 
     try {
-      // 1) בודקים כמה כבר נרשמו לדף הזה
+      // 1️⃣ קודם בודקים כמה כבר נרשמו
       const count = await getRegistrationCount(PAGE_ID);
 
       if (count >= 5) {
-        // 🟣 הסדנה מלאה — מציגים חלון תודה מיוחד ושומרים לרשימת המתנה
+        // 🟣 הסדנה מלאה — מציגים חלון תודה ושומרים לרשימת המתנה
         const mask = document.getElementById('successMask');
         if (mask) {
           const box = mask.querySelector('.success-box');
@@ -652,8 +647,8 @@
           }
         }
 
-        // 🟣 שולחים לרשימת המתנה
-        fetch(API_URL, {
+        // שומר לרשימת המתנה
+        await fetch(API_URL, {
           method: "POST",
           mode: "no-cors",
           headers: { "Content-Type": "text/plain;charset=utf-8" },
@@ -663,14 +658,13 @@
             name, phone, email, message
           })
         });
-        return; // לא שולחים ל-Formspree ולא מפנים לפייבוקס
+        return; // לא ממשיכים לפייבוקס
       }
 
-      // 🟢 אם יש מקום — עכשיו מציגים הודעת טעינה
+      // 🟢 רק אם יש מקום — מציגים "בודקת זמינות…" ואז ממשיכים
       showMaskText('בודקת זמינות…');
 
-      // 3) יש מקום — רושמים ל-Registrations + Formspree + מפנים לפייבוקס
-      fetch(API_URL, {
+      await fetch(API_URL, {
         method: "POST",
         mode: "no-cors",
         headers: { "Content-Type": "text/plain;charset=utf-8" },
@@ -681,20 +675,18 @@
         })
       });
 
-      showThanks();    // שכבת "תודה! מעבירה אותך לתשלום…"
-      form.submit();   // שולח ל-Formspree (לתוך ה-iframe השקט)
-      delayedPaybox(); // העברה לפייבוקס אחרי 2 שניות
+      showThanks();    // "תודה! מעבירה אותך לתשלום…"
+      delayedPaybox(); // מעבירה לפייבוקס אחרי 2 שניות
 
     } catch (err) {
       console.error('count error', err);
-      // במקרה תקלה – לא חונקים תהליך: שולחים רגיל ומפנים לתשלום
       showThanks();
-      form.submit();
       delayedPaybox();
     }
+  });
+})();
 
-    });
-  })();
+
 </script>
 
 </body>
