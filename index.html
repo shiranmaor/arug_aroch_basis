@@ -168,6 +168,12 @@
     }
     .spinner{width:28px; height:28px; border:3px solid var(--tz-200); border-top-color:var(--tz-700); border-radius:50%; margin:10px auto 0; animation:spin .75s linear infinite}
     @keyframes spin{to{transform:rotate(360deg)}}
+
+    .line-through {
+      text-decoration: line-through;
+      text-decoration-thickness: 2px;
+    } 
+
   </style>
 </head>
 <body>
@@ -255,7 +261,11 @@
           <li><strong>מנחה:</strong> שירן מאור, מדריכת נשיאה ומדריכה להתפתחות תינוקות</li>
           <li><strong>אורך:</strong> כשעתיים וחצי</li>
           <li><strong>קבוצה קטנה:</strong> עד 5 משתתפות</li>
-          <li><strong>מיקום/תאריך:</strong> 22 באוקטובר, מודיעין</li>
+          <li>
+            <strong>מיקום/תאריך:</strong>
+            <span id="workshop-date-value">22 באוקטובר, מודיעין</span>
+          </li>
+
         </ul>
         <div class="hr"></div>
         <div style="font-weight:800;color:var(--tz-800)">ההרשמה מתבצעת בטופס – התשלום ייפתח לאחר מכן בפייבוקס.</div>
@@ -526,6 +536,63 @@
     });
   }
 
+  // הצגת חלון קופץ כשהסדנה מלאה
+  function showFullPopup() {
+    const mask = document.getElementById('successMask');
+    if (!mask) return;
+
+    const box = mask.querySelector('.success-box');
+    if (!box) return;
+
+    // מנקים תוכן קודם
+    box.innerHTML = `
+      <div style="font-weight:800;color:var(--tz-800);font-size:18px;margin-bottom:10px">
+        ההרשמה לסדנה הסתיימה
+      </div>
+      <p style="margin:0 0 14px;color:var(--ink);line-height:1.5">
+        ניתן להשאיר פרטים לסדנה הבאה ואצור איתך קשר :)
+      </p>
+      <button id="closePopup" class="btn btn-primary" style="margin-top:10px">
+        חזרה לדף
+      </button>
+    `;
+
+    mask.classList.add('show');
+    mask.setAttribute('aria-hidden', 'false');
+
+    const closeBtn = box.querySelector('#closePopup');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => {
+        mask.classList.remove('show');
+        mask.setAttribute('aria-hidden', 'true');
+      });
+    }
+  }
+
+
+  window.addEventListener("DOMContentLoaded", async () => {
+    try {
+      const count = await getRegistrationCount(PAGE_ID);
+
+      // האלמנט החדש שמכיל רק את הערך (לא את התווית)
+      const dateValueEl = document.getElementById('workshop-date-value');
+
+      if (count === 5) {
+        // מוסיף קו חוצה רק על הערך
+        if (dateValueEl) dateValueEl.classList.add('line-through');
+
+        // מציג את החלון הקופץ "הסדנה מלאה"
+        showFullPopup();
+      } else {
+        // מסיר קו אם לא מלא
+        if (dateValueEl) dateValueEl.classList.remove('line-through');
+      }
+    } catch (err) {
+      console.warn('count check failed', err);
+    }
+  });
+
+
   // רישום צפייה בדף בעת טעינה
   window.addEventListener("DOMContentLoaded", () => {
     fetch(API_URL, {
@@ -536,6 +603,7 @@
     });
   });
 
+  
   // לוגיקת ההרשמה עם הגבלת 5
   (function () {
     const form = document.getElementById("leadForm");
@@ -550,51 +618,81 @@
       const email   = (fd.get("email")   || "").toString();
       const message = (fd.get("message") || "").toString();
 
-      try {
-        // 1) בודקים כמה כבר נרשמו לדף הזה
-        showMaskText('בודקת זמינות…');
-        const count = await getRegistrationCount(PAGE_ID);
+    try {
+      // 1) בודקים כמה כבר נרשמו לדף הזה
+      const count = await getRegistrationCount(PAGE_ID);
 
-        if (count >= 5) {
-          // 2) מלא — מציגים הודעה ושומרים ל־WaitingList. לא ממשיכים לתשלום.
-          showMaskText('הסדנה מלאה בתאריך הזה כבר,\nאבל שמרתי את הפרטים שלך ואכתוב לך כשיפתח מועד חדש.');
+      if (count >= 5) {
+        // 🟣 הסדנה מלאה — מציגים חלון תודה מיוחד ושומרים לרשימת המתנה
+        const mask = document.getElementById('successMask');
+        if (mask) {
+          const box = mask.querySelector('.success-box');
+          if (box) {
+            box.innerHTML = `
+              <div style="font-weight:800;color:var(--tz-800);font-size:18px;margin-bottom:10px">
+                תודה! שמרתי את הפרטים שלך.
+              </div>
+              <p style="margin:0 0 14px;color:var(--ink);line-height:1.5">
+                אכתוב לך כשיפתח מועד חדש :)
+              </p>
+              <button id="closePopup" class="btn btn-primary" style="margin-top:10px">
+                חזרה לדף
+              </button>
+            `;
+            mask.classList.add('show');
+            mask.setAttribute('aria-hidden', 'false');
 
-          fetch(API_URL, {
-            method: "POST",
-            mode: "no-cors",
-            headers: { "Content-Type": "text/plain;charset=utf-8" },
-            body: JSON.stringify({
-              type: "waitinglist",
-              page_id: PAGE_ID,
-              name, phone, email, message
-            })
-          });
-          return; // לא שולחים ל-Formspree ולא מפנים לפייבוקס
+            const closeBtn = box.querySelector('#closePopup');
+            if (closeBtn) {
+              closeBtn.addEventListener('click', () => {
+                mask.classList.remove('show');
+                mask.setAttribute('aria-hidden', 'true');
+              });
+            }
+          }
         }
 
-        // 3) יש מקום — רושמים ל-Registrations + Formspree + מפנים לפייבוקס
+        // 🟣 שולחים לרשימת המתנה
         fetch(API_URL, {
           method: "POST",
           mode: "no-cors",
           headers: { "Content-Type": "text/plain;charset=utf-8" },
           body: JSON.stringify({
-            type: "registration",
+            type: "waitinglist",
             page_id: PAGE_ID,
             name, phone, email, message
           })
         });
-
-        showThanks();    // שכבת "תודה! מעבירה אותך לתשלום…"
-        form.submit();   // שולח ל-Formspree (לתוך ה-iframe השקט)
-        delayedPaybox(); // יש לך כבר פונקציה קיימת שמעבירה אחרי 2 שניות
-
-      } catch (err) {
-        console.error('count error', err);
-        // במקרה תקלה – לא חונקים תהליך: שולחים רגיל ומפנים לתשלום
-        showThanks();
-        form.submit();
-        delayedPaybox();
+        return; // לא שולחים ל-Formspree ולא מפנים לפייבוקס
       }
+
+      // 🟢 אם יש מקום — עכשיו מציגים הודעת טעינה
+      showMaskText('בודקת זמינות…');
+
+      // 3) יש מקום — רושמים ל-Registrations + Formspree + מפנים לפייבוקס
+      fetch(API_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({
+          type: "registration",
+          page_id: PAGE_ID,
+          name, phone, email, message
+        })
+      });
+
+      showThanks();    // שכבת "תודה! מעבירה אותך לתשלום…"
+      form.submit();   // שולח ל-Formspree (לתוך ה-iframe השקט)
+      delayedPaybox(); // העברה לפייבוקס אחרי 2 שניות
+
+    } catch (err) {
+      console.error('count error', err);
+      // במקרה תקלה – לא חונקים תהליך: שולחים רגיל ומפנים לתשלום
+      showThanks();
+      form.submit();
+      delayedPaybox();
+    }
+
     });
   })();
 </script>
