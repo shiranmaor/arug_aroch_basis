@@ -307,7 +307,7 @@
           <li><strong>קבוצה קטנה:</strong> עד 5 משתתפות</li>
           <li>
             <strong>מיקום/תאריך:</strong>
-            <span id="workshop-date-value">28 אוקטובר, מודיעין</span>
+            <span id="workshop-date-value">22 אוקטובר, מודיעין</span>
           </li>
 
         </ul>
@@ -616,6 +616,71 @@
 
 
 
+  // --- עזר: קריאת תאריך הסדנה מהטקסט ובדיקה אם עבר (לא כולל היום) ---
+  //   // בדיקה אם הסדנה כבר עברה בעת טעינת הדף
+function parseWorkshopDateFromText(text) {
+  const stripNikud = s => s.replace(/[\u0591-\u05C7]/g, "");
+  const normalizeHeb = s => stripNikud(s).replace(/[^\u0590-\u05FF0-9\s,.\-–—/]/g, "");
+  const normToken = s => normalizeHeb(s).replace(/^[בלמהו]?/, "").trim();
+
+  const months = {
+    "ינואר":1,"פברואר":2,"מרץ":3,"מרס":3,"אפריל":4,
+    "מאי":5,"יוני":6,"יולי":7,"אוגוסט":8,
+    "ספטמבר":9,"אוקטובר":10,"נובמבר":11,"דצמבר":12
+  };
+
+  let day=null, monthNum=null, year=null;
+  const tokens = text.split(/[\s,.\-–—/]+/);
+
+  for (let i=0;i<tokens.length;i++){
+    if (day==null) {
+      const m=tokens[i].match(/^\d{1,2}$/);
+      if (m) { const n=+m[0]; if (n>=1 && n<=31) day=n; }
+    }
+    if (monthNum==null) {
+      const t=normToken(tokens[i]);
+      if (months[t]) monthNum=months[t];
+    }
+    if (day!=null && monthNum!=null) break;
+  }
+
+  const year4 = text.match(/\b20\d{2}\b/);
+  if (year4) {
+    year = +year4[0];
+  } else {
+    const now=new Date();
+    year = now.getFullYear();
+    if (monthNum!=null) {
+      const currentMonth = now.getMonth()+1;
+      if (monthNum < currentMonth) year += 1;
+    }
+  }
+
+  if (day!=null && monthNum!=null && year!=null) {
+    return new Date(year, monthNum-1, day);
+  }
+  return null;
+}
+
+function isWorkshopPast() {
+  const el = document.getElementById('workshop-date-value');
+  if (!el) return false;
+  const dt = parseWorkshopDateFromText((el.textContent||"").trim());
+  if (!dt) return false;
+
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const ws   = new Date(dt.getFullYear(), dt.getMonth(), dt.getDate());
+
+  // אם היום גדול מהתאריך של הסדנה ⇒ הסדנה עברה; אם זה אותו יום — עדיין מותר
+  today.setHours(0, 0, 0, 0);
+  ws.setHours(0, 0, 0, 0);
+
+  return today.getTime() > ws.getTime();
+}
+
+
+
   // שכבת מסך עם טקסט מותאם (משתמשת ב-successMask הקיים שלך)
   function showMaskText(text) {
     const mask = document.getElementById('successMask');
@@ -680,27 +745,99 @@
   }
 
 
-  window.addEventListener("DOMContentLoaded", async () => {
-    try {
-      const count = await getRegistrationCount(PAGE_ID);
+  // חלון קופץ כשהתאריך כבר עבר
+  // בדיקה אם תאריך הסדנה עבר
+function showPastPopup() 
+{
+  const mask = document.getElementById('successMask');
+  if (!mask) return;
 
-      // האלמנט החדש שמכיל רק את הערך (לא את התווית)
+  const box = mask.querySelector('.success-box');
+  if (!box) return;
+
+  box.innerHTML = `
+    <div style="font-weight:800;color:var(--tz-800);font-size:18px;margin-bottom:10px">
+      תאריך הסדנה עבר
+    </div>
+    <p style="margin:0 0 14px;color:var(--ink);line-height:1.5">
+      יכולה להשאיר פרטים ואצור איתך קשר :)
+    </p>
+    <button id="closePopup" class="btn btn-primary" style="margin-top:10px">
+      חזרה לדף
+    </button>
+  `;
+
+  mask.classList.add('show');
+  mask.setAttribute('aria-hidden', 'false');
+
+  const closeBtn = box.querySelector('#closePopup');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      mask.classList.remove('show');
+      mask.setAttribute('aria-hidden', 'true');
+    });
+  }
+}
+
+
+
+function showWaitinglistPopup() {
+  const mask = document.getElementById('successMask');
+  if (!mask) return;
+  const box = mask.querySelector('.success-box');
+  if (!box) return;
+
+  box.innerHTML = `
+    <div style="font-weight:800;color:var(--tz-800);font-size:18px;margin-bottom:10px">
+      תודה! שמרתי את הפרטים שלך.
+    </div>
+    <p style="margin:0 0 14px;color:var(--ink);line-height:1.5">
+      אכתוב לך כשיפתח מועד חדש :)
+    </p>
+    <button id="closePopup" class="btn btn-primary" style="margin-top:10px">
+      חזרה לדף
+    </button>
+  `;
+  mask.classList.add('show');
+  mask.setAttribute('aria-hidden', 'false');
+
+  const closeBtn = box.querySelector('#closePopup');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      mask.classList.remove('show');
+      mask.setAttribute('aria-hidden', 'true');
+    });
+  }
+}
+
+
+
+
+
+    window.addEventListener("DOMContentLoaded", async () => {
+    try {
       const dateValueEl = document.getElementById('workshop-date-value');
 
-      if (count === 5) {
-        // מוסיף קו חוצה רק על הערך
+      // אם התאריך עבר — קו + פופ־אפ אינפורמטיבי (אפשר לסגור ולהירשם לטופס)
+      if (isWorkshopPast()) {
         if (dateValueEl) dateValueEl.classList.add('line-through');
+        showPastPopup();
+        return;
+      }
 
-        // מציג את החלון הקופץ "הסדנה מלאה"
+      // אחרת בודק אם מלא (5 ומעלה)
+      const count = await getRegistrationCount(PAGE_ID);
+      if (count >= 5) {
+        if (dateValueEl) dateValueEl.classList.add('line-through');
         showFullPopup();
       } else {
-        // מסיר קו אם לא מלא
         if (dateValueEl) dateValueEl.classList.remove('line-through');
       }
     } catch (err) {
       console.warn('count check failed', err);
     }
   });
+
 
 
   // רישום צפייה בדף בעת טעינה
@@ -729,7 +866,39 @@
     const message = (fd.get("message") || "").toString();
 
     try {
-      // 1️⃣ קודם בודקים כמה כבר נרשמו
+      // אם התאריך עבר – שולחים לרשימת המתנה, אבל מציגים את הפופאפ מיד
+      if (isWorkshopPast()) {
+        const dateValueEl = document.getElementById('workshop-date-value');
+        if (dateValueEl) dateValueEl.classList.add('line-through');
+
+        // מציג מיד (ללא המתנה לרשת)
+        showWaitinglistPopup();
+
+        // שליחה “ברקע”: קודם sendBeacon (מהיר ולא חוסם), ואם אין – fetch בלי await
+        const payload = JSON.stringify({
+          type: "waitinglist",
+          page_id: PAGE_ID,
+          name, phone, email, message
+        });
+
+        if (navigator.sendBeacon) {
+          const blob = new Blob([payload], { type: "text/plain;charset=utf-8" });
+          navigator.sendBeacon(API_URL, blob);
+        } else {
+          fetch(API_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "text/plain;charset=utf-8" },
+            body: payload
+          }).catch(()=>{});
+        }
+
+        return; // לא ממשיכים לפייבוקס
+      }
+
+
+
+      // 1️⃣ בודקים כמה כבר נרשמו
       const count = await getRegistrationCount(PAGE_ID);
 
       if (count >= 5) {
