@@ -157,22 +157,66 @@
     .footer-links{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
     .footer-links a{color:#d8f3f6}
 
-    /* Success overlay */
-    .success-mask{
-      position:fixed; inset:0; display:none; align-items:center; justify-content:center;
-      background:rgba(0,0,0,.45); z-index:100;
-    }
-    .success-mask.show{display:flex}
-    .success-box{
-      background:#fff; border:1px solid var(--tz-200); border-radius:18px; padding:20px 22px; box-shadow:var(--shadow-lg); text-align:center; max-width:360px
-    }
-    .spinner{width:28px; height:28px; border:3px solid var(--tz-200); border-top-color:var(--tz-700); border-radius:50%; margin:10px auto 0; animation:spin .75s linear infinite}
-    @keyframes spin{to{transform:rotate(360deg)}}
+    /* Success overlay – גרסה מהירה */
+    .success-mask {
+      position: fixed;
+      inset: 0;
+      display: flex; /* תמיד בתצוגה – רק שקיפות מוסתרת */
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.45);
+      z-index: 100;
 
-    .line-through {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.12s ease;
+      will-change: opacity;
+    }
+
+    .success-mask.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .success-box {
+      background: #fff;
+      border: 1px solid var(--tz-200);
+      border-radius: 18px;
+      padding: 20px 22px;
+      box-shadow: var(--shadow-lg);
+      text-align: center;
+      max-width: 360px;
+      transform: translateY(2px);
+      transition: transform 0.12s ease;
+      will-change: transform;
+    }
+
+    .success-mask.show .success-box {
+      transform: translateY(0);
+    }
+
+    .spinner {
+      width: 28px;
+      height: 28px;
+      border: 3px solid var(--tz-200);
+      border-top-color: var(--tz-700);
+      border-radius: 50%;
+      margin: 10px auto 0;
+      animation: spin 0.75s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* קו חוצה לתאריך כשהסדנה מלאה */
+    .line-through{
+      display:inline-block;          /* מבטיח שהקו יוצג גם על span */
       text-decoration: line-through;
       text-decoration-thickness: 2px;
-    } 
+    }
 
   </style>
 </head>
@@ -263,7 +307,7 @@
           <li><strong>קבוצה קטנה:</strong> עד 5 משתתפות</li>
           <li>
             <strong>מיקום/תאריך:</strong>
-            <span id="workshop-date-value">22 באוקטובר, מודיעין</span>
+            <span id="workshop-date-value">28 אוקטובר, מודיעין</span>
           </li>
 
         </ul>
@@ -499,7 +543,78 @@
   <script>
   // === קונפיג: אותה כתובת Apps Script כמו בדף השני ===
   const API_URL = "https://script.google.com/macros/s/AKfycby-jKbO4HRMjR6BoGC3tvk6GhVoqMySfRRqtRvloy8no3K5k-khMYYpo5_dbrOzQiUr/exec";
-  const PAGE_ID = "arug_aroch_basis"; // מזהה ייחודי לדף הזה
+  
+  // === מזהה ייחודי לדף לפי התאריך המוצג בעמוד ===
+  (function () {
+    const baseId = "arug_aroch_basis";
+    const el = document.getElementById("workshop-date-value"); // למשל: "22 באוקטובר, מודיעין"
+    let PAGE_ID = baseId;
+
+    if (el) {
+      const raw = (el.textContent || "").trim();
+
+      // עזר: הסרת ניקוד וקידומות חיבור (ב/ל/ה/מ/ו) מתחילת מילה
+      const stripNikud = s => s.replace(/[\u0591-\u05C7]/g, "");
+      const normalizeHeb = s => stripNikud(s).replace(/[^\u0590-\u05FF0-9\s,.\-–—/]/g, "");
+      const normToken = s => normalizeHeb(s).replace(/^[בלמהו]?/, "").trim();
+
+      // מפה לחודשים (כולל "מרס")
+      const months = {
+        "ינואר": 1, "פברואר": 2, "מרץ": 3, "מרס": 3, "אפריל": 4,
+        "מאי": 5, "יוני": 6, "יולי": 7, "אוגוסט": 8,
+        "ספטמבר": 9, "אוקטובר": 10, "נובמבר": 11, "דצמבר": 12
+      };
+
+      // פרסון בטוח: חפש קודם יום (1–31) ואז חודש עברי
+      let day = null, monthNum = null;
+
+      const tokens = raw.split(/[\s,.\-–—/]+/);
+      for (let i = 0; i < tokens.length; i++) {
+        const tok = tokens[i];
+        // יום: המספר הראשון בטווח 1..31
+        if (day == null) {
+          const m = tok.match(/^\d{1,2}$/);
+          if (m) {
+            const n = parseInt(m[0], 10);
+            if (n >= 1 && n <= 31) day = n;
+          }
+        }
+        // חודש: מילה עברית אחרי נירמול וקיצוץ קידומת
+        if (monthNum == null) {
+          const t = normToken(tok);
+          if (months[t]) monthNum = months[t];
+        }
+        if (day != null && monthNum != null) break;
+      }
+
+      // שנה מפורשת: רק 4 ספרות 20xx (לא דו-ספרתי כדי לא לבלוע "22" של היום)
+      let year = null;
+      const year4 = raw.match(/\b20\d{2}\b/);
+      if (year4) {
+        year = parseInt(year4[0], 10);
+      } else {
+        // הסקה: אם החודש שזוהה קטן מהחודש הנוכחי → שנה הבאה, אחרת השנה הנוכחית
+        const now = new Date();
+        year = now.getFullYear();
+        if (monthNum != null) {
+          const currentMonth = now.getMonth() + 1;
+          if (monthNum < currentMonth) year += 1;
+        }
+      }
+
+      if (day != null && monthNum != null && year != null) {
+        const dd = String(day).padStart(2, "0");
+        const mm = String(monthNum).padStart(2, "0");
+        const yy = String(year).slice(-2);
+        PAGE_ID = `${baseId}_${dd}_${mm}_${yy}`;
+      }
+    }
+
+    // לפרסום גלובלי
+    window.PAGE_ID = PAGE_ID;
+  })();
+
+
 
   // שכבת מסך עם טקסט מותאם (משתמשת ב-successMask הקיים שלך)
   function showMaskText(text) {
