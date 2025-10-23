@@ -307,7 +307,7 @@
           <li><strong>קבוצה קטנה:</strong> עד 5 משתתפות</li>
           <li>
             <strong>מיקום/תאריך:</strong>
-            <span id="workshop-date-value">22 אוקטובר, מודיעין</span>
+            <span id="workshop-date-value">25 אוקטובר, מודיעין</span>
           </li>
 
         </ul>
@@ -821,6 +821,8 @@ function showWaitinglistPopup() {
       // אם התאריך עבר — קו + פופ־אפ אינפורמטיבי (אפשר לסגור ולהירשם לטופס)
       if (isWorkshopPast()) {
         if (dateValueEl) dateValueEl.classList.add('line-through');
+        const topDateEl = document.querySelector('.next-box .v strong');
+        if (topDateEl) topDateEl.classList.add('line-through');        
         showPastPopup();
         return;
       }
@@ -829,7 +831,8 @@ function showWaitinglistPopup() {
       const count = await getRegistrationCount(PAGE_ID);
       if (count >= 5) {
         if (dateValueEl) dateValueEl.classList.add('line-through');
-        showFullPopup();
+        const topDateEl = document.querySelector('.next-box .v strong');
+        if (topDateEl) topDateEl.classList.add('line-through');        showFullPopup();
       } else {
         if (dateValueEl) dateValueEl.classList.remove('line-through');
       }
@@ -870,7 +873,8 @@ function showWaitinglistPopup() {
       if (isWorkshopPast()) {
         const dateValueEl = document.getElementById('workshop-date-value');
         if (dateValueEl) dateValueEl.classList.add('line-through');
-
+        const topDateEl = document.querySelector('.next-box .v strong');
+        if (topDateEl) topDateEl.classList.add('line-through');
         // מציג מיד (ללא המתנה לרשת)
         showWaitinglistPopup();
 
