@@ -249,7 +249,7 @@
   <!-- Hero -->
   <header class="hero">
     <div class="container">
-      <h1>סדנת בסיס בארוג ארוך</h1>
+      <h1 id="mainTitle">סדנת בסיס בארוג ארוך</h1>
       <p>כל מה שרצית לדעת כדי להתחיל לשאת את התינוק שלך במנשא הכל כך קסום הזה 😍</p>
       <div class="cta-row">
         <a class="btn btn-primary" href="#register">להרשמה ושמירת מקום</a>
@@ -976,6 +976,112 @@ function showWaitinglistPopup() {
 
 
 </script>
+
+
+<script>
+(function(){
+  if (!location.search.includes("edit=1")) return;
+
+  const titleEl = document.querySelector(".hero h1");
+  if (!titleEl) return;
+
+  titleEl.contentEditable = "true";
+  titleEl.style.outline = "2px dashed #888";
+  titleEl.style.outlineOffset = "4px";
+
+  // ממשק בסיסי לעריכה ושמירה
+  const panel = document.createElement("div");
+  panel.style.position = "fixed";
+  panel.style.bottom = "20px";
+  panel.style.left = "20px";
+  panel.style.zIndex = "9999";
+  panel.style.background = "#fff";
+  panel.style.padding = "10px 14px";
+  panel.style.border = "1px solid #ccc";
+  panel.style.borderRadius = "10px";
+  panel.style.boxShadow = "0 4px 10px rgba(0,0,0,0.1)";
+  panel.innerHTML = `
+    <label style="display:block;margin-bottom:8px">
+      GitHub Token:
+      <input id="ghToken" type="password" placeholder="ghp_..." style="width:250px">
+    </label>
+    <label style="display:block;margin-bottom:8px">
+      Repo path (user/repo):
+      <input id="ghRepo" placeholder="username/repo-name" style="width:250px">
+    </label>
+    <label style="display:block;margin-bottom:8px">
+      Branch:
+      <input id="ghBranch" value="main" style="width:120px">
+    </label>
+    <button id="saveBtn" style="background:#157683;color:white;border:none;padding:8px 16px;border-radius:6px;font-weight:bold;cursor:pointer">
+      שמור שינויים
+    </button>
+    <div id="status" style="margin-top:6px;color:#333;font-size:13px"></div>
+  `;
+  document.body.appendChild(panel);
+
+  async function saveToGitHub() {
+    const token  = document.getElementById("ghToken").value.trim();
+    const repo   = document.getElementById("ghRepo").value.trim();
+    const branch = document.getElementById("ghBranch").value.trim();
+    const status = document.getElementById("status");
+
+    if (!token || !repo) {
+      alert("חייבים למלא Token ו-repo (username/repo)");
+      return;
+    }
+
+    status.textContent = "📤 שולח שינויים ל-GitHub...";
+
+    try {
+      // 1. נביא את הקובץ הקיים כדי לקבל SHA
+      const path = "index.html";
+      const url  = `https://api.github.com/repos/${repo}/contents/${path}`;
+      const res  = await fetch(url + `?ref=${branch}`, {
+        headers: { Authorization: "token " + token }
+      });
+      const json = await res.json();
+      if (!json.sha) throw new Error("לא התקבל SHA מהשרת");
+
+      // 2. נקרא את כל הקובץ מהדפדפן (כל ה-HTML)
+      const html = document.documentElement.outerHTML;
+      const base64 = btoa(unescape(encodeURIComponent(html)));
+
+      // 3. נעלה commit חדש
+      const body = {
+        message: "עדכון תוכן דף (עריכה דרך האתר)",
+        content: base64,
+        branch,
+        sha: json.sha
+      };
+
+      const putRes = await fetch(url, {
+        method: "PUT",
+        headers: {
+          Authorization: "token " + token,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(body)
+      });
+
+      const putJson = await putRes.json();
+
+      if (putJson.commit) {
+        status.textContent = "✅ נשמר בהצלחה! commit " + putJson.commit.sha.substring(0,7);
+      } else {
+        throw putJson;
+      }
+    } catch (err) {
+      console.error(err);
+      status.textContent = "❌ שגיאה: " + (err.message || JSON.stringify(err));
+    }
+  }
+
+  document.getElementById("saveBtn").onclick = saveToGitHub;
+})();
+</script>
+
+
 
 </body>
 </html>
