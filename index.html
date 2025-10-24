@@ -247,7 +247,7 @@
   <!-- Hero -->
   <header class="hero">
     <div class="container">
-      <h1 id="mainTitle" contenteditable="true" style="outline: rgb(136, 136, 136) dashed 2px; outline-offset: 4px;">סדנת בסיס בארוג ארוך - test</h1>
+      <h1 id="mainTitle">סדנת בסיס בארוג ארוך</h1>
       <p>כל מה שרצית לדעת כדי להתחיל לשאת את התינוק שלך במנשא הכל כך קסום הזה&nbsp;😍</p>
       <div class="cta-row">
         <a class="btn btn-primary" href="#register">להרשמה ושמירת מקום</a>
@@ -1052,11 +1052,11 @@ function showWaitinglistPopup() {
         titleEl.style.outlineOffset = "";
       }
 
-      // נקרא את כל הקובץ מהדפדפן (כל ה-HTML)
+      // כעת מצלמים את ה-HTML הנקי (כולל DOCTYPE)
       const html = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+      const base64 = btoa(unescape(encodeURIComponent(html)));
 
-
-      // 3. נעלה commit חדש
+      // 3. מעלים commit חדש
       const body = {
         message: "עדכון תוכן דף (עריכה דרך האתר)",
         content: base64,
@@ -1088,25 +1088,7 @@ function showWaitinglistPopup() {
 
   document.getElementById("saveBtn").onclick = saveToGitHub;
 })();
-</script><div style="position: fixed; bottom: 20px; left: 20px; z-index: 9999; background: rgb(255, 255, 255); padding: 10px 14px; border: 1px solid rgb(204, 204, 204); border-radius: 10px; box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 10px;">
-    <label style="display:block;margin-bottom:8px">
-      GitHub Token:
-      <input id="ghToken" type="password" placeholder="ghp_..." style="width:250px">
-    </label>
-    <label style="display:block;margin-bottom:8px">
-      Repo path (user/repo):
-      <input id="ghRepo" placeholder="username/repo-name" style="width:250px">
-    </label>
-    <label style="display:block;margin-bottom:8px">
-      Branch:
-      <input id="ghBranch" value="main" style="width:120px">
-    </label>
-    <button id="saveBtn" style="background:#157683;color:white;border:none;padding:8px 16px;border-radius:6px;font-weight:bold;cursor:pointer">
-      שמור שינויים
-    </button>
-    <div id="status" style="margin-top:6px;color:#333;font-size:13px">📤 שולח שינויים ל-GitHub...</div>
-  </div>
-
+</script>
 
 
 
