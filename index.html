@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-<html lang="he" dir="rtl">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+<html lang="he" dir="rtl"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>סדנת נשיאת תינוקות עם שירן</title>
-  <meta name="description" content="סדנת נשיאת תינוקות עם שירן — בחירה, כיוונון ונשיאה בטוחה ונעימה לתינוק/ת." />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <meta name="description" content="סדנת נשיאת תינוקות עם שירן — בחירה, כיוונון ונשיאה בטוחה ונעימה לתינוק/ת.">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;600;800&amp;display=swap" rel="stylesheet">
   <style>
     :root{
       --tz-50:#f2fbfb;
@@ -249,13 +247,13 @@
   <!-- Hero -->
   <header class="hero">
     <div class="container">
-      <h1 id="mainTitle">סדנת בסיס בארוג ארוך</h1>
-      <p>כל מה שרצית לדעת כדי להתחיל לשאת את התינוק שלך במנשא הכל כך קסום הזה 😍</p>
+      <h1 id="mainTitle" contenteditable="true" style="outline: rgb(136, 136, 136) dashed 2px; outline-offset: 4px;">סדנת בסיס בארוג ארוך - test</h1>
+      <p>כל מה שרצית לדעת כדי להתחיל לשאת את התינוק שלך במנשא הכל כך קסום הזה&nbsp;😍</p>
       <div class="cta-row">
         <a class="btn btn-primary" href="#register">להרשמה ושמירת מקום</a>
-        <a class="btn btn-outline" id="whatsapp-hero" href="#" target="_blank" rel="noopener">שאלה מהירה בוואטסאפ</a>
+        <a class="btn btn-outline" id="whatsapp-hero" href="https://wa.me/972548188793?text=%D7%94%D7%99%D7%99%20%D7%A9%D7%99%D7%A8%D7%9F%2C%20%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%A9%D7%90%D7%9C%D7%94%20%D7%A7%D7%A6%D7%A8%D7%94%20%D7%9C%D7%92%D7%91%D7%99%20%D7%94%D7%A1%D7%93%D7%A0%D7%94%20%3A)" target="_blank" rel="noopener">שאלה מהירה בוואטסאפ</a>
       </div>
-      <img class="hero-img" src="header.jpeg" alt="תינוק במנשא עם שירן" />
+      <img class="hero-img" src="header.jpeg" alt="תינוק במנשא עם שירן">
     </div>
   </header>
 
@@ -267,7 +265,7 @@
       <div class="next-box">
         <div class="kv">
           <span class="k">מועד</span>
-          <span class="v"><strong>רביעי, 22 באוקטובר</strong> • 10:00–12:30</span>
+          <span class="v"><strong class="line-through">רביעי, 22 באוקטובר</strong> • 10:00–12:30</span>
         </div>
         <div class="kv">
           <span class="k">מיקום</span>
@@ -307,7 +305,7 @@
           <li><strong>קבוצה קטנה:</strong> עד 5 משתתפות</li>
           <li>
             <strong>מיקום/תאריך:</strong>
-            <span id="workshop-date-value">22 אוקטובר, מודיעין</span>
+            <span id="workshop-date-value" class="line-through">22 אוקטובר, מודיעין</span>
           </li>
 
         </ul>
@@ -343,18 +341,18 @@
       <form id="leadForm">
         <div>
           <label for="name">שם מלא</label>
-          <input id="name" name="name" type="text" placeholder="שם ההורה" required />
+          <input id="name" name="name" type="text" placeholder="שם ההורה" required="">
         </div>
         <div>
           <label for="phone">טלפון</label>
-          <input id="phone" name="phone" type="tel" placeholder="05X-XXXXXXX" required />
+          <input id="phone" name="phone" type="tel" placeholder="05X-XXXXXXX" required="">
         </div>
         <div class="full">
           <label for="email">אימייל (לא חובה)</label>
-          <input id="email" name="email" type="email" placeholder="example@mail.com" />
+          <input id="email" name="email" type="email" placeholder="example@mail.com">
         </div>
 
-        <input type="hidden" name="source" id="source" />
+        <input type="hidden" name="source" id="source" value="https://shiranmaor.github.io/arug_aroch_basis/?edit=1">
 
         <div class="full">
           <label for="message">הודעה</label>
@@ -371,9 +369,16 @@
     <!-- Success overlay -->
     <div class="success-mask" id="successMask" aria-hidden="true">
       <div class="success-box" role="alert" aria-live="assertive">
-        <div style="font-weight:800;color:var(--tz-800);font-size:18px">תודה! מעבירה אותך לתשלום…</div>
-        <div class="spinner" aria-hidden="true"></div>
-      </div>
+    <div style="font-weight:800;color:var(--tz-800);font-size:18px;margin-bottom:10px">
+      תאריך הסדנה עבר
+    </div>
+    <p style="margin:0 0 14px;color:var(--ink);line-height:1.5">
+      יכולה להשאיר פרטים ואצור איתך קשר :)
+    </p>
+    <button id="closePopup" class="btn btn-primary" style="margin-top:10px">
+      חזרה לדף
+    </button>
+  </div>
     </div>
 
 <!-- Videos -->
@@ -384,22 +389,14 @@
       <!-- סרטון ראשון -->
       <div class="video-item">
         <h3 style="text-align:center; color:var(--tz-700); margin-bottom:10px;">כל מה שרציתם לדעת על ארוג ארוך</h3>
-        <iframe width="100%" height="auto"
-          src="https://www.youtube.com/embed/0xgnHsZryrs"
-          title="YouTube video player" frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen>
+        <iframe width="100%" height="auto" src="https://www.youtube.com/embed/0xgnHsZryrs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="">
         </iframe>
       </div>
 
       <!-- סרטון שני -->
       <div class="video-item">
         <h3 style="text-align:center; color:var(--tz-700); margin-bottom:10px;">קשירה בסיסית בארוג ארוך</h3>
-        <iframe width="100%" height="auto"
-          src="https://www.youtube.com/embed/MlP0Z0ENVU4"
-          title="YouTube video player" frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen>
+        <iframe width="100%" height="auto" src="https://www.youtube.com/embed/MlP0Z0ENVU4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="">
         </iframe>
       </div>
 
@@ -435,7 +432,7 @@
     <div class="container">
       <p><strong>שירן – סדנת נשיאת תינוקות</strong></p>
       <div class="footer-links">
-        <a id="whatsapp-footer" href="#" target="_blank" rel="noopener">וואטסאפ</a>
+        <a id="whatsapp-footer" href="https://wa.me/972548188793?text=%D7%94%D7%99%D7%99%20%D7%A9%D7%99%D7%A8%D7%9F%2C%20%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%A9%D7%90%D7%9C%D7%94%20%D7%A7%D7%A6%D7%A8%D7%94%20%D7%9C%D7%92%D7%91%D7%99%20%D7%94%D7%A1%D7%93%D7%A0%D7%94%20%3A)" target="_blank" rel="noopener">וואטסאפ</a>
         <a id="tel-link" href="tel:0548188793">טלפון: 054-8188793</a>
         <a id="mail-link" href="mailto:shiranmaor.k@gmail.com">shiranmaor.k@gmail.com</a>
       </div>
@@ -1079,9 +1076,27 @@ function showWaitinglistPopup() {
 
   document.getElementById("saveBtn").onclick = saveToGitHub;
 })();
-</script>
+</script><div style="position: fixed; bottom: 20px; left: 20px; z-index: 9999; background: rgb(255, 255, 255); padding: 10px 14px; border: 1px solid rgb(204, 204, 204); border-radius: 10px; box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 10px;">
+    <label style="display:block;margin-bottom:8px">
+      GitHub Token:
+      <input id="ghToken" type="password" placeholder="ghp_..." style="width:250px">
+    </label>
+    <label style="display:block;margin-bottom:8px">
+      Repo path (user/repo):
+      <input id="ghRepo" placeholder="username/repo-name" style="width:250px">
+    </label>
+    <label style="display:block;margin-bottom:8px">
+      Branch:
+      <input id="ghBranch" value="main" style="width:120px">
+    </label>
+    <button id="saveBtn" style="background:#157683;color:white;border:none;padding:8px 16px;border-radius:6px;font-weight:bold;cursor:pointer">
+      שמור שינויים
+    </button>
+    <div id="status" style="margin-top:6px;color:#333;font-size:13px">📤 שולח שינויים ל-GitHub...</div>
+  </div>
 
 
 
-</body>
-</html>
+
+
+</body></html>
