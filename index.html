@@ -1,4 +1,7 @@
-<html lang="he" dir="rtl"><head>
+<!DOCTYPE html>
+
+
+  <html lang="he" dir="rtl"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>סדנת נשיאת תינוקות עם שירן</title>
@@ -13,6 +16,7 @@
       --tz-300:#ade8eb;
       --tz-400:#7dd9de;
       --tz-500:#54cbd3;
+      --tz-600:#36b8c2;
       --tz-700:#1c96a2; 
       --tz-800:#157683;
       --ink:#163033;
@@ -977,7 +981,8 @@ function showWaitinglistPopup() {
 
 <script>
 (function(){
-  if (!location.search.includes("edit=1")) return;
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("edit") !== "1") return;
 
   const titleEl = document.querySelector(".hero h1");
   if (!titleEl) return;
@@ -1042,19 +1047,54 @@ function showWaitinglistPopup() {
       const json = await res.json();
       if (!json.sha) throw new Error("לא התקבל SHA מהשרת");
 
-      // 2. מנקים את סימני העריכה לפני שמירה
-      const panelEl = document.getElementById("__adminPanel");
-      if (panelEl && panelEl.parentNode) panelEl.parentNode.removeChild(panelEl);
+      // 2. בונים עותק נקי של ה־DOM ושומרים (לא נוגעים בדום החי)
+      const doc = document.documentElement.cloneNode(true);
 
-      if (titleEl) {
-        titleEl.removeAttribute("contenteditable");
-        titleEl.style.outline = "";
-        titleEl.style.outlineOffset = "";
+      // מסירים את פאנל הניהול מהעותק
+      const panelClone = doc.querySelector("#__adminPanel");
+      if (panelClone && panelClone.parentNode) panelClone.parentNode.removeChild(panelClone);
+
+      // מנקים את הכותרת מעריכה בעותק
+      const titleClone = doc.querySelector("#mainTitle");
+      if (titleClone) {
+        titleClone.removeAttribute("contenteditable");
+        titleClone.style.outline = "";
+        titleClone.style.outlineOffset = "";
       }
 
-      // כעת מצלמים את ה-HTML הנקי (כולל DOCTYPE)
-      const html = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+      // מסירים הזרקות של תוספי דפדפן מהעותק
+      const extSelectors = [
+        'script[src^="chrome-extension://"]',
+        'link[href^="chrome-extension://"]',
+        'link#dark-mode-custom-link',
+        'link#dark-mode-general-link',
+        'style#dark-mode-custom-style',
+        'style#dark-mode-native-style',
+        'style#dark-mode-native-sheet'
+      ];
+      extSelectors.forEach(sel => doc.querySelectorAll(sel).forEach(n => n.remove()));
+
+      // מנקים אטריביוטים שנוספו ע"י תוספים
+      doc.querySelectorAll("*").forEach(el => {
+        ["bis_skin_checked", "bis_register"].forEach(a => {
+          if (el.hasAttribute(a)) el.removeAttribute(a);
+        });
+        [...el.attributes].forEach(attr => {
+          if (attr.name.startsWith("__processed_")) el.removeAttribute(attr.name);
+        });
+      });
+
+      // מסירים קו-חוצה שנשמר בטעות
+      doc.querySelectorAll(".line-through").forEach(el => el.classList.remove("line-through"));
+
+      // מסירים value עם '?edit=1' מהשדה הסמוי
+      const srcInput = doc.querySelector("#source");
+      if (srcInput) srcInput.removeAttribute("value");
+
+      // עכשיו מצלמים את הדף הנקי (כולל ה-DOCTYPE)
+      const html = "<!DOCTYPE html>\n" + doc.outerHTML;
       const base64 = btoa(unescape(encodeURIComponent(html)));
+
 
       // 3. מעלים commit חדש
       const body = {
