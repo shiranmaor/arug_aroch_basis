@@ -988,6 +988,7 @@ function showWaitinglistPopup() {
 
   // ממשק בסיסי לעריכה ושמירה
   const panel = document.createElement("div");
+  panel.id = "__adminPanel";
   panel.style.position = "fixed";
   panel.style.bottom = "20px";
   panel.style.left = "20px";
@@ -1017,7 +1018,8 @@ function showWaitinglistPopup() {
   `;
   document.body.appendChild(panel);
 
-  async function saveToGitHub() {
+  async function saveToGitHub() 
+  {
     const token  = document.getElementById("ghToken").value.trim();
     const repo   = document.getElementById("ghRepo").value.trim();
     const branch = document.getElementById("ghBranch").value.trim();
@@ -1040,9 +1042,19 @@ function showWaitinglistPopup() {
       const json = await res.json();
       if (!json.sha) throw new Error("לא התקבל SHA מהשרת");
 
-      // 2. נקרא את כל הקובץ מהדפדפן (כל ה-HTML)
-      const html = document.documentElement.outerHTML;
-      const base64 = btoa(unescape(encodeURIComponent(html)));
+      // 2. מנקים את סימני העריכה לפני שמירה
+      const panelEl = document.getElementById("__adminPanel");
+      if (panelEl && panelEl.parentNode) panelEl.parentNode.removeChild(panelEl);
+
+      if (titleEl) {
+        titleEl.removeAttribute("contenteditable");
+        titleEl.style.outline = "";
+        titleEl.style.outlineOffset = "";
+      }
+
+      // נקרא את כל הקובץ מהדפדפן (כל ה-HTML)
+      const html = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+
 
       // 3. נעלה commit חדש
       const body = {
