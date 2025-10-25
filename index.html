@@ -307,7 +307,7 @@
           <li><strong>קבוצה קטנה:</strong> עד 5 משתתפות</li>
           <li>
             <strong>מיקום/תאריך:</strong>
-            <span id="workshop-date-value" class="">22 אוקטובר, מודיעין</span>
+            <span id="workshop-date-value" class="">29 אוקטובר, מודיעין</span>
           </li>
 
         </ul>
@@ -1080,6 +1080,10 @@ function showWaitinglistPopup() {
       Branch:
       <input id="ghBranch" value="main" style="width:120px">
     </label>
+    <label style="display:block;margin-bottom:8px">
+      <input type="checkbox" id="forceCloseToggle">
+      סגור הרשמה ידנית (FORCE_CLOSE)
+    </label>
     <button id="saveBtn" style="background:#157683;color:white;border:none;padding:8px 16px;border-radius:6px;font-weight:bold;cursor:pointer">
       שמור שינויים
     </button>
@@ -1087,12 +1091,22 @@ function showWaitinglistPopup() {
   `;
   document.body.appendChild(panel);
 
+  // חיבור ה-checkbox ל-FORCE_CLOSE
+  const forceToggle = document.getElementById("forceCloseToggle");
+  if (forceToggle) {
+    forceToggle.checked = FORCE_CLOSE === true;
+    forceToggle.addEventListener("change", () => {
+      FORCE_CLOSE = forceToggle.checked;
+    });
+  }
+
   async function saveToGitHub() 
   {
     const token  = document.getElementById("ghToken").value.trim();
     const repo   = document.getElementById("ghRepo").value.trim();
     const branch = document.getElementById("ghBranch").value.trim();
     const status = document.getElementById("status");
+    const isClosed = document.getElementById("forceCloseToggle")?.checked === true;
 
     if (!token || !repo) {
       alert("חייבים למלא Token ו-repo (username/repo)");
@@ -1154,6 +1168,18 @@ function showWaitinglistPopup() {
       // מסירים value עם '?edit=1' מהשדה הסמוי
       const srcInput = doc.querySelector("#source");
       if (srcInput) srcInput.removeAttribute("value");
+
+      // מעדכן את הערך של FORCE_CLOSE בתוך ה-HTML המשוכפל
+      const allScripts = doc.querySelectorAll("script");
+      allScripts.forEach(scr => {
+        if (scr.textContent.includes("let FORCE_CLOSE")) {
+          scr.textContent = scr.textContent.replace(
+            /let FORCE_CLOSE\s*=\s*(true|false)\s*;/,
+            "let FORCE_CLOSE = " + (isClosed ? "true" : "false") + ";"
+          );
+        }
+      });
+
 
       // עכשיו מצלמים את הדף הנקי (כולל ה-DOCTYPE)
       const html = "<!DOCTYPE html>\n" + doc.outerHTML;
