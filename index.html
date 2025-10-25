@@ -267,7 +267,7 @@
       <div class="next-box">
         <div class="kv">
           <span class="k">מועד</span>
-          <span class="v"><strong class="">רביעי, 22 באוקטובר</strong> • 10:00–12:30</span>
+          <span class="v" id="workshop-slot"><strong class="">רביעי, 22 באוקטובר</strong> • 10:00–12:30</span>
         </div>
         <div class="kv">
           <span class="k">מיקום</span>
@@ -275,7 +275,7 @@
         </div>
         <div class="kv">
           <span class="k">עלות</span>
-          <span class="v">220 ₪</span>
+          <span class="v" id="workshop-price">220 ₪</span>
         </div>
         <div class="next-cta">
           <a class="btn btn-primary" href="#register" aria-label="הירשם לסדנה הקרובה">להרשמה</a>
@@ -303,8 +303,14 @@
         <h3 style="margin-top:0;color:var(--tz-700)">פרטי הסדנה</h3>
         <ul class="checks">
           <li><strong>מנחה:</strong> שירן מאור, מדריכת נשיאה ומדריכה להתפתחות תינוקות</li>
-          <li><strong>אורך:</strong> כשעתיים וחצי</li>
-          <li><strong>קבוצה קטנה:</strong> עד 5 משתתפות</li>
+          <li>
+            <strong>אורך:</strong>
+            <span id="workshop-duration">כשעתיים וחצי</span>
+          </li>
+          <li>
+            <strong>קבוצה קטנה:</strong>
+            <span id="workshop-group-size">עד 5 משתתפות</span>
+          </li>
           <li>
             <strong>מיקום/תאריך:</strong>
             <span id="workshop-date-value" class="">22 אוקטובר, מודיעין</span>
@@ -1055,6 +1061,23 @@ function showWaitinglistPopup() {
   titleEl.style.outline = "2px dashed #888";
   titleEl.style.outlineOffset = "4px";
 
+  // כל השדות התוכניים שנרצה לאפשר לעריכה חיה
+  [
+    "workshop-slot",        // מועד ושעות
+    "workshop-price",       // עלות
+    "workshop-duration",    // אורך הסדנה
+    "workshop-group-size",   // קבוצה קטנה: עד X משתתפות
+    "workshop-date-value"   // מיקום/תאריך: לדוגמה "22 אוקטובר, מודיעין"
+  ].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.contentEditable = "true";
+      el.style.outline = "2px dashed #888";
+      el.style.outlineOffset = "4px";
+    }
+  });
+
+
   // ממשק בסיסי לעריכה ושמירה
   const panel = document.createElement("div");
   panel.id = "__adminPanel";
@@ -1139,6 +1162,48 @@ function showWaitinglistPopup() {
         titleClone.style.outline = "";
         titleClone.style.outlineOffset = "";
       }
+
+      // מנקים גם את שורת המועד מעריכה בעותק
+      const slotClone = doc.querySelector("#workshop-slot");
+      if (slotClone) {
+        slotClone.removeAttribute("contenteditable");
+        slotClone.style.outline = "";
+        slotClone.style.outlineOffset = "";
+      }
+
+    // מנקים גם את המחיר מעריכה בעותק
+    const priceClone = doc.querySelector("#workshop-price");
+    if (priceClone) {
+      priceClone.removeAttribute("contenteditable");
+      priceClone.style.outline = "";
+      priceClone.style.outlineOffset = "";
+    }
+
+      // מנקים גם את משך הסדנה מעריכה בעותק
+      const durationClone = doc.querySelector("#workshop-duration");
+      if (durationClone) {
+        durationClone.removeAttribute("contenteditable");
+        durationClone.style.outline = "";
+        durationClone.style.outlineOffset = "";
+      }
+
+      // מנקים גם את גודל הקבוצה מעריכה בעותק
+      const groupClone = doc.querySelector("#workshop-group-size");
+      if (groupClone) {
+        groupClone.removeAttribute("contenteditable");
+        groupClone.style.outline = "";
+        groupClone.style.outlineOffset = "";
+      }
+
+      // מנקים גם את המיקום/תאריך מעריכה בעותק
+      const dateValClone = doc.querySelector("#workshop-date-value");
+      if (dateValClone) {
+        dateValClone.removeAttribute("contenteditable");
+        dateValClone.style.outline = "";
+        dateValClone.style.outlineOffset = "";
+      }
+
+
 
       // מסירים הזרקות של תוספי דפדפן מהעותק
       const extSelectors = [
