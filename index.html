@@ -543,6 +543,27 @@
   // === קונפיג: אותה כתובת Apps Script כמו בדף השני ===
   const API_URL = "https://script.google.com/macros/s/AKfycby-jKbO4HRMjR6BoGC3tvk6GhVoqMySfRRqtRvloy8no3K5k-khMYYpo5_dbrOzQiUr/exec";
   
+
+  // === דגל סגירת הרשמה ידני ===
+  // שנה ל-true כדי "לסגור" ידנית את ההרשמה (להתנהג כאילו הסדנה מלאה)
+  let FORCE_CLOSE = false;
+
+  // תמיכה גם דרך ה-URL:
+  // ?closed=1 או ?closed=true או ?closed=on  -> יסגור
+  // ?closed=0 או ?closed=false או ?closed=off -> יפתח
+  (function () {
+    try {
+      const v = new URLSearchParams(location.search).get("closed");
+      if (v != null) {
+        const s = String(v).toLowerCase();
+        if (["1","true","yes","on"].includes(s))  { FORCE_CLOSE = true; }
+        if (["0","false","no","off"].includes(s)) { FORCE_CLOSE = false; }
+      }
+    } catch (e) {}
+  })();
+
+
+
   // === מזהה ייחודי לדף לפי התאריך המוצג בעמוד ===
   (function () {
     const baseId = "arug_aroch_basis";
@@ -816,29 +837,39 @@ function showWaitinglistPopup() {
     window.addEventListener("DOMContentLoaded", async () => {
     try {
       const dateValueEl = document.getElementById('workshop-date-value');
+      const topDateEl  = document.querySelector('.next-box .v strong');
 
-      // אם התאריך עבר — קו + פופ־אפ אינפורמטיבי (אפשר לסגור ולהירשם לטופס)
+      // 1. אם התאריך עבר → קו חוצה + פופאפ "תאריך עבר"
       if (isWorkshopPast()) {
         if (dateValueEl) dateValueEl.classList.add('line-through');
-        const topDateEl = document.querySelector('.next-box .v strong');
-        if (topDateEl) topDateEl.classList.add('line-through');        
+        if (topDateEl)   topDateEl.classList.add('line-through');
         showPastPopup();
         return;
       }
 
-      // אחרת בודק אם מלא (5 ומעלה)
+      // 2. אם FORCE_CLOSE דולק → התנהגות של "מלא"
+      if (FORCE_CLOSE) {
+        if (dateValueEl) dateValueEl.classList.add('line-through');
+        if (topDateEl)   topDateEl.classList.add('line-through');
+        showFullPopup();
+        return;
+      }
+
+      // 3. אחרת: כרגיל — בדיקת כמות (5 נרשמות ומעלה)
       const count = await getRegistrationCount(PAGE_ID);
       if (count >= 5) {
         if (dateValueEl) dateValueEl.classList.add('line-through');
-        const topDateEl = document.querySelector('.next-box .v strong');
-        if (topDateEl) topDateEl.classList.add('line-through');        showFullPopup();
+        if (topDateEl)   topDateEl.classList.add('line-through');
+        showFullPopup();
       } else {
         if (dateValueEl) dateValueEl.classList.remove('line-through');
+        if (topDateEl)   topDateEl.classList.remove('line-through');
       }
     } catch (err) {
       console.warn('count check failed', err);
     }
   });
+
 
 
 
@@ -869,7 +900,8 @@ function showWaitinglistPopup() {
 
     try {
       // אם התאריך עבר – שולחים לרשימת המתנה, אבל מציגים את הפופאפ מיד
-      if (isWorkshopPast()) {
+      if (isWorkshopPast()) 
+      {
         const dateValueEl = document.getElementById('workshop-date-value');
         if (dateValueEl) dateValueEl.classList.add('line-through');
         const topDateEl = document.querySelector('.next-box .v strong');
@@ -898,6 +930,40 @@ function showWaitinglistPopup() {
 
         return; // לא ממשיכים לפייבוקס
       }
+
+
+      // אם FORCE_CLOSE דולק – מתנהגות כאילו הסדנה מלאה
+    if (FORCE_CLOSE) {
+      const dateValueEl = document.getElementById('workshop-date-value');
+      const topDateEl   = document.querySelector('.next-box .v strong');
+      if (dateValueEl) dateValueEl.classList.add('line-through');
+      if (topDateEl)   topDateEl.classList.add('line-through');
+
+      // פופאפ "שמרתי את הפרטים שלך" (רשימת המתנה)
+      showWaitinglistPopup();
+
+      // שולחות ל-waitinglist, בלי מעבר לפייבוקס
+      const payload = JSON.stringify({
+        type: "waitinglist",
+        page_id: PAGE_ID,
+        name, phone, email, message
+      });
+
+      if (navigator.sendBeacon) {
+        const blob = new Blob([payload], { type: "text/plain;charset=utf-8" });
+        navigator.sendBeacon(API_URL, blob);
+      } else {
+        fetch(API_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: payload
+        }).catch(()=>{});
+      }
+
+      return; // לא ממשיכים לפייבוקס
+    }
+
 
 
 
