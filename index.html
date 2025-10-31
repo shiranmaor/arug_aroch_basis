@@ -361,10 +361,27 @@
         </div>
 
         <input type="hidden" name="source" id="source">
+        
+        <div>
+          <label for="region">אזור מגורים</label>
+          <input id="region" name="region" type="text" placeholder="עיר/אזור (למשל: מודיעין והסביבה)">
+        </div>
+
+        <div>
+          <label for="baby_age">גיל התינוק/ת</label>
+          <input id="baby_age" name="baby_age" type="text" placeholder="למשל: 4 חודשים">
+        </div>
+
+        <div class="full">
+          <label for="carriers">באילו מנשאים משתמשת</label>
+          <input id="carriers" name="carriers" type="text" placeholder="ארוג ארוך, רינג, מתכוונן, מנשא בד…">
+        </div>
+
+
 
         <div class="full">
           <label for="message">הודעה</label>
-          <textarea id="message" name="message" placeholder="גיל התינוק/ת, האם יש מנשא, שאלות…"></textarea>
+          <textarea id="message" name="message" placeholder="דברים שחשוב לדעת"></textarea>
         </div>
         <div class="full" style="display:flex;gap:10px;flex-wrap:wrap">
           <button type="submit" class="btn btn-primary">שלחי והרשמי</button>
@@ -902,6 +919,9 @@ function showWaitinglistPopup() {
     const name    = (fd.get("name")    || "").toString();
     const phone   = (fd.get("phone")   || "").toString();
     const email   = (fd.get("email")   || "").toString();
+    const region   = (fd.get("region")   || "").toString();
+    const baby_age = (fd.get("baby_age") || "").toString();
+    const carriers = (fd.get("carriers") || "").toString();
     const message = (fd.get("message") || "").toString();
 
     try {
@@ -919,7 +939,7 @@ function showWaitinglistPopup() {
         const payload = JSON.stringify({
           type: "waitinglist",
           page_id: PAGE_ID,
-          name, phone, email, message
+          name, phone, email, message, region, baby_age, carriers
         });
 
         if (navigator.sendBeacon) {
@@ -952,7 +972,7 @@ function showWaitinglistPopup() {
       const payload = JSON.stringify({
         type: "waitinglist",
         page_id: PAGE_ID,
-        name, phone, email, message
+        name, phone, email, message, region, baby_age, carriers
       });
 
       if (navigator.sendBeacon) {
@@ -1014,7 +1034,7 @@ function showWaitinglistPopup() {
           body: JSON.stringify({
             type: "waitinglist",
             page_id: PAGE_ID,
-            name, phone, email, message
+            name, phone, email, message, region, baby_age, carriers
           })
         });
         return; // לא ממשיכים לפייבוקס
@@ -1030,7 +1050,7 @@ function showWaitinglistPopup() {
         body: JSON.stringify({
           type: "registration",
           page_id: PAGE_ID,
-          name, phone, email, message
+          name, phone, email, message, region, baby_age, carriers
         })
       });
 
@@ -1289,3 +1309,5 @@ function showWaitinglistPopup() {
 
 
 </body></html>
+
+
