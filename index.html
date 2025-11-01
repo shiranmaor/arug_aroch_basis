@@ -539,7 +539,8 @@
   <script>
   (function () {
     const PHONE = "972548188793"; // מספר בינלאומי ללא +
-    const MSG = "היי שירן, יש לי שאלה קצרה לגבי הסדנה :)";
+    const workshopTitle = document.querySelector('.hero h1')?.textContent.trim() || '';
+    const MSG = `היי שירן, יש לי שאלה קצרה לגבי הסדנה "${workshopTitle}" :)`;
     const url = "https://wa.me/" + PHONE + "?text=" + encodeURIComponent(MSG);
 
     ["whatsapp-hero", "whatsapp-footer"].forEach(function (id) {
