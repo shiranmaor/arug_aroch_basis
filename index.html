@@ -267,7 +267,8 @@
       <div class="next-box">
         <div class="kv">
           <span class="k">מועד</span>
-          <span class="v" id="workshop-slot"><strong class="">רביעי, 22 נובמבר</strong> • 10:00–12:30</span>
+          <span class="v" id="workshop-slot"><strong></strong> • 10:00–12:30</span>
+
         </div>
         <div class="kv">
           <span class="k">מיקום</span>
@@ -392,17 +393,7 @@
 
     <!-- Success overlay -->
     <div class="success-mask" id="successMask" aria-hidden="true">
-      <div class="success-box" role="alert" aria-live="assertive">
-    <div style="font-weight:800;color:var(--tz-800);font-size:18px;margin-bottom:10px">
-      תאריך הסדנה עבר
-    </div>
-    <p style="margin:0 0 14px;color:var(--ink);line-height:1.5">
-      יכולה להשאיר פרטים ואצור איתך קשר :)
-    </p>
-    <button id="closePopup" class="btn btn-primary" style="margin-top:10px">
-      חזרה לדף
-    </button>
-  </div>
+      <div class="success-box" role="alert" aria-live="assertive"></div>
     </div>
 
 <!-- Videos -->
@@ -465,13 +456,25 @@
   </footer>
 
   <script>
+
+    // 🗓️ תיאור מועד הסדנה — משתנה אחד שמשמש גם להצגה וגם לעיבוד
+    const WORKSHOP_DATE_TEXT = "חמישי, 13 בנובמבר 2025"; 
+
+
     // סקריפט זיהוי מקור ההגשה
     document.addEventListener("DOMContentLoaded", function() {
       const sourceField = document.getElementById('source');
       if (sourceField) {
         sourceField.value = window.location.href;
       }
+
+      // 🗓️ עדכון התאריך בכל המקומות בעמוד
+      const dateEl1 = document.getElementById("workshop-date-value");
+      const dateEl2 = document.querySelector(".next-box .v strong");
+      if (dateEl1) dateEl1.textContent = WORKSHOP_DATE_TEXT + ", מודיעין";
+      if (dateEl2) dateEl2.textContent = WORKSHOP_DATE_TEXT;
     });
+
   </script>
 
 
@@ -522,10 +525,10 @@
     });
 
     // שכבת "תודה! מעבירה אותך לתשלום…" + השהייה 2 שניות ואז מעבר לפייבוקס
-    function showThanks(){
-      const m = document.getElementById('successMask');
-      if(m){ m.classList.add('show'); m.setAttribute('aria-hidden','false'); }
-    }
+    // function showThanks(){
+    //   const m = document.getElementById('successMask');
+    //   if(m){ m.classList.add('show'); m.setAttribute('aria-hidden','false'); }
+    // }
     function delayedPaybox(){
       setTimeout(function(){
         window.location.href = "https://links.payboxapp.com/mBeE0QlucXb";
@@ -593,7 +596,7 @@
     let PAGE_ID = baseId;
 
     if (el) {
-      const raw = (el.textContent || "").trim();
+      const raw = WORKSHOP_DATE_TEXT; // משתמשים במשתנה הקבוע למעלה
 
       // עזר: הסרת ניקוד וקידומות חיבור (ב/ל/ה/מ/ו) מתחילת מילה
       const stripNikud = s => s.replace(/[\u0591-\u05C7]/g, "");
@@ -713,14 +716,41 @@ function isWorkshopPast() {
 
 
   // שכבת מסך עם טקסט מותאם (משתמשת ב-successMask הקיים שלך)
+  // function showMaskText(text) {
+  //   const mask = document.getElementById('successMask');
+  //   if (!mask) return;
+  //   const msgEl = mask.querySelector('.success-box > div:first-child');
+  //   if (msgEl) msgEl.textContent = text;
+  //   mask.classList.add('show');
+  //   mask.setAttribute('aria-hidden', 'false');
+  // }
+
   function showMaskText(text) {
     const mask = document.getElementById('successMask');
     if (!mask) return;
-    const msgEl = mask.querySelector('.success-box > div:first-child');
-    if (msgEl) msgEl.textContent = text;
+
+    const box = mask.querySelector('.success-box');
+    if (!box) return;
+
+    // נשתמש באלמנט עוגן קבוע לתוכן ההודעה
+    let msgEl = box.querySelector('#successMsg');
+    if (!msgEl) {
+      box.innerHTML = `
+        <div id="successMsg" style="font-weight:800;color:var(--tz-800);font-size:18px;margin-bottom:10px"></div>
+        <p style="margin:0 0 14px;color:var(--ink);line-height:1.5">
+          רגע קטן ואני מעבירה אותך לתשלום...
+        </p>
+        <div class="spinner" aria-hidden="true"></div>
+      `;
+      msgEl = box.querySelector('#successMsg');
+    }
+
+    msgEl.textContent = text;
     mask.classList.add('show');
     mask.setAttribute('aria-hidden', 'false');
   }
+
+
   function showThanks() {
     showMaskText('תודה! מעבירה אותך לתשלום…');
   }
@@ -868,7 +898,7 @@ function showWaitinglistPopup() {
 
       // 3. אחרת: כרגיל — בדיקת כמות (5 נרשמות ומעלה)
       const count = await getRegistrationCount(PAGE_ID);
-      if (count >= 5) {
+      if (count >= 4) {
         if (dateValueEl) dateValueEl.classList.add('line-through');
         if (topDateEl)   topDateEl.classList.add('line-through');
         showFullPopup();
@@ -983,11 +1013,14 @@ function showWaitinglistPopup() {
 
 
 
+      // 🟢 מציגים "בודקת זמינות…" ואז ממשיכים
+      showMaskText('בודקת זמינות…');
 
       // 1️⃣ בודקים כמה כבר נרשמו
       const count = await getRegistrationCount(PAGE_ID);
 
-      if (count >= 5) {
+      if (count >= 4) 
+      {
         // 🟣 הסדנה מלאה — מציגים חלון תודה ושומרים לרשימת המתנה
         const mask = document.getElementById('successMask');
         if (mask) {
@@ -1030,9 +1063,10 @@ function showWaitinglistPopup() {
         });
         return; // לא ממשיכים לפייבוקס
       }
-
-      // 🟢 רק אם יש מקום — מציגים "בודקת זמינות…" ואז ממשיכים
-      showMaskText('בודקת זמינות…');
+      else {
+        showThanks();    // "תודה! מעבירה אותך לתשלום…"
+        delayedPaybox(); // מעבירה לפייבוקס אחרי 2 שניות
+    }
 
       await fetch(API_URL, {
         method: "POST",
@@ -1045,8 +1079,6 @@ function showWaitinglistPopup() {
         })
       });
 
-      showThanks();    // "תודה! מעבירה אותך לתשלום…"
-      delayedPaybox(); // מעבירה לפייבוקס אחרי 2 שניות
 
     } catch (err) {
       console.error('count error', err);
