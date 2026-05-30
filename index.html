@@ -8,15 +8,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;600;800&amp;display=swap" rel="stylesheet">
   <style>
     :root{
-      --tz-50:#f2fbfb;
-      --tz-100:#e0f6f6;
-      --tz-200:#c7eff0;
-      --tz-300:#ade8eb;
-      --tz-400:#7dd9de;
-      --tz-500:#54cbd3;
-      --tz-600:#36b8c2;
-      --tz-700:#1c96a2; 
-      --tz-800:#157683;
+      --tz-50:#fff7ed;
+      --tz-100:#ffedd5;
+      --tz-200:#fed7aa;
+      --tz-300:#fdba74;
+      --tz-400:#fb923c;
+      --tz-500:#f97316;
+      --tz-600:#ea580c;
+      --tz-700:#c2410c;
+      --tz-800:#9a3412;
       --ink:#163033;
       --muted:#5f7b80;
       --white:#fff;
@@ -24,9 +24,9 @@
       --bg:var(--tz-50);
       --radius-xl:22px;
       --radius:14px;
-      --shadow-lg:0 18px 40px rgba(6,44,50,.10);
-      --shadow:0 10px 26px rgba(6,44,50,.08);
-      --focus:0 0 0 3px rgba(84,203,211,.35);
+      --shadow-lg:0 18px 40px rgba(154,52,18,.10);
+      --shadow:0 10px 26px rgba(154,52,18,.08);
+      --focus:0 0 0 3px rgba(249,115,22,.25);
     }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0}
@@ -44,7 +44,7 @@
     /* Topbar + Hamburger */
     .topbar{
       position:sticky; top:0; z-index:50;
-      background:rgba(242,251,251,.9); backdrop-filter: blur(8px);
+      background:rgba(255,247,237,.9); backdrop-filter: blur(8px);
       border-bottom:1px solid var(--tz-100);
     }
     .brand{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--tz-800)}
@@ -75,13 +75,13 @@
     .drawer .panel h3{margin:4px 0 16px; color:var(--tz-800)}
     .drawer .nav a{
       display:block; padding:12px 10px; border-radius:12px; margin:6px 0;
-      background:#f7fdfd; border:1px solid var(--tz-100); color:var(--tz-800); font-weight:600;
+      background:#fffaf4; border:1px solid var(--tz-100); color:var(--tz-800); font-weight:600;
     }
-    .drawer .nav a:hover{background:#eefbfb}
+    .drawer .nav a:hover{background:#ffedd5}
 
     /* Hero */
     header.hero{
-      background:linear-gradient(180deg,#e9fafb,#d9f4f6);
+      background:linear-gradient(180deg,#fff3e4,#ffe4c7);
       color:var(--ink); text-align:center; padding:56px 16px 30px; position:relative; overflow:hidden;
     }
     .hero h1{margin:0 0 8px; font-size:clamp(28px,4.6vw,46px); font-weight:800; letter-spacing:.2px}
@@ -96,10 +96,10 @@
     .btn-primary{background:var(--tz-800);color:#fff}
     .btn-primary:hover{background:var(--tz-700)}
     .btn-outline{background:#fff;color:var(--tz-800);border:2px solid var(--tz-200)}
-    .btn-outline:hover{background:#f7fdfd}
+    .btn-outline:hover{background:#fffaf4}
     .hero-img{
       width:100%; max-width:820px; margin:18px auto 0; display:block;
-      border-radius:20px; box-shadow:var(--shadow); object-fit:cover; max-height:420px; background:#e8f7f8;
+      border-radius:20px; box-shadow:var(--shadow); object-fit:cover; max-height:420px; background:#fff1df;
     }
 
     /* Sections & cards */
@@ -140,7 +140,7 @@
     label{display:block;font-weight:600;margin-bottom:6px;color:var(--tz-700)}
     input,textarea,select{
       width:100%;padding:12px 14px;border-radius:14px;font-size:16px;
-      border:1px solid var(--tz-200);background:#fcffff;outline:none;transition:box-shadow .15s,border-color .15s;
+      border:1px solid var(--tz-200);background:#fffdf9;outline:none;transition:box-shadow .15s,border-color .15s;
     }
     input:focus,textarea:focus{box-shadow:var(--focus);border-color:var(--tz-400)}
     textarea{min-height:110px}
@@ -148,14 +148,14 @@
 
     /* FAQ indentation on open */
     details{background:#fff;border:1px solid var(--tz-100);border-radius:12px;padding:10px 12px;margin:10px 0;transition:border-color .2s, background .2s}
-    details[open]{background:#f7fdfd;border-color:var(--tz-200)}
+    details[open]{background:#fffaf4;border-color:var(--tz-200)}
     summary{cursor:pointer;font-weight:700;color:var(--tz-800);outline:none}
     .faq-body{margin-top:8px;padding-right:14px;border-right:3px solid var(--tz-200);transition:padding .2s, border-color .2s}
     details[open] .faq-body{padding-right:18px;border-right-color:var(--tz-300)}
     /* Footer */
-    footer{margin-top:32px;padding:28px 16px;background:var(--tz-800);color:#d8f3f6;text-align:center}
+    footer{margin-top:32px;padding:28px 16px;background:var(--tz-800);color:#ffedd5;text-align:center}
     .footer-links{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-    .footer-links a{color:#d8f3f6}
+    .footer-links a{color:#ffedd5}
 
     /* Success overlay – גרסה מהירה */
     .success-mask {
@@ -218,7 +218,7 @@
       padding:12px 16px;border-radius:14px;border:1px solid var(--tz-200);
       background:#fff;box-shadow:var(--shadow);font-weight:700;color:var(--tz-800);
     }
-    .social-links a:hover{background:#f7fdfd}
+    .social-links a:hover{background:#fffaf4}
     .social-links svg{width:22px;height:22px;display:block}
 
     #social h2 { text-align: center; }
@@ -1189,7 +1189,7 @@ function showWaitinglistPopup() {
       <input type="checkbox" id="forceCloseToggle">
       סגור הרשמה ידנית (FORCE_CLOSE)
     </label>
-    <button id="saveBtn" style="background:#157683;color:white;border:none;padding:8px 16px;border-radius:6px;font-weight:bold;cursor:pointer">
+    <button id="saveBtn" style="background:#9a3412;color:white;border:none;padding:8px 16px;border-radius:6px;font-weight:bold;cursor:pointer">
       שמור שינויים
     </button>
     <div id="status" style="margin-top:6px;color:#333;font-size:13px"></div>
@@ -1371,5 +1371,4 @@ function showWaitinglistPopup() {
 
 
 </body></html>
-
 
