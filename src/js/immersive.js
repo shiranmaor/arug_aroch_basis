@@ -77,58 +77,78 @@
     });
   }
 
-  function initCursorAura() {
+  function initWrapFabricFollower() {
     const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
     if (prefersReducedMotion() || !finePointer) {
       return;
     }
 
-    const aura = document.getElementById("cursorAura");
-    const dot = document.getElementById("cursorDot");
-    if (!aura || !dot) {
+    const fabric = document.getElementById("cursorWrapFabric");
+    if (!fabric) {
       return;
     }
 
-    let auraX = window.innerWidth / 2;
-    let auraY = window.innerHeight / 2;
-    let dotX = auraX;
-    let dotY = auraY;
-    let mouseX = auraX;
-    let mouseY = auraY;
-
-    document.body.classList.add("cursor-active");
+    let x = window.innerWidth / 2;
+    let y = window.innerHeight / 2;
+    let currentX = x;
+    let currentY = y;
+    let velocityX = 0;
+    let velocityY = 0;
+    let angle = 0;
+    let stretch = 1;
+    let wave = 0;
 
     function tick() {
-      auraX += (mouseX - auraX) * 0.18;
-      auraY += (mouseY - auraY) * 0.18;
-      dotX += (mouseX - dotX) * 0.34;
-      dotY += (mouseY - dotY) * 0.34;
-      aura.style.transform = "translate3d(" + auraX.toFixed(2) + "px," + auraY.toFixed(2) + "px,0)";
-      dot.style.transform = "translate3d(" + dotX.toFixed(2) + "px," + dotY.toFixed(2) + "px,0)";
+      const dx = x - currentX;
+      const dy = y - currentY;
+      currentX += dx * 0.16;
+      currentY += dy * 0.16;
+      velocityX = velocityX * 0.78 + dx * 0.16;
+      velocityY = velocityY * 0.78 + dy * 0.16;
+
+      const speed = Math.min(Math.hypot(velocityX, velocityY), 26);
+      const targetAngle = Math.atan2(velocityY, velocityX) * 180 / Math.PI;
+      angle += (targetAngle - angle) * 0.14;
+      stretch += (((1 + speed * 0.012) - stretch) * 0.18);
+      wave += ((Math.sin(performance.now() * 0.012) * Math.min(speed * 0.07, 0.9)) - wave) * 0.16;
+
+      const offsetX = 18;
+      const offsetY = -12;
+      const translateX = currentX + offsetX;
+      const translateY = currentY + offsetY;
+      const rotate = Math.max(-26, Math.min(26, angle * 0.32));
+      const scaleX = Math.max(0.92, Math.min(1.24, stretch));
+      const scaleY = Math.max(0.9, Math.min(1.08, 1 - speed * 0.004));
+
+      fabric.style.transform =
+        "translate3d(" + translateX.toFixed(2) + "px," + translateY.toFixed(2) + "px,0) " +
+        "rotate(" + rotate.toFixed(2) + "deg) " +
+        "skewX(" + wave.toFixed(2) + "deg) " +
+        "scale(" + scaleX.toFixed(3) + "," + scaleY.toFixed(3) + ")";
       requestAnimationFrame(tick);
     }
 
     document.addEventListener("pointermove", function (event) {
-      mouseX = event.clientX;
-      mouseY = event.clientY;
+      x = event.clientX;
+      y = event.clientY;
       runtime.pointerX = event.clientX / window.innerWidth * 2 - 1;
       runtime.pointerY = event.clientY / window.innerHeight * 2 - 1;
       runtime.pointerActive = true;
-      document.body.classList.add("cursor-visible");
+      document.body.classList.add("cursor-fabric-visible");
     }, { passive: true });
 
     document.addEventListener("pointerleave", function () {
       runtime.pointerActive = false;
-      document.body.classList.remove("cursor-visible", "cursor-hover", "cursor-cta");
+      document.body.classList.remove("cursor-fabric-visible", "cursor-fabric-hover", "cursor-fabric-cta");
     });
 
     document.querySelectorAll("a, button, input, textarea, summary, .magnetic, .tilt-card").forEach(function (node) {
       node.addEventListener("pointerenter", function () {
-        document.body.classList.add("cursor-hover");
-        document.body.classList.toggle("cursor-cta", node.classList.contains("btn") || node.classList.contains("trust-action"));
+        document.body.classList.add("cursor-fabric-hover");
+        document.body.classList.toggle("cursor-fabric-cta", node.classList.contains("btn") || node.classList.contains("trust-action"));
       });
       node.addEventListener("pointerleave", function () {
-        document.body.classList.remove("cursor-hover", "cursor-cta");
+        document.body.classList.remove("cursor-fabric-hover", "cursor-fabric-cta");
       });
     });
 
@@ -370,7 +390,7 @@
     window.IMMERSIVE_POINTER = runtime;
     window.lenis = initLenis();
     markRevealItems();
-    initCursorAura();
+    initWrapFabricFollower();
     initMagneticButtons();
     initTiltCards();
     initDepthParallax();

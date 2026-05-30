@@ -46,10 +46,6 @@ body{
   overflow-x:hidden;
 }
 
-body.cursor-active{
-  cursor:none;
-}
-
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
 button,input,textarea{font:inherit}
@@ -78,53 +74,122 @@ input,textarea{min-width:0}
   z-index:-2;
 }
 
-.cursor-aura,
-.cursor-dot{
+.cursor-wrap-fabric{
   position:fixed;
   top:0;
   left:0;
   pointer-events:none;
   opacity:0;
   z-index:140;
-  transform:translate3d(-50%,-50%,0);
-  transition:opacity .2s ease, background .2s ease, border-color .2s ease, width .2s ease, height .2s ease;
+  width:82px;
+  height:30px;
+  transform:translate3d(-999px,-999px,0);
+  transform-origin:center;
+  will-change:transform, opacity, filter;
+  transition:opacity .18s ease, filter .2s ease;
 }
 
-.cursor-aura{
-  width:54px;
-  height:54px;
-  border-radius:50%;
-  border:1px solid rgba(178,112,88,.24);
-  background:radial-gradient(circle, rgba(255,255,255,.18), rgba(178,112,88,.08));
-  backdrop-filter:blur(8px);
-  box-shadow:0 0 0 18px rgba(255,255,255,.04), 0 0 40px rgba(178,112,88,.12);
+.cursor-wrap-fabric__inner,
+.cursor-wrap-fabric__edge,
+.cursor-wrap-fabric__fringe{
+  position:absolute;
+  display:block;
+  pointer-events:none;
 }
 
-.cursor-dot{
-  width:9px;
-  height:9px;
-  border-radius:50%;
-  background:var(--terracotta);
-  box-shadow:0 0 24px rgba(178,112,88,.36);
+.cursor-wrap-fabric__inner{
+  inset:4px 10px 6px 0;
+  border-radius:9px 15px 14px 10px;
+  background:
+    linear-gradient(180deg, rgba(255,248,239,.75), rgba(255,240,232,.1) 28%, rgba(61,35,31,.12) 100%),
+    repeating-linear-gradient(
+      90deg,
+      #efe1d7 0 6px,
+      #b26f5c 6px 12px,
+      #6c3d3f 12px 17px,
+      #dfb39c 17px 22px,
+      #77816f 22px 28px,
+      #f3e8dd 28px 34px,
+      #a25e4f 34px 40px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,.18) 0 1px,
+      rgba(92,61,52,.06) 1px 2px,
+      rgba(255,255,255,0) 2px 4px
+    );
+  background-blend-mode:screen, normal, multiply;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.46),
+    inset 0 -3px 5px rgba(77,49,42,.2),
+    0 14px 28px rgba(66,42,37,.18);
+  border:1px solid rgba(100,63,54,.12);
 }
 
-body.cursor-visible .cursor-aura,
-body.cursor-visible .cursor-dot{
+.cursor-wrap-fabric__inner::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.34), rgba(255,255,255,0) 34%),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255,255,255,.14) 0 2px,
+      rgba(255,255,255,0) 2px 6px
+    );
+  mix-blend-mode:screen;
+  opacity:.72;
+}
+
+.cursor-wrap-fabric__edge{
+  inset:2px 0 8px auto;
+  width:18px;
+  border-radius:0 14px 14px 0;
+  background:
+    linear-gradient(180deg, rgba(255,245,238,.76), rgba(188,151,131,.28)),
+    linear-gradient(90deg, rgba(255,255,255,.36), rgba(92,61,52,.1));
+  transform:rotate(-6deg);
+  box-shadow:
+    inset 1px 0 0 rgba(255,255,255,.46),
+    inset -2px 0 4px rgba(87,54,48,.18);
+}
+
+.cursor-wrap-fabric__fringe{
+  right:2px;
+  bottom:3px;
+  width:14px;
+  height:10px;
+  border-radius:0 0 10px 0;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(238,228,214,.9) 0 2px,
+      rgba(174,131,114,.88) 2px 3px,
+      rgba(238,228,214,.82) 3px 5px
+    );
+  clip-path:polygon(0 0, 100% 0, 100% 64%, 84% 100%, 68% 66%, 50% 100%, 34% 68%, 18% 100%, 0 66%);
+  opacity:.92;
+}
+
+body.cursor-fabric-visible .cursor-wrap-fabric{
   opacity:1;
 }
 
-body.cursor-hover .cursor-aura{
-  width:86px;
-  height:86px;
-  background:radial-gradient(circle, rgba(255,255,255,.12), rgba(178,112,88,.16));
-  border-color:rgba(178,112,88,.34);
+body.cursor-fabric-hover .cursor-wrap-fabric__inner{
+  filter:saturate(1.08) brightness(1.04);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.52),
+    inset 0 -3px 5px rgba(77,49,42,.2),
+    0 18px 34px rgba(66,42,37,.22);
 }
 
-body.cursor-cta .cursor-aura{
-  width:110px;
-  height:110px;
-  background:radial-gradient(circle, rgba(255,255,255,.06), rgba(146,84,66,.28));
-  border-color:rgba(255,255,255,.22);
+body.cursor-fabric-cta .cursor-wrap-fabric{
+  filter:drop-shadow(0 10px 18px rgba(178,112,88,.18));
+}
+
+body.cursor-fabric-cta .cursor-wrap-fabric__inner{
+  filter:saturate(1.14) brightness(1.07);
 }
 
 .ambient-layer{
