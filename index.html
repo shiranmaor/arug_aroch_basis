@@ -281,12 +281,12 @@
       <div class="next-box">
         <div class="kv">
           <span class="k">מועד</span>
-          <span class="v" id="workshop-slot"><strong></strong> • 10:00–12:30</span>
+          <span class="v" id="workshop-slot"><strong></strong> • 10:30–13:00</span>
 
         </div>
         <div class="kv">
           <span class="k">מיקום</span>
-          <span class="v">מודיעין (הכתובת תישלח לאחר הרשמה)</span>
+          <span class="v">צור יצחק (הכתובת תישלח לאחר הרשמה)</span>
         </div>
         <div class="kv">
           <span class="k">עלות</span>
@@ -328,7 +328,7 @@
           </li>
           <li>
             <strong>מיקום/תאריך:</strong>
-            <span id="workshop-date-value" class="">22 נובמבר, מודיעין</span>
+            <span id="workshop-date-value" class="">22 נובמבר, צור יצחק</span>
           </li>
 
         </ul>
@@ -496,7 +496,7 @@
   <script>
 
     // 🗓️ תיאור מועד הסדנה — משתנה אחד שמשמש גם להצגה וגם לעיבוד
-    const WORKSHOP_DATE_TEXT = "חמישי, 12 במרץ 2026"; 
+    const WORKSHOP_DATE_TEXT = "שלישי, 16 ביוני 2026"; 
 
 
     // סקריפט זיהוי מקור ההגשה
@@ -509,7 +509,7 @@
       // 🗓️ עדכון התאריך בכל המקומות בעמוד
       const dateEl1 = document.getElementById("workshop-date-value");
       const dateEl2 = document.querySelector(".next-box .v strong");
-      if (dateEl1) dateEl1.textContent = WORKSHOP_DATE_TEXT + ", מודיעין";
+      if (dateEl1) dateEl1.textContent = WORKSHOP_DATE_TEXT + ", צור יצחק";
       if (dateEl2) dateEl2.textContent = WORKSHOP_DATE_TEXT;
     });
 
