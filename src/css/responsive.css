@@ -1,75 +1,85 @@
+@media (max-width:1120px){
+  .hero-grid,
+  .journey-track,
+  .trust-grid,
+  .register-shell{
+    grid-template-columns:1fr;
+  }
+
+  .hero-copy{
+    order:1;
+  }
+
+  .hero-visual{
+    order:0;
+    min-height:560px;
+  }
+
+  .story-grid{
+    grid-template-columns:1fr;
+  }
+}
+
 @media (max-width:900px){
-  main.container::before{
-    right:10px;
-    opacity:.5;
+  .topbar{
+    inset:10px 0 auto;
   }
 
-  header.hero{
-    padding:64px 14px 34px;
-  }
-
-  .hero h1{
-    font-size:clamp(38px,10vw,54px);
-  }
-
-  .grid-2{
+  .topbar-inner{
     grid-template-columns:1fr;
-    gap:18px;
+    gap:12px;
+    border-radius:28px;
   }
 
-  .media-intro-grid,
-  .future-media-note,
-  .trust-actions,
-  .journey-shell,
-  .compare-grid{
-    grid-template-columns:1fr;
+  .topnav{
+    flex-wrap:wrap;
+    gap:14px;
+    justify-content:flex-start;
   }
 
-  .journey-shell{
-    padding:24px 20px;
+  .hero-stage{
+    min-height:auto;
+    padding:132px 0 24px;
   }
 
-  .journey-sticky{
+  .hero-grid{
+    gap:20px;
+  }
+
+  .hero-visual{
+    min-height:470px;
+  }
+
+  .card-photo{
+    inset:12% 10% 16% 10%;
+  }
+
+  .card-mini{
+    width:min(230px, 58%);
+  }
+
+  .journey-pin{
     position:relative;
     top:auto;
   }
 
-  .journey-stage{
+  .journey-visual-panel{
     min-height:420px;
   }
 
-  .compare-bridge{
-    grid-template-columns:auto 1fr auto;
-    grid-template-rows:auto;
-    gap:12px;
-  }
-
-  .compare-bridge-line{
-    width:100%;
-    height:2px;
-    min-height:2px;
-  }
-
-  .detail-grid{
+  .detail-grid,
+  .register-summary,
+  .split-list,
+  .trust-actions{
     grid-template-columns:1fr;
-    gap:12px;
   }
 
-  .card{
-    padding:24px 20px;
-    border-radius:28px;
+  .compare-pane{
+    padding:30px 24px;
   }
 
-  .register-form-shell{
-    padding:18px;
-  }
-
-  .register-support-footer .btn{
-    width:100%;
-  }
-
-  .video-item iframe{
-    min-height:220px;
+  .video-card iframe{
+    min-height:240px;
   }
 
   form{
@@ -79,114 +89,85 @@
 
 @media (max-width:640px){
   :root{
-    --reveal-distance:22px;
+    --container:min(100vw - 24px, 100vw - 24px);
   }
 
-  .container{
-    padding:0 14px;
+  h1{
+    font-size:clamp(44px, 16vw, 72px);
   }
 
-  main.container::before,
-  .card::after{
-    display:none;
+  h2{
+    font-size:clamp(32px, 10vw, 44px);
   }
 
-  section{
-    margin:24px 0;
-  }
-
-  .hero p,
-  .section-intro{
-    font-size:16px;
-  }
-
-  .hero-highlights{
-    gap:10px;
-  }
-
-  .hero-highlights span,
-  .eyebrow{
-    width:100%;
-    justify-content:center;
-  }
-
-  .hero-orbit,
-  .fabric-ribbon{
-    display:none;
-  }
-
+  .hero-highlights,
   .cta-row,
-  .social-links,
-  .footer-links{
+  .footer-links,
+  .action-row{
     flex-direction:column;
   }
 
-  .btn,
-  .social-links a,
-  .footer-links a{
+  .cta-row .btn,
+  .action-row .btn,
+  .register-support-footer .btn,
+  .btn-nav{
     width:100%;
   }
 
-  .next-box,
-  .soft-panel,
-  .video-item,
-  .success-box,
-  .future-media-note{
-    border-radius:24px;
+  .hero-visual{
+    min-height:400px;
   }
 
-  .hero-img{
-    max-height:380px;
-    border-radius:26px;
+  .card-photo{
+    inset:14% 8% 20% 8%;
   }
 
-  .hero-caption{
-    position:static;
-    margin-top:12px;
-    max-width:none;
-    border-radius:22px;
+  .card-mini{
+    width:min(210px, 66%);
+    padding:16px 16px;
   }
 
-  .journey-shell{
-    padding:22px 18px;
+  .card-mini-top{
+    right:0;
+    top:6%;
   }
 
-  .journey-steps{
-    padding-inline-end:0;
+  .card-mini-bottom{
+    left:0;
+    bottom:6%;
   }
 
-  .journey-steps::before{
-    display:none;
+  .journey-section,
+  .story-section,
+  .compare-section,
+  .trust-section,
+  .faq-section,
+  .register-climax{
+    padding:84px 0;
   }
 
-  .journey-step{
-    padding:18px;
-  }
-
-  .journey-step::before{
-    display:none;
-  }
-
-  .journey-step.is-active{
-    transform:none;
-  }
-
-  .journey-stage{
+  .journey-visual-panel,
+  .compare-slider{
     min-height:360px;
-    padding:20px;
-    border-radius:26px;
   }
 
-  .journey-caption{
-    width:100%;
-    border-radius:22px;
+  .register-copy,
+  .trust-side,
+  .video-card,
+  .story-grid .card{
+    padding:24px;
   }
 
-  .compare-card{
-    padding:22px 18px;
+  .register-form-shell{
+    padding:16px;
   }
 
-  .placeholder-grid{
-    grid-template-columns:1fr;
+  form{
+    padding:16px;
+  }
+
+  .fabric-ribbon,
+  .ambient-layer-b{
+    display:none;
   }
 }

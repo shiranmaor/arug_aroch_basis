@@ -3,25 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>סדנת בסיס בארוג ארוך עם שירן מאור | נשיאה בטוחה ונעימה</title>
-  <meta name="description" content="סדנת בסיס בארוג ארוך עם שירן מאור: תרגול, התאמה אישית, סרטונים, ופרטים להצטרפות לרשימת ההמתנה למועד הבא.">
+  <title>סדנת בסיס בארוג ארוך עם שירן מאור | מסע רגוע אל נשיאה בטוחה</title>
+  <meta name="description" content="סדנת בסיס בארוג ארוך עם שירן מאור: מסע רגוע מהבלבול אל הביטחון, עם תרגול, התאמה אישית, סרטונים ופרטים להצטרפות לרשימת ההמתנה למועד הבא.">
   <meta name="robots" content="index,follow,max-image-preview:large">
-  <meta name="theme-color" content="#fff9f2">
+  <meta name="theme-color" content="#f6eee8">
   <link rel="canonical" href="https://shiranmaor.github.io/arug_aroch_basis/">
   <meta property="og:locale" content="he_IL">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Shiran Babywearing">
   <meta property="og:title" content="סדנת בסיס בארוג ארוך עם שירן מאור">
-  <meta property="og:description" content="תרגול, התאמה אישית, סרטונים, ופרטים להצטרפות לרשימת ההמתנה למועד הבא של סדנת הארוג הארוך.">
+  <meta property="og:description" content="מסע רגוע מהבלבול אל הביטחון עם תרגול, התאמה אישית ופרטים להצטרפות לרשימת ההמתנה למועד הבא.">
   <meta property="og:url" content="https://shiranmaor.github.io/arug_aroch_basis/">
   <meta property="og:image" content="https://shiranmaor.github.io/arug_aroch_basis/assets/images/header.jpeg">
   <meta property="og:image:alt" content="שירן עם תינוק במנשא ארוג">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="סדנת בסיס בארוג ארוך עם שירן מאור">
-  <meta name="twitter:description" content="תרגול, התאמה אישית, סרטונים, ופרטים להצטרפות לרשימת ההמתנה למועד הבא.">
+  <meta name="twitter:description" content="מסע רגוע מהבלבול אל הביטחון עם תרגול, התאמה אישית ופרטים להצטרפות לרשימת ההמתנה למועד הבא.">
   <meta name="twitter:image" content="https://shiranmaor.github.io/arug_aroch_basis/assets/images/header.jpeg">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="src/css/base.css">
   <link rel="stylesheet" href="src/css/layout.css">
@@ -30,391 +30,95 @@
 </head>
 <body>
   <a class="skip-link" href="#site-content">דלגי לתוכן</a>
+
+  <div class="ambient-layer ambient-layer-a" aria-hidden="true"></div>
+  <div class="ambient-layer ambient-layer-b" aria-hidden="true"></div>
+  <div class="ambient-layer ambient-layer-c" aria-hidden="true"></div>
   <div class="fabric-ribbon fabric-ribbon-a" aria-hidden="true"></div>
   <div class="fabric-ribbon fabric-ribbon-b" aria-hidden="true"></div>
   <div class="fabric-ribbon fabric-ribbon-c" aria-hidden="true"></div>
 
-  <div class="topbar" role="banner">
-    <div class="container row" style="padding:10px 0">
-      <div class="brand"><span class="dot"></span> סדנת מנשאים • שירן</div>
-      <button class="hamburger" id="openMenu" type="button" aria-label="פתח תפריט" aria-controls="drawer" aria-expanded="false"></button>
-    </div>
-  </div>
-
-  <div class="drawer" id="drawer" aria-hidden="true">
-    <div class="overlay" id="overlay"></div>
-    <aside class="panel" role="dialog" aria-modal="true" aria-labelledby="menuTitle">
-      <h3 id="menuTitle">ניווט</h3>
-      <nav class="nav" aria-label="ניווט ראשי">
-        <a href="#pain" class="menu-link">למי זה מרגיש מסובך</a>
-        <a href="#about" class="menu-link">איך הסדנה עוזרת</a>
-        <a href="#experience" class="menu-link">מה קורה בסדנה</a>
-        <a href="#learn" class="menu-link">מה נלמד</a>
-        <a href="#audience" class="menu-link">למי זה מתאים</a>
-        <a href="#videos" class="menu-link">סרטונים</a>
-        <a href="#faq" class="menu-link">שאלות נפוצות</a>
-        <a href="#register" class="menu-link">הרשמה</a>
+  <header class="topbar" role="banner">
+    <div class="container topbar-inner">
+      <a class="brand" href="#hero" aria-label="חזרה לראש הדף">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-copy">
+          <strong>שירן מאור</strong>
+          <span>סדנת בסיס בארוג ארוך</span>
+        </span>
+      </a>
+      <nav class="topnav" aria-label="ניווט ראשי">
+        <a href="#journey">המסע</a>
+        <a href="#experience">מה קורה בסדנה</a>
+        <a href="#trust">סרטונים ואמון</a>
+        <a href="#register">השאירי פרטים</a>
       </nav>
-    </aside>
-  </div>
-
-  <header class="hero">
-    <div class="container">
-      <div class="eyebrow">סדנה רגועה וברורה להיכרות עם ארוג ארוך</div>
-      <div class="hero-orbit hero-orbit-left" aria-hidden="true" data-parallax data-parallax-speed="0.12">בלבול</div>
-      <div class="hero-orbit hero-orbit-right" aria-hidden="true" data-parallax data-parallax-speed="-0.1">ביטחון</div>
-      <div class="hero-orbit hero-orbit-bottom" aria-hidden="true" data-parallax data-parallax-speed="0.08">ידיים חופשיות</div>
-      <h1 id="mainTitle">סדנת בסיס בארוג ארוך</h1>
-      <p class="hero-lead">ללמוד לשאת בביטחון, בנוחות ובקרבה, בלי להרגיש שזה מסובך מדי ועם מקום לשאלות, לתרגול ולהתאמה אישית לך ולתינוק שלך.</p>
-      <div class="hero-highlights" aria-label="הבטחת הסדנה">
-        <span>מנשא לא אמור להיות מסובך</span>
-        <span>מהידיים העמוסות לידיים חופשיות</span>
-        <span>לשאת ברוגע, בקרבה ובנוחות</span>
-      </div>
-      <div class="cta-row">
-        <a class="btn btn-primary" id="heroPrimaryCta" href="#register" aria-label="מעבר לטופס ההצטרפות לרשימת ההמתנה">להצטרפות לרשימת המתנה</a>
-        <a class="btn btn-outline" id="whatsapp-hero" href="https://wa.me/972548188793?text=%D7%94%D7%99%D7%99%20%D7%A9%D7%99%D7%A8%D7%9F%2C%20%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%A9%D7%90%D7%9C%D7%94%20%D7%A7%D7%A6%D7%A8%D7%94%20%D7%9C%D7%92%D7%91%D7%99%20%D7%94%D7%A1%D7%93%D7%A0%D7%94%20%3A" target="_blank" rel="noopener" aria-label="שליחת שאלה קצרה לשירן בוואטסאפ">שאלה מהירה בוואטסאפ</a>
-      </div>
-      <p class="state-pill" id="heroStateNotice" aria-live="polite">המועד שמופיע כאן כבר עבר. אפשר להצטרף לרשימת ההמתנה למועד הבא או לשאול את שירן בוואטסאפ.</p>
-      <figure class="hero-figure" data-parallax data-parallax-speed="-0.06">
-        <img class="hero-img" src="assets/images/header.jpeg" alt="שירן עם תינוק במנשא ארוג" width="1116" height="1634" fetchpriority="high" decoding="async">
-        <figcaption class="hero-caption">
-          <strong>מפגש אישי, רגוע ומעשי</strong>
-          <span>לפני ההרשמה אפשר לראות איך שירן מסבירה, לשאול בוואטסאפ ולהרגיש אם זה נכון לך.</span>
-        </figcaption>
-      </figure>
+      <a class="btn btn-nav" id="detailsPrimaryCta" href="#register" aria-label="מעבר לטופס ההצטרפות לרשימת ההמתנה">לרשימת המתנה</a>
     </div>
   </header>
 
-  <main class="container" id="site-content" tabindex="-1">
-    <section id="next" class="card">
-      <h2>כל הפרטים במקום אחד</h2>
-      <p class="section-intro">אם חשוב לך להבין מהר האם זה מתאים לך, הנה המסגרת המעשית של הסדנה לפני שממשיכים.</p>
-      <div class="state-inline-note" id="workshopStateNotice" aria-live="polite">המועד הנוכחי כבר עבר. כרגע אפשר להצטרף לרשימת ההמתנה למועד הבא.</div>
-      <div class="next-box">
-        <div class="detail-grid">
-          <div class="kv">
-            <span class="k">מועד</span>
-            <span class="v" id="workshop-slot"><strong id="workshop-slot-strong">חמישי, 12 במרץ 2026</strong> • 10:00–12:30</span>
-          </div>
-          <div class="kv">
-            <span class="k">מיקום</span>
-            <span class="v">מודיעין (הכתובת תישלח לאחר הרשמה)</span>
-          </div>
-          <div class="kv">
-            <span class="k">עלות</span>
-            <span class="v" id="workshop-price">280 ₪</span>
-          </div>
+  <main id="site-content" tabindex="-1">
+    <section id="hero" class="hero-shell">
+      <div class="hero-stage">
+        <div class="hero-canvas-wrap" aria-hidden="true">
+          <div class="hero-canvas-fallback"></div>
+          <canvas id="fabricCanvas"></canvas>
         </div>
-        <div class="next-cta">
-          <a class="btn btn-primary" id="detailsPrimaryCta" href="#register" aria-label="מעבר לטופס ההצטרפות לרשימת ההמתנה">לרשימת המתנה</a>
-        </div>
-      </div>
-    </section>
-
-    <section id="pain" class="card">
-      <div class="grid-2 align-start">
-        <div>
-          <h2>זה לא אמור להרגיש כל כך מסובך</h2>
-          <p class="section-intro">אם הארוג הארוך מסקרן אותך אבל בפועל נשאר בצד, את ממש לא לבד. הרבה הורים רוצות את הקרבה, אבל נתקעות בדיוק בשלב של “איך מתחילים בכלל?”.</p>
-          <ul class="checks">
-            <li>קנית ארוג ארוך אבל לא בטוחה איך להתחיל להשתמש בו.</li>
-            <li>מרגישה שהתינוק לא יושב נכון או שהקשירה לא מספיק נוחה.</li>
-            <li>חוששת שזה מסובך מדי או שדורש יותר מדי ידיים פנויות.</li>
-            <li>רוצה לשאת בלי לחץ, בלי כאבי גב ועם יותר ביטחון ביום יום.</li>
-          </ul>
-        </div>
-        <aside class="soft-panel interactive-card">
-          <h3>ההבטחה של הסדנה</h3>
-          <p>לעזור לך להבין את הארוג הארוך בצורה פשוטה, רגועה ומעשית, כדי שתצאי עם בסיס ברור ועם תחושת “אני יכולה לעשות את זה”.</p>
-        </aside>
-      </div>
-    </section>
-
-    <section id="journey" class="card journey-section" data-journey-tone="blush">
-      <div class="journey-shell">
-        <div class="journey-copy">
-          <p class="section-kicker">מסלול הסדנה</p>
-          <h2>מהבלבול אל הרגע שבו הגוף נרגע</h2>
-          <p class="section-intro">במקום לנסות להבין לבד מה נכון לעשות, העמוד והסדנה מובילים אותך דרך תחנות קטנות וברורות: להבין, להתאים, לתרגל, להרגיש בטוחה, ואז לפנות את הידיים למה שבאמת חשוב.</p>
-          <div class="journey-steps" aria-label="מסלול ההתקדמות בסדנה">
-            <article class="journey-step is-active" data-journey-tone="blush">
-              <span class="journey-index">01</span>
-              <h3>בלבול</h3>
-              <p>הארוג הארוך נראה יפה ומסקרן, אבל גם כזה שקל ללכת בו לאיבוד.</p>
-            </article>
-            <article class="journey-step" data-journey-tone="sand">
-              <span class="journey-index">02</span>
-              <h3>התאמה</h3>
-              <p>שירן עוזרת להבין מה נכון לגוף שלך, לתינוק שלך ולקצב האמיתי של הבית.</p>
-            </article>
-            <article class="journey-step" data-journey-tone="sage">
-              <span class="journey-index">03</span>
-              <h3>תרגול</h3>
-              <p>לא רק להבין בראש, אלא ממש לנסות, לשאול, לעצור, ולדייק יחד את הקשירה.</p>
-            </article>
-            <article class="journey-step" data-journey-tone="terracotta">
-              <span class="journey-index">04</span>
-              <h3>ביטחון</h3>
-              <p>בהדרגה מתחלף המתח בתחושה ברורה יותר של “אני יודעת מה אני עושה”.</p>
-            </article>
-            <article class="journey-step" data-journey-tone="brown">
-              <span class="journey-index">05</span>
-              <h3>ידיים חופשיות</h3>
-              <p>הקירבה נשארת, והגוף מקבל יותר חופש, נוחות ושקט בתוך היומיום.</p>
-            </article>
-          </div>
-        </div>
-        <div class="journey-visual">
-          <div class="journey-sticky">
-            <div class="journey-stage">
-              <div class="journey-ribbon" aria-hidden="true">
-                <span class="journey-ribbon-tail"></span>
-                <span class="journey-ribbon-knot"></span>
-              </div>
-              <div class="journey-glow"></div>
-              <div class="journey-caption">
-                <span class="journey-caption-kicker">התחושה שנבנית לאורך הדרך</span>
-                <strong id="journeyActiveTitle">בלבול</strong>
-                <p id="journeyActiveText">הארוג הארוך נראה יפה ומסקרן, אבל גם כזה שקל ללכת בו לאיבוד.</p>
-              </div>
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <div class="eyebrow reveal">מנשא ארוג ארוך לא אמור להרגיש כמו חידה</div>
+            <h1 id="mainTitle" class="reveal">סדנת בסיס בארוג ארוך</h1>
+            <p class="hero-lead reveal">עמוד שנפתח כמו בד שנפרש, ומוביל אותך בעדינות מבלבול ועומס אל נשיאה רגועה, קרובה, בטוחה ועם יותר ידיים חופשיות.</p>
+            <div class="hero-highlights reveal" aria-label="הבטחת הסדנה">
+              <span>בלבול הופך להבנה</span>
+              <span>תרגול אמיתי בקצב שלך</span>
+              <span>ביטחון שנשאר גם בבית</span>
             </div>
+            <div class="cta-row reveal">
+              <a class="btn btn-primary magnetic" id="heroPrimaryCta" href="#register" aria-label="מעבר לטופס ההצטרפות לרשימת ההמתנה">להצטרפות לרשימת המתנה</a>
+              <a class="btn btn-ghost magnetic" id="whatsapp-hero" href="https://wa.me/972548188793?text=%D7%94%D7%99%D7%99%20%D7%A9%D7%99%D7%A8%D7%9F%2C%20%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%A9%D7%90%D7%9C%D7%94%20%D7%A7%D7%A6%D7%A8%D7%94%20%D7%9C%D7%92%D7%91%D7%99%20%D7%94%D7%A1%D7%93%D7%A0%D7%94%20%3A" target="_blank" rel="noopener" aria-label="שליחת שאלה קצרה לשירן בוואטסאפ">שאלה מהירה בוואטסאפ</a>
+            </div>
+            <p class="state-pill reveal" id="heroStateNotice" aria-live="polite">המועד שמופיע כאן כבר עבר. אפשר להצטרף לרשימת ההמתנה למועד הבא או לשאול את שירן שאלה בוואטסאפ.</p>
+          </div>
+
+          <div class="hero-visual reveal">
+            <div class="hero-depth-card floating-card card-photo" data-depth="0.14">
+              <div class="hero-card-glow" aria-hidden="true"></div>
+              <figure class="hero-figure">
+                <img class="hero-img" src="assets/images/header.jpeg" alt="שירן עם תינוק במנשא ארוג" width="1116" height="1634" fetchpriority="high" decoding="async">
+                <figcaption class="hero-caption">
+                  <strong>מפגש קטן, אישי ומעשי</strong>
+                  <span>מקום שבו אפשר לשאול, לעצור, לתרגל ולהרגיש איך הארוג הארוך באמת עובד בשבילך.</span>
+                </figcaption>
+              </figure>
+            </div>
+            <div class="hero-depth-card card-mini card-mini-top magnetic" data-depth="-0.08">
+              <span class="mini-kicker">התחלה</span>
+              <strong>בלבול</strong>
+              <p>הבד נראה יפה, אבל קשה לדמיין איך הוא הופך למשהו נוח ובטוח.</p>
+            </div>
+            <div class="hero-depth-card card-mini card-mini-bottom magnetic" data-depth="0.12">
+              <span class="mini-kicker">סיום</span>
+              <strong>ידיים חופשיות</strong>
+              <p>הגוף נרגע, התינוק קרוב, ואת כבר יודעת מה לעשות גם בבית.</p>
+            </div>
+            <div class="orb orb-a" aria-hidden="true"></div>
+            <div class="orb orb-b" aria-hidden="true"></div>
+            <div class="orb orb-c" aria-hidden="true"></div>
           </div>
         </div>
       </div>
-    </section>
 
-    <section id="about" class="card grid-2 align-start">
-      <div>
-        <h2>שירן עוזרת להפוך בלבול לביטחון</h2>
-        <p>שירן מאור מלווה הורים שרוצות להכיר את הארוג הארוך לעומק, בלי הצפה ובלי לחץ. הסדנה בנויה כך שתביני איך המנשא עובד, איך מהדקים נכון, ואיך לשאת את התינוק שלך בצורה בטיחותית ונעימה.</p>
-        <div class="hr"></div>
-        <p class="muted">המטרה היא לא רק ללמוד קשירה, אלא להבין איך להתאים את הארוג הארוך לגוף שלך, לתינוק שלך, ולקצב האמיתי של היומיום.</p>
-      </div>
-      <aside class="card interactive-card" style="background:#fff;border:1px solid var(--tz-200)">
-        <h3 style="margin-top:0;color:var(--tz-700)">מי מנחה את הסדנה?</h3>
-        <ul class="checks">
-          <li><strong>מנחה:</strong> שירן מאור, מדריכת נשיאה ומדריכה להתפתחות תינוקות</li>
-          <li><strong>אורך:</strong> <span id="workshop-duration">כשעתיים וחצי</span></li>
-          <li><strong>קבוצה קטנה:</strong> <span id="workshop-group-size">עד 5 משתתפות</span></li>
-          <li><strong>מיקום/תאריך:</strong> <span id="workshop-date-value">חמישי, 12 במרץ 2026, מודיעין</span></li>
-        </ul>
-        <div class="hr"></div>
-        <div style="font-weight:800;color:var(--tz-800)">סדנה קטנה, ברורה ומעשית שמאפשרת גם לשאול, גם לתרגל וגם לקבל התאמה אישית.</div>
-      </aside>
-    </section>
-
-    <section id="experience" class="card">
-      <h2>מה קורה בפועל בסדנה?</h2>
-      <p class="section-intro">זו סדנה קטנה ומעשית, עם אווירה רגועה שמאפשרת ללמוד, לעצור, לשאול ולתרגל בקצב שלך.</p>
-      <div class="grid-2 align-start">
-        <div>
-          <ul class="checks">
-            <li>נלמד צעד אחר צעד איך עובד המנשא ואיך מהדקים בצורה נכונה.</li>
-            <li>נתרגל יחד קשירה ראשונה בסיסית ועוד קשירה מתקדמת בנשיאה קדמית.</li>
-            <li>נקבל הכוונה אישית כדי להבין מה מרגיש נכון ונוח יותר בגוף שלך.</li>
-            <li>יש מקום להורות אמיתית: עצירות, האכלה, החתלה והרגעה לפי הצורך.</li>
-          </ul>
-        </div>
-        <aside class="soft-panel interactive-card">
-          <h3>איך זה מרגיש</h3>
-          <p>לא שיעור תיאורטי שמסתיים בבלבול, אלא מפגש ברור, ידידותי ומעשי שעוזר לך לצאת עם יותר שקט ויותר הבנה.</p>
-          <div class="hr"></div>
-          <p class="muted">ההרשמה מתבצעת בטופס – התשלום ייפתח לאחר מכן בפייבוקס.</p>
-        </aside>
-      </div>
-    </section>
-
-    <section id="learn" class="card">
-      <h2>מה תלמדי ותקחי איתך</h2>
-      <p class="section-intro">כל התוכן הקיים נשמר, אבל עכשיו הוא מסודר לפי התוצאה שאת מחפשת: נשיאה בטוחה, נוחה ומובנת יותר.</p>
-      <div class="grid-2">
-        <div>
-          <h3>בטיחות, התאמה ונוחות</h3>
-          <ul class="checks">
-            <li>עקרונות בטיחות בנשיאה</li>
-            <li>התאמת המנשא לגוף שלך ולתינוק</li>
-            <li>פתרון כאבים שכיחים (כתפיים/גב/ירכיים)</li>
-            <li>איך לבחור את המנשא שהכי נכון לך</li>
-          </ul>
-        </div>
-        <div>
-          <h3>שימוש מעשי בארוג הארוך</h3>
-          <ul class="checks">
-            <li>נכיר את הבד ונבין איך משתמשים בו</li>
-            <li>נתנסה בקשירה קדמית בסיסית ומתקדמת</li>
-            <li>הכנסה/הוצאה בטוחה לבד - צעד אחר צעד</li>
-            <li>לאחר הסדנה תצטרפי לקבוצת וואטסאפ סגורה בה תוכלי לשתף ולהתייעץ ולקבל מעטפת מלאה</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section id="audience" class="card">
-      <h2>למי הסדנה מתאימה?</h2>
-      <p class="section-intro">אם את רוצה להרגיש יותר בטוחה עם הארוג הארוך, כנראה שתמצאי כאן בדיוק את מה שחיפשת.</p>
-      <div class="grid-2 align-start">
-        <ul class="checks">
-          <li>לאמהות שכבר נושאות במנשאים שונים וארוג ארוך מעניין אותן.</li>
-          <li>למי שמעוניינת להכיר לעומק את המנשא המיוחד הזה שאני כל הזמן מדברת עליו.</li>
-          <li>לתינוקות מעל גיל חודש (מתחת לגיל הזה אני ממליצה פגישה אישית).</li>
-        </ul>
-        <aside class="soft-panel interactive-card">
-          <h3>גם אם יש לך כבר מנשא אחר</h3>
-          <p>אפשר להגיע גם אם את כבר נושאת במנשאים אחרים ורוצה להבין האם הארוג הארוך יכול להיות נכון לך, נוח לך ומתאים לתינוק שלך.</p>
-        </aside>
-      </div>
-    </section>
-
-    <section id="compare" class="card compare-section">
-      <p class="section-kicker">לפני ואחרי הסדנה</p>
-      <h2>לא כי הכול משתנה ביום אחד, אלא כי משהו מתבהר</h2>
-      <p class="section-intro">הסדנה לא מבטיחה קסם. היא כן יוצרת מעבר ברור יותר בין תחושת עומס וחוסר ודאות לבין נשיאה שיש בה יותר בהירות, קרבה ונוחות.</p>
-      <div class="compare-grid">
-        <article class="compare-card compare-card-before interactive-card">
-          <span class="compare-label">לפני</span>
-          <h3>יותר עומס, יותר סימני שאלה</h3>
-          <ul class="checks">
-            <li>לא בטוחה אם התינוק יושב נכון</li>
-            <li>הבד מרגיש ארוך ומבלבל</li>
-            <li>הגוף מתכווץ במקום להירגע</li>
-            <li>נשיאה מרגישה כמו משימה במקום עזרה</li>
-          </ul>
-        </article>
-        <div class="compare-bridge" aria-hidden="true">
-          <span>←</span>
-          <div class="compare-bridge-line"></div>
-          <span>→</span>
-        </div>
-        <article class="compare-card compare-card-after interactive-card">
-          <span class="compare-label">אחרי</span>
-          <h3>יותר סדר, יותר קרבה, יותר שקט</h3>
-          <ul class="checks">
-            <li>מבינה איך להתחיל ואיך לבדוק שהכול יושב נכון</li>
-            <li>יודעת מה להתאים לעצמך ולתינוק שלך</li>
-            <li>מתרגלת קשירה עם ליווי אישי ולא לבד</li>
-            <li>מרגישה יותר ביטחון ויותר ידיים פנויות ביום יום</li>
-          </ul>
-        </article>
-      </div>
-    </section>
-
-    <div class="success-mask" id="successMask" aria-hidden="true">
-      <div class="success-box" role="alert" aria-live="assertive">
-        <div style="font-weight:800;color:var(--tz-800);font-size:18px;margin-bottom:10px">המועד שמופיע בעמוד כבר עבר</div>
-        <p style="margin:0 0 14px;color:var(--ink);line-height:1.5">אפשר להשאיר פרטים לרשימת ההמתנה למועד הבא, או לשאול את שירן שאלה קצרה בוואטסאפ :)</p>
-        <button id="closePopup" class="btn btn-primary" style="margin-top:10px">חזרה לדף</button>
-      </div>
-    </div>
-
-    <section id="videos" class="card">
-      <div class="media-intro-grid">
-        <div>
-          <h2>רוצה לראות ולהרגיש לפני שנפגשות?</h2>
-          <p class="section-intro">שני הסרטונים כאן נותנים טעימה מהדרך שבה שירן מסבירה ומהבהירות שאפשר לקבל גם עם מנשא שנראה מורכב בהתחלה.</p>
-        </div>
-        <aside class="soft-panel trust-panel">
-          <h3>מה אפשר לבדוק לפני שנרשמות</h3>
-          <ul class="checks trust-checks">
-            <li>לראות איך שירן מלמדת ומסבירה צעד אחר צעד.</li>
-            <li>להבין אם הקצב, הסגנון והגישה מרגישים לך נכונים.</li>
-            <li>לשאול בוואטסאפ שאלה אישית לפני שמחליטות.</li>
-            <li>להגיע עם שאלות ולקבל התאמה אישית במפגש עצמו.</li>
-          </ul>
-        </aside>
-      </div>
-      <div class="video-grid">
-        <div class="video-item interactive-card">
-          <div class="video-meta">
-            <span class="video-kicker">צפי לפני הרשמה</span>
-            <h3>כל מה שרציתם לדעת על ארוג ארוך</h3>
-            <p>סרטון שמסביר את הבסיס ונותן תחושה ראשונה לגבי הדרך שבה שירן עושה סדר גם בנושא שנראה מורכב.</p>
+      <div class="container hero-dock reveal">
+        <div class="dock-panel">
+          <div class="dock-title">
+            <span class="dock-kicker">מה צריך לדעת לפני שממשיכות</span>
+            <strong>כל הפרטים, בלי לחפש בין בלוקים</strong>
           </div>
-          <iframe width="100%" height="auto" src="https://www.youtube.com/embed/0xgnHsZryrs" title="כל מה שרציתם לדעת על ארוג ארוך" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        </div>
-        <div class="video-item interactive-card">
-          <div class="video-meta">
-            <span class="video-kicker">טעימה מההדרכה</span>
-            <h3>קשירה בסיסית בארוג ארוך</h3>
-            <p>סרטון שממחיש את האופי המעשי של ההדרכה ואת הדרך שבה אפשר ללמוד צעד צעד בלי לחץ.</p>
-          </div>
-          <iframe width="100%" height="auto" src="https://www.youtube.com/embed/MlP0Z0ENVU4" title="קשירה בסיסית בארוג ארוך" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        </div>
-      </div>
-      <div class="hr"></div>
-      <div id="social" aria-label="עקבו אחרי">
-        <h3 style="text-align:center">מחכה לכן גם ברשת ובשיחה ישירה</h3>
-        <p class="section-intro center-text">אפשר להמשיך להכיר, לצפות בתכנים נוספים, לשאול שאלה קצרה או לעקוב אחרי עוד הדרכה והשראה גם מחוץ לסדנה.</p>
-        <div class="trust-actions" aria-label="אפשרויות בדיקה לפני הרשמה">
-          <a class="trust-action interactive-card" id="whatsapp-trust" href="https://wa.me/972548188793?text=%D7%94%D7%99%D7%99%20%D7%A9%D7%99%D7%A8%D7%9F%2C%20%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%A9%D7%90%D7%9C%D7%94%20%D7%A7%D7%A6%D7%A8%D7%94%20%D7%9C%D7%92%D7%91%D7%99%20%D7%94%D7%A1%D7%93%D7%A0%D7%94%20%3A" target="_blank" rel="noopener" aria-label="שאלי את שירן שאלה קצרה בוואטסאפ">
-            <strong>לשאול בוואטסאפ</strong>
-            <span>אם יש לך שאלה על התאמה, גיל, קצב או מנשא קיים, אפשר לשאול לפני שנרשמות.</span>
-          </a>
-          <a class="trust-action interactive-card" href="https://www.instagram.com/shiran.babywearing/" target="_blank" rel="noopener" aria-label="מעבר לאינסטגרם של שירן">
-            <strong>לעקוב באינסטגרם</strong>
-            <span>להכיר את הקול, הגישה והתכנים של שירן גם בין מפגש למפגש.</span>
-          </a>
-          <a class="trust-action interactive-card" href="https://www.youtube.com/@shiran.babywearing" target="_blank" rel="noopener" aria-label="מעבר לערוץ היוטיוב של שירן">
-            <strong>להעמיק ביוטיוב</strong>
-            <span>לראות עוד תוכן הדרכתי ולבדוק אם הדרך הזו מרגישה בהירה ונעימה לך.</span>
-          </a>
-        </div>
-        <div class="social-links">
-          <a href="https://www.instagram.com/shiran.babywearing/" target="_blank" rel="noopener" aria-label="אינסטגרם">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A5.5 5.5 0 1 1 6.5 13 5.51 5.51 0 0 1 12 7.5zm0 2A3.5 3.5 0 1 0 15.5 13 3.5 3.5 0 0 0 12 9.5zm5.75-3a1.25 1.25 0 1 1-1.25 1.25A1.25 1.25 0 0 1 17.75 6.5z"></path></svg>
-            לאינסטגרם
-          </a>
-          <a href="https://www.youtube.com/@shiran.babywearing" target="_blank" rel="noopener" aria-label="יוטיוב">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3.1 3.1 0 0 0-2.2-2.2C19.3 3.5 12 3.5 12 3.5s-7.3 0-9.3.5A3.1 3.1 0 0 0 .5 6.2 32 32 0 0 0 0 12a32 32 0 0 0 .5 5.8 3.1 3.1 0 0 0 2.2 2.2c2 .5 9.3.5 9.3.5s7.3 0 9.3-.5a3.1 3.1 0 0 0 2.2-2.2A32 32 0 0 0 24 12a32 32 0 0 0-.5-5.8zM9.75 15.5v-7l6 3.5-6 3.5z"></path></svg>
-            ליוטיוב
-          </a>
-        </div>
-        <div class="future-media-note" aria-label="נכסי מדיה עתידיים">
-          <div>
-            <h3>בהמשך יתווספו כאן גם תמונות אמיתיות מהעולם של שירן</h3>
-            <p>כרגע העמוד נשען על התמונה הקיימת, הסרטונים והערוצים הפעילים. כשהחומרים יהיו זמינים, זה המקום המיועד להרחיב את התחושה של המפגש בלי להשתמש בחומרים לא אמיתיים.</p>
-          </div>
-          <div class="placeholder-grid" aria-hidden="true">
-            <div class="placeholder-card">שירן בזמן הדרכה</div>
-            <div class="placeholder-card">תרגול עם הורה ותינוק</div>
-            <div class="placeholder-card">תקריב של הבד והקשירה</div>
-            <div class="placeholder-card">אווירה רגועה של המפגש</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="faq" class="card">
-      <h2>שאלות נפוצות לפני הרשמה</h2>
-      <details>
-        <summary>האם צריך להביא מנשא?</summary>
-        <div class="faq-body">אין צורך, רק אם יש לך ומעוניינת ללמוד עליו. יהיו בסדנה מספיק מנשאים להתנסות וגם לרכישה.</div>
-      </details>
-      <details>
-        <summary>מאיזה גיל אפשר?</summary>
-        <div class="faq-body">אפשר להגיע עם תינוק מגיל חודש.</div>
-      </details>
-      <details>
-        <summary>מה אם כואב לי הגב כשאני נושאת?</summary>
-        <div class="faq-body">מנשא ארוג ארוך נועד במיוחד כדי להתאים את עצמו לגוף שלנו כך שנלמד איך לחלק את המשקל הכי נכון להפחתת עומסים לנשיאה נוחה</div>
-      </details>
-      <details>
-        <summary>אפשר להגיע עם תינוק ישן/רעב?</summary>
-        <div class="faq-body">בטח! הסדנה מותאמת להורות אמיתית - יש מקום להאכלה, החתלה והרגעה.</div>
-      </details>
-    </section>
-
-    <section id="register" class="card register-climax">
-      <div class="grid-2 align-start register-grid">
-        <div class="register-support-panel soft-panel">
-          <p class="section-kicker">הסיום הטבעי של המסלול</p>
-          <h2 id="registerTitle">השאירי פרטים למועד הבא</h2>
-          <p class="section-intro" id="registerIntro">המועד שמופיע כאן כבר עבר. אפשר להשאיר פרטים לרשימת ההמתנה, ושירן תחזור אלייך כשהמועד הבא ייפתח.</p>
-          <div class="state-card" id="registerStateCard" aria-live="polite"><strong>אין כרגע מועד פתוח להרשמה.</strong><br>הפרטים שתשאירי כאן יישמרו לרשימת ההמתנה, ושירן תחזור אלייך לגבי המועד הבא.</div>
-          <div class="next-box compact-box">
+          <div class="detail-grid">
             <div class="kv">
               <span class="k">מועד</span>
-              <span class="v"><strong id="register-date">חמישי, 12 במרץ 2026</strong> • 10:00–12:30</span>
+              <span class="v" id="workshop-slot"><strong>חמישי, 12 במרץ 2026</strong> • 10:00–12:30</span>
             </div>
             <div class="kv">
               <span class="k">מיקום</span>
@@ -422,89 +126,368 @@
             </div>
             <div class="kv">
               <span class="k">עלות</span>
-              <span class="v" id="register-price">280 ₪</span>
+              <span class="v" id="workshop-price">280 ₪</span>
             </div>
           </div>
-          <div class="register-help-list" aria-label="מה קורה אחרי שמשאירות פרטים">
-            <div class="register-help-item">שירן מקבלת את הפרטים שלך ורואה לאיזה מועד את מחכה.</div>
-            <div class="register-help-item">כשהמועד הבא ייפתח, היא תחזור אלייך עם כל הפרטים.</div>
-            <div class="register-help-item">אם יש שאלה קצרה, אפשר לכתוב לה כבר עכשיו בוואטסאפ.</div>
-            <div class="register-help-item">כרגע אין מעבר לתשלום, כי המועד שמופיע בעמוד כבר עבר.</div>
+          <div class="state-inline-note" id="workshopStateNotice" aria-live="polite">המועד הנוכחי כבר עבר. כרגע אפשר להצטרף לרשימת ההמתנה למועד הבא.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="journey" class="journey-section">
+      <div class="container journey-layout">
+        <div class="journey-intro reveal">
+          <p class="section-kicker">מסע ההורות בתוך הדף</p>
+          <h2>ממסך ראשון שנפתח כמו בד, עד רגע שבו הכול מרגיש ברור יותר</h2>
+          <p class="section-intro">זה לא עוד עמוד שמדבר על סדנה. זה מסלול שמדמה את הדרך שהרבה הורים עוברות: רצון לקרבה, בלבול מול הבד, ואז תחנות ברורות של התאמה, תרגול, ביטחון, ונשיאה שנכנסת אל החיים באמת.</p>
+        </div>
+        <div class="journey-track">
+          <div class="journey-pin">
+            <div class="journey-visual-panel">
+              <div class="journey-ribbon-scene" aria-hidden="true">
+                <span class="journey-ribbon-main"></span>
+                <span class="journey-ribbon-shadow"></span>
+                <span class="journey-ribbon-thread"></span>
+              </div>
+              <div class="journey-visual-copy">
+                <span class="journey-visual-kicker">התחושה שמתחלפת לאורך הדרך</span>
+                <strong id="journeyActiveTitle">בלבול</strong>
+                <p id="journeyActiveText">הארוג הארוך נראה יפה ומסקרן, אבל גם כזה שקל ללכת בו לאיבוד.</p>
+              </div>
+            </div>
           </div>
-          <div class="register-support-footer">
-            <a class="btn btn-outline" href="https://wa.me/972548188793?text=%D7%94%D7%99%D7%99%20%D7%A9%D7%99%D7%A8%D7%9F%2C%20%D7%90%D7%A0%D7%99%20%D7%A8%D7%95%D7%A6%D7%94%20%D7%9C%D7%A9%D7%90%D7%95%D7%9C%20%D7%A9%D7%90%D7%9C%D7%94%20%D7%A2%D7%9C%20%D7%94%D7%9E%D7%95%D7%A2%D7%93%20%D7%94%D7%91%D7%90%20%D7%A9%D7%9C%20%D7%94%D7%A1%D7%93%D7%A0%D7%94%20%3A)" id="whatsapp-register-side" target="_blank" rel="noopener" aria-label="שליחת שאלה לשירן לגבי המועד הבא">שאלה קצרה לשירן בוואטסאפ</a>
-            <p class="register-support-note">אם את מתלבטת אם הסדנה מתאימה לך, אפשר להשאיר פרטים בטופס או לכתוב לשירן ולקבל כיוון אישי.</p>
+          <div class="journey-steps">
+            <article class="journey-step card reveal is-active" data-journey-tone="blush">
+              <span class="journey-index">01</span>
+              <h3>בלבול</h3>
+              <p>קנית ארוג ארוך או קיבלת המלצה חמה, אבל בפועל הוא נשאר בצד כי קשה להבין איך מתחילים.</p>
+            </article>
+            <article class="journey-step card reveal" data-journey-tone="sand">
+              <span class="journey-index">02</span>
+              <h3>התאמה</h3>
+              <p>שירן עוזרת לראות איך המנשא פוגש את הגוף שלך, את התינוק שלך ואת היום־יום האמיתי.</p>
+            </article>
+            <article class="journey-step card reveal" data-journey-tone="sage">
+              <span class="journey-index">03</span>
+              <h3>תרגול</h3>
+              <p>לא רק להבין בראש, אלא ממש לנסות, לעצור, לשאול ולדייק יחד את הקשירה עד שהיא מתחילה לשבת נכון.</p>
+            </article>
+            <article class="journey-step card reveal" data-journey-tone="terracotta">
+              <span class="journey-index">04</span>
+              <h3>ביטחון</h3>
+              <p>לאט לאט נבנית תחושה של “אני יודעת מה אני עושה”, בלי לחץ ובלי צורך לזכור עשר הוראות בבת אחת.</p>
+            </article>
+            <article class="journey-step card reveal" data-journey-tone="brown">
+              <span class="journey-index">05</span>
+              <h3>ידיים חופשיות</h3>
+              <p>התינוק נשאר קרוב, הגוף מרגיש יותר נתמך, והיום־יום מקבל קצת יותר שקט ונשימה.</p>
+            </article>
           </div>
         </div>
-        <div class="register-form-shell">
-          <p class="required-note" id="registerRequiredNote">שדות המסומנים ב-<span aria-hidden="true">*</span> הם שדות חובה.</p>
-          <form id="leadForm" aria-describedby="registerRequiredNote registerNote registerStateCard">
-            <div>
-              <label for="name">שם מלא <span class="required-mark" aria-hidden="true">*</span></label>
-              <input id="name" name="name" type="text" placeholder="שם ההורה" autocomplete="name" required>
+      </div>
+    </section>
+
+    <section id="story" class="story-section">
+      <div class="container">
+        <div class="story-grid">
+          <article id="about" class="card reveal magnetic">
+            <p class="section-kicker">למה שירן</p>
+            <h2>שירן עוזרת להפוך סקרנות מעורפלת להבנה שנשארת בגוף</h2>
+            <p>שירן מאור מלווה הורים שרוצות להכיר את הארוג הארוך לעומק, בלי עומס ובלי תחושת “אני אמורה להבין את זה לבד”. הסדנה בנויה כך שאפשר להרגיש, לשאול, להתנסות, ולהבין איך המנשא באמת יכול להפוך לחלק מהיום שלך.</p>
+            <ul class="checks">
+              <li>מנחה: שירן מאור, מדריכת נשיאה ומדריכה להתפתחות תינוקות</li>
+              <li><span id="workshop-duration">כשעתיים וחצי</span> של תרגול, התאמה אישית והסברים ברורים</li>
+              <li><span id="workshop-group-size">עד 5 משתתפות</span> כדי להשאיר מקום לשאלות ולהתאמה אישית</li>
+              <li><span id="workshop-date-value">חמישי, 12 במרץ 2026, מודיעין</span></li>
+            </ul>
+          </article>
+          <article id="experience" class="card reveal magnetic">
+            <p class="section-kicker">מה קורה בסדנה</p>
+            <h2>לא רק להבין קשירה, אלא לחוות איך היא יושבת נכון</h2>
+            <ul class="checks">
+              <li>לומדות את עקרונות הבטיחות של נשיאה בארוג ארוך.</li>
+              <li>מתרגלות קשירה קדמית בסיסית ועוד קשירה מתקדמת יותר.</li>
+              <li>מדייקות התאמה לגוף שלך, לתינוק שלך ולמנשא שכבר יש בבית.</li>
+              <li>יש מקום לעצירות אמיתיות: הנקה, החתלה, הרגעה ושאלות.</li>
+            </ul>
+          </article>
+          <article id="learn" class="card reveal magnetic">
+            <p class="section-kicker">מה יוצא איתך הביתה</p>
+            <h2>בסיס שאפשר לסמוך עליו גם אחרי שהסדנה נגמרת</h2>
+            <div class="split-list">
+              <ul class="checks">
+                <li>עקרונות בטיחות בנשיאה</li>
+                <li>התאמת המנשא לגוף שלך ולתינוק</li>
+                <li>פתרון כאבים שכיחים בגב, כתפיים וירכיים</li>
+                <li>הבנה איך לבחור מנשא שמתאים לך</li>
+              </ul>
+              <ul class="checks">
+                <li>היכרות עם הבד ועם אופן העבודה שלו</li>
+                <li>קשירה קדמית בסיסית ומתקדמת</li>
+                <li>הכנסה והוצאה בטוחה - צעד אחר צעד</li>
+                <li>קבוצת וואטסאפ סגורה להמשך שיתוף והתייעצות</li>
+              </ul>
             </div>
-            <div>
-              <label for="phone">טלפון <span class="required-mark" aria-hidden="true">*</span></label>
-              <input id="phone" name="phone" type="tel" placeholder="05X-XXXXXXX" autocomplete="tel" inputmode="tel" required>
+          </article>
+          <article id="audience" class="card reveal magnetic">
+            <p class="section-kicker">למי זה מתאים</p>
+            <h2>למי שרוצה להרגיש שהארוג הארוך סוף סוף נהיה ברור</h2>
+            <ul class="checks">
+              <li>לאמהות שכבר נושאות במנשאים שונים וארוג ארוך מסקרן אותן.</li>
+              <li>למי שמעוניינת להכיר לעומק את המנשא ששירן כל הזמן מדברת עליו.</li>
+              <li>לתינוקות מעל גיל חודש. מתחת לזה שירן ממליצה על פגישה אישית.</li>
+              <li>למי שרוצה לשאת מתוך ביטחון ולא מתוך ניחוש.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="compare" class="compare-section">
+      <div class="container">
+        <div class="compare-intro reveal">
+          <p class="section-kicker">לפני ואחרי</p>
+          <h2>התחושה הזו שבין “זה יותר מדי מסובך” לבין “רגע, אני באמת יכולה”</h2>
+          <p class="section-intro">בלי הבטחות מוגזמות ובלי סיפורים מומצאים. רק המעבר האמיתי בין התחושה שמגיעה בהתחלה לבין מה שהסדנה נועדה לייצר.</p>
+        </div>
+        <div class="compare-shell reveal">
+          <div class="compare-slider" id="compareSliderShell">
+            <div class="compare-pane compare-pane-back">
+              <span class="compare-label">לפני</span>
+              <h3>הבד מרגיש יפה, אבל עמוס</h3>
+              <ul class="checks">
+                <li>לא בטוחה איך מתחילים</li>
+                <li>חוששת שהתינוק לא יושב נכון</li>
+                <li>מעדיפה לדחות ליום אחר</li>
+              </ul>
             </div>
-            <div class="full">
-              <label for="email">אימייל <span class="required-mark" aria-hidden="true">*</span></label>
-              <input id="email" name="email" type="email" placeholder="example@mail.com" autocomplete="email" inputmode="email" required>
+            <div class="compare-pane compare-pane-front" id="compareFront">
+              <span class="compare-label">אחרי</span>
+              <h3>הקשירה מתחילה לשבת ברור יותר</h3>
+              <ul class="checks">
+                <li>מבינה מה לבדוק בזמן אמת</li>
+                <li>מרגישה יותר תמיכה בגוף</li>
+                <li>יוצאת עם בסיס לתרגול בבית</li>
+              </ul>
             </div>
-            <input type="hidden" name="source" id="source">
-            <div>
-              <label for="region">אזור מגורים <span class="required-mark" aria-hidden="true">*</span></label>
-              <input id="region" name="region" type="text" autocomplete="address-level2" required>
+            <div class="compare-divider" id="compareDivider" aria-hidden="true"></div>
+          </div>
+          <label class="compare-range-wrap" for="compareRange">
+            <span>גררי כדי לראות את המעבר</span>
+            <input id="compareRange" type="range" min="15" max="85" value="54" aria-label="השוואה בין לפני ואחרי הסדנה">
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <div class="success-mask" id="successMask" aria-hidden="true">
+      <div class="success-box" role="status" aria-live="polite">
+        <div id="successMsg">שומרת עבורך מקום…</div>
+        <p id="successBody">רגע קטן ואני בודקת עבורך מה הסטטוס של המועד.</p>
+        <div class="spinner" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <section id="trust" class="trust-section">
+      <div class="container">
+        <div class="trust-grid">
+          <article class="card reveal trust-side magnetic">
+            <p class="section-kicker">לפני הרשמה</p>
+            <h2>אפשר לראות, להרגיש ולבדוק אם הסדנה מדברת אלייך</h2>
+            <p>בלי להמציא הוכחות. יש סרטונים, יש אינסטגרם, יש יוטיוב, ויש גם וואטסאפ אם בא לך לשאול שאלה קצרה לפני שאת משאירה פרטים.</p>
+            <div class="trust-actions">
+              <a class="trust-action magnetic" id="whatsapp-trust" href="https://wa.me/972548188793?text=%D7%94%D7%99%D7%99%20%D7%A9%D7%99%D7%A8%D7%9F%2C%20%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%A9%D7%90%D7%9C%D7%94%20%D7%A7%D7%A6%D7%A8%D7%94%20%D7%9C%D7%92%D7%91%D7%99%20%D7%94%D7%A1%D7%93%D7%A0%D7%94%20%3A" target="_blank" rel="noopener" aria-label="וואטסאפ">שאלה בוואטסאפ</a>
+              <a class="trust-action magnetic" href="https://www.instagram.com/shiran.babywearing/" target="_blank" rel="noopener" aria-label="אינסטגרם">אינסטגרם</a>
+              <a class="trust-action magnetic" href="https://www.youtube.com/@shiran.babywearing" target="_blank" rel="noopener" aria-label="יוטיוב">ערוץ יוטיוב</a>
             </div>
-            <div>
-              <label for="baby_age">גיל התינוק/ת <span class="required-mark" aria-hidden="true">*</span></label>
-              <input id="baby_age" name="baby_age" type="text" required>
+            <ul class="checks">
+              <li>לראות איך שירן מסבירה לפני שמחליטות.</li>
+              <li>להבין אם המפגש מתאים בדיוק לשלב שבו את נמצאת.</li>
+              <li>להגיע עם שאלות ולקבל תחושה אישית כבר מהקשר הראשון.</li>
+            </ul>
+          </article>
+          <div id="videos" class="video-stack">
+            <article class="video-card reveal magnetic">
+              <div class="video-meta">
+                <span class="video-kicker">צפייה לפני הרשמה</span>
+                <h3>כל מה שרציתם לדעת על ארוג ארוך</h3>
+                <p>כדי לשמוע את שירן מסבירה בקצב רגוע ולהרגיש אם הגישה שלה מדברת אלייך.</p>
+              </div>
+              <iframe width="100%" height="auto" src="https://www.youtube.com/embed/0xgnHsZryrs" title="כל מה שרציתם לדעת על ארוג ארוך" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </article>
+            <article class="video-card reveal magnetic">
+              <div class="video-meta">
+                <span class="video-kicker">הצצה לתרגול</span>
+                <h3>קשירה בסיסית בארוג ארוך</h3>
+                <p>להרגיש איך ההסבר נראה בפועל, ואיך הבלבול מתחיל להתחלף בהבנה מעשית.</p>
+              </div>
+              <iframe width="100%" height="auto" src="https://www.youtube.com/embed/MlP0Z0ENVU4" title="קשירה בסיסית בארוג ארוך" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="faq-section">
+      <div class="container">
+        <div class="faq-header reveal">
+          <p class="section-kicker">שאלות נפוצות</p>
+          <h2>שאלות שחוזרות רגע לפני שמחליטות</h2>
+        </div>
+        <div class="faq-grid">
+          <details class="reveal magnetic">
+            <summary>האם צריך להביא מנשא?</summary>
+            <p>אם כבר יש לך ארוג ארוך - בהחלט כדאי להביא. אם אין, דברי עם שירן מראש כדי לבדוק מה הכי נכון לעשות.</p>
+          </details>
+          <details class="reveal magnetic">
+            <summary>מאיזה גיל אפשר?</summary>
+            <p>הסדנה מתאימה לתינוקות מעל גיל חודש. לתינוקות צעירים יותר שירן ממליצה על פגישה אישית.</p>
+          </details>
+          <details class="reveal magnetic">
+            <summary>מה אם כואב לי הגב כשאני נושאת?</summary>
+            <p>בדיוק בשביל זה לומדים התאמה נכונה והידוק מדויק יותר. חלק משמעותי מהסדנה עוסק בנוחות ובחלוקת משקל.</p>
+          </details>
+          <details class="reveal magnetic">
+            <summary>אפשר להגיע עם תינוק ישן או רעב?</summary>
+            <p>כן. זו סדנה שנבנית סביב הורות אמיתית, עם מקום לעצירות לפי הצורך.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section id="register" class="register-climax">
+      <div class="container register-layout">
+        <div class="register-shell">
+          <div class="register-copy card reveal">
+            <p class="section-kicker">הסיום של המסע</p>
+            <h2 id="registerTitle">השאירי פרטים למועד הבא</h2>
+            <p class="section-intro" id="registerIntro">המועד שמופיע כאן כבר עבר. אפשר להשאיר פרטים לרשימת ההמתנה, ושירן תחזור אלייך כשהמועד הבא ייפתח.</p>
+            <div class="state-card" id="registerStateCard" aria-live="polite"><strong>אין כרגע מועד פתוח להרשמה.</strong><br>הפרטים שתשאירי כאן יישמרו לרשימת ההמתנה, ושירן תחזור אלייך לגבי המועד הבא.</div>
+            <div class="register-summary">
+              <div class="kv">
+                <span class="k">מועד</span>
+                <span class="v"><strong id="register-date">חמישי, 12 במרץ 2026</strong> • 10:00–12:30</span>
+              </div>
+              <div class="kv">
+                <span class="k">מיקום</span>
+                <span class="v">מודיעין (הכתובת תישלח לאחר הרשמה)</span>
+              </div>
+              <div class="kv">
+                <span class="k">עלות</span>
+                <span class="v" id="register-price">280 ₪</span>
+              </div>
             </div>
-            <div class="full">
-              <label for="carriers">באילו מנשאים את משתמשת כיום? <span class="required-mark" aria-hidden="true">*</span></label>
-              <input id="carriers" name="carriers" type="text" required>
+            <div class="register-help-list" aria-label="מה קורה אחרי שמשאירות פרטים">
+              <div class="register-help-item">שירן מקבלת את הפרטים שלך ורואה לאיזה מועד את מחכה.</div>
+              <div class="register-help-item">כשהמועד הבא ייפתח, היא תחזור אלייך עם כל הפרטים.</div>
+              <div class="register-help-item">אם יש שאלה קצרה, אפשר לכתוב לה כבר עכשיו בוואטסאפ.</div>
+              <div class="register-help-item">כרגע אין מעבר לתשלום, כי המועד שמופיע בעמוד כבר עבר.</div>
             </div>
-            <div class="full">
-              <label for="message">הודעה</label>
-              <textarea id="message" name="message" placeholder="דברים שחשוב לך שאדע..."></textarea>
+            <div class="register-support-footer">
+              <a class="btn btn-ghost magnetic" href="https://wa.me/972548188793?text=%D7%94%D7%99%D7%99%20%D7%A9%D7%99%D7%A8%D7%9F%2C%20%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%A9%D7%90%D7%9C%D7%94%20%D7%A7%D7%A6%D7%A8%D7%94%20%D7%9C%D7%92%D7%91%D7%99%20%D7%94%D7%A1%D7%93%D7%A0%D7%94%20%3A" id="whatsapp-register-side" target="_blank" rel="noopener" aria-label="שליחת שאלה לשירן לגבי המועד הבא">שאלה קצרה לשירן בוואטסאפ</a>
+              <p class="register-support-note">אם את מתלבטת אם הסדנה מתאימה לך, אפשר להשאיר פרטים בטופס או לכתוב לשירן ולקבל כיוון אישי.</p>
             </div>
-            <div class="full" style="display:flex;gap:10px;flex-wrap:wrap">
-              <button type="submit" class="btn btn-primary" id="registerSubmitButton" aria-label="שליחת הפרטים להצטרפות לרשימת ההמתנה"><span id="submitButtonText">שלחי והצטרפי לרשימת ההמתנה</span></button>
-              <a class="btn btn-outline" href="https://wa.me/972548188793?text=%D7%94%D7%99%D7%99%20%D7%A9%D7%99%D7%A8%D7%9F%2C%20%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%A9%D7%90%D7%9C%D7%94%20%D7%A7%D7%A6%D7%A8%D7%94%20%D7%9C%D7%92%D7%91%D7%99%20%D7%94%D7%A1%D7%93%D7%A0%D7%94%20%3A" id="whatsapp-register" target="_blank" rel="noopener" aria-label="שאלי את שירן שאלה על המועד הבא">יש לי שאלה על המועד הבא</a>
-            </div>
-            <div class="note" id="registerNote">לאחר השליחה לא תועברי לתשלום. שירן תחזור אלייך לגבי המועד הבא.</div>
-          </form>
+          </div>
+
+          <div class="register-form-shell reveal">
+            <div class="register-form-aura" aria-hidden="true"></div>
+            <p class="required-note" id="registerRequiredNote">שדות המסומנים ב-<span aria-hidden="true">*</span> הם שדות חובה.</p>
+            <form id="leadForm" aria-describedby="registerRequiredNote registerNote registerStateCard">
+              <div>
+                <label for="name">שם מלא <span class="required-mark" aria-hidden="true">*</span></label>
+                <input id="name" name="name" type="text" placeholder="שם ההורה" autocomplete="name" required>
+              </div>
+              <div>
+                <label for="phone">טלפון <span class="required-mark" aria-hidden="true">*</span></label>
+                <input id="phone" name="phone" type="tel" placeholder="05X-XXXXXXX" autocomplete="tel" inputmode="tel" required>
+              </div>
+              <div class="full">
+                <label for="email">אימייל <span class="required-mark" aria-hidden="true">*</span></label>
+                <input id="email" name="email" type="email" placeholder="example@mail.com" autocomplete="email" inputmode="email" required>
+              </div>
+              <input type="hidden" name="source" id="source">
+              <div>
+                <label for="region">אזור מגורים <span class="required-mark" aria-hidden="true">*</span></label>
+                <input id="region" name="region" type="text" autocomplete="address-level2" required>
+              </div>
+              <div>
+                <label for="baby_age">גיל התינוק/ת <span class="required-mark" aria-hidden="true">*</span></label>
+                <input id="baby_age" name="baby_age" type="text" required>
+              </div>
+              <div class="full">
+                <label for="carriers">באילו מנשאים את משתמשת כיום? <span class="required-mark" aria-hidden="true">*</span></label>
+                <input id="carriers" name="carriers" type="text" required>
+              </div>
+              <div class="full">
+                <label for="message">הודעה</label>
+                <textarea id="message" name="message" placeholder="דברים שחשוב לך ששירן תדע..."></textarea>
+              </div>
+              <div class="full action-row">
+                <button type="submit" class="btn btn-primary magnetic" id="registerSubmitButton" aria-label="שליחת הפרטים להצטרפות לרשימת ההמתנה"><span id="submitButtonText">שלחי והצטרפי לרשימת ההמתנה</span></button>
+                <a class="btn btn-outline magnetic" href="https://wa.me/972548188793?text=%D7%94%D7%99%D7%99%20%D7%A9%D7%99%D7%A8%D7%9F%2C%20%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%A9%D7%90%D7%9C%D7%94%20%D7%A7%D7%A6%D7%A8%D7%94%20%D7%9C%D7%92%D7%91%D7%99%20%D7%94%D7%A1%D7%93%D7%A0%D7%94%20%3A" id="whatsapp-register" target="_blank" rel="noopener" aria-label="שאלי את שירן שאלה על המועד הבא">יש לי שאלה על המועד הבא</a>
+              </div>
+              <div class="note" id="registerNote">לאחר השליחה לא תועברי לתשלום. שירן תחזור אלייך לגבי המועד הבא.</div>
+            </form>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
-  <footer>
-    <div class="container">
-      <p><strong>שירן – סדנת נשיאת תינוקות</strong></p>
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <p><strong>שירן – סדנת נשיאת תינוקות</strong></p>
+        <p class="footer-text">מפגש קטן, רגוע, מעשי, עם מקום לשאלות, תרגול והתאמה אישית.</p>
+      </div>
       <div class="footer-links">
         <a id="whatsapp-footer" href="https://wa.me/972548188793?text=%D7%94%D7%99%D7%99%20%D7%A9%D7%99%D7%A8%D7%9F%2C%20%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%A9%D7%90%D7%9C%D7%94%20%D7%A7%D7%A6%D7%A8%D7%94%20%D7%9C%D7%92%D7%91%D7%99%20%D7%94%D7%A1%D7%93%D7%A0%D7%94%20%3A" target="_blank" rel="noopener" aria-label="שליחת הודעת וואטסאפ לשירן">וואטסאפ</a>
-        <a id="tel-link" href="tel:0548188793" aria-label="חיוג לשירן 054-8188793">טלפון: 054-8188793</a>
+        <a id="tel-link" href="tel:0548188793" aria-label="חיוג לשירן 054-8188793">054-8188793</a>
         <a id="mail-link" href="mailto:shiranmaor.k@gmail.com" aria-label="שליחת אימייל לשירן">shiranmaor.k@gmail.com</a>
       </div>
-      <div style="opacity:.85;margin-top:8px;font-size:13px">© כל הזכויות שמורות • שירן מאור</div>
+      <div class="footer-meta">© כל הזכויות שמורות • שירן מאור</div>
     </div>
   </footer>
 
   <script type="application/ld+json">
   {
-    "@context":"https://schema.org",
-    "@type":"Course",
-    "name":"סדנת נשיאת תינוקות עם שירן",
-    "description":"סדנה מעשית לבחירה, כיוונון ונשיאת תינוקות בבטחה, בהנחיית שירן.",
-    "provider":{"@type":"Person","name":"שירן"},
-    "inLanguage":"he"
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": "סדנת בסיס בארוג ארוך",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "startDate": "2026-03-12T10:00:00+02:00",
+    "endDate": "2026-03-12T12:30:00+02:00",
+    "location": {
+      "@type": "Place",
+      "name": "מודיעין"
+    },
+    "image": [
+      "https://shiranmaor.github.io/arug_aroch_basis/assets/images/header.jpeg"
+    ],
+    "description": "סדנת בסיס בארוג ארוך עם שירן מאור. מפגש קטן ומעשי ללימוד נשיאה בטוחה, תרגול, התאמה אישית ופרטים להצטרפות לרשימת ההמתנה למועד הבא.",
+    "performer": {
+      "@type": "Person",
+      "name": "שירן מאור"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "280",
+      "priceCurrency": "ILS",
+      "availability": "https://schema.org/PreOrder",
+      "url": "https://shiranmaor.github.io/arug_aroch_basis/#register"
+    }
   }
   </script>
-  <script src="src/js/config.js"></script>
+
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.min.js"></script>
+  <script src="src/js/config.js"></script>
   <script src="src/js/main.js"></script>
+  <script src="src/js/immersive.js"></script>
+  <script src="src/js/three-fabric.js"></script>
   <script src="src/js/registration.js"></script>
   <script src="src/js/admin-edit.js"></script>
 </body>
