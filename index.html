@@ -30,6 +30,8 @@
 </head>
 <body>
   <a class="skip-link" href="#site-content">דלגי לתוכן</a>
+  <div class="cursor-aura" id="cursorAura" aria-hidden="true"></div>
+  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
 
   <div class="ambient-layer ambient-layer-a" aria-hidden="true"></div>
   <div class="ambient-layer ambient-layer-b" aria-hidden="true"></div>
@@ -82,7 +84,7 @@
           </div>
 
           <div class="hero-visual reveal">
-            <div class="hero-depth-card floating-card card-photo" data-depth="0.14">
+            <div class="hero-depth-card floating-card card-photo tilt-card glass-hover" data-depth="0.14">
               <div class="hero-card-glow" aria-hidden="true"></div>
               <figure class="hero-figure">
                 <img class="hero-img" src="assets/images/header.jpeg" alt="שירן עם תינוק במנשא ארוג" width="1116" height="1634" fetchpriority="high" decoding="async">
@@ -92,12 +94,12 @@
                 </figcaption>
               </figure>
             </div>
-            <div class="hero-depth-card card-mini card-mini-top magnetic" data-depth="-0.08">
+            <div class="hero-depth-card card-mini card-mini-top glass-hover tilt-card" data-depth="-0.08">
               <span class="mini-kicker">התחלה</span>
               <strong>בלבול</strong>
               <p>הבד נראה יפה, אבל קשה לדמיין איך הוא הופך למשהו נוח ובטוח.</p>
             </div>
-            <div class="hero-depth-card card-mini card-mini-bottom magnetic" data-depth="0.12">
+            <div class="hero-depth-card card-mini card-mini-bottom glass-hover tilt-card" data-depth="0.12">
               <span class="mini-kicker">סיום</span>
               <strong>ידיים חופשיות</strong>
               <p>הגוף נרגע, התינוק קרוב, ואת כבר יודעת מה לעשות גם בבית.</p>
@@ -157,27 +159,31 @@
             </div>
           </div>
           <div class="journey-steps">
-            <article class="journey-step card reveal is-active" data-journey-tone="blush">
+            <div class="journey-progress" aria-hidden="true">
+              <span class="journey-progress-track"></span>
+              <span class="journey-progress-marker" id="journeyProgressMarker"></span>
+            </div>
+            <article class="journey-step card reveal is-active glass-hover tilt-card" data-journey-tone="blush">
               <span class="journey-index">01</span>
               <h3>בלבול</h3>
               <p>קנית ארוג ארוך או קיבלת המלצה חמה, אבל בפועל הוא נשאר בצד כי קשה להבין איך מתחילים.</p>
             </article>
-            <article class="journey-step card reveal" data-journey-tone="sand">
+            <article class="journey-step card reveal glass-hover tilt-card" data-journey-tone="sand">
               <span class="journey-index">02</span>
               <h3>התאמה</h3>
               <p>שירן עוזרת לראות איך המנשא פוגש את הגוף שלך, את התינוק שלך ואת היום־יום האמיתי.</p>
             </article>
-            <article class="journey-step card reveal" data-journey-tone="sage">
+            <article class="journey-step card reveal glass-hover tilt-card" data-journey-tone="sage">
               <span class="journey-index">03</span>
               <h3>תרגול</h3>
               <p>לא רק להבין בראש, אלא ממש לנסות, לעצור, לשאול ולדייק יחד את הקשירה עד שהיא מתחילה לשבת נכון.</p>
             </article>
-            <article class="journey-step card reveal" data-journey-tone="terracotta">
+            <article class="journey-step card reveal glass-hover tilt-card" data-journey-tone="terracotta">
               <span class="journey-index">04</span>
               <h3>ביטחון</h3>
               <p>לאט לאט נבנית תחושה של “אני יודעת מה אני עושה”, בלי לחץ ובלי צורך לזכור עשר הוראות בבת אחת.</p>
             </article>
-            <article class="journey-step card reveal" data-journey-tone="brown">
+            <article class="journey-step card reveal glass-hover tilt-card" data-journey-tone="brown">
               <span class="journey-index">05</span>
               <h3>ידיים חופשיות</h3>
               <p>התינוק נשאר קרוב, הגוף מרגיש יותר נתמך, והיום־יום מקבל קצת יותר שקט ונשימה.</p>
@@ -190,7 +196,7 @@
     <section id="story" class="story-section">
       <div class="container">
         <div class="story-grid">
-          <article id="about" class="card reveal magnetic">
+          <article id="about" class="card reveal glass-hover tilt-card">
             <p class="section-kicker">למה שירן</p>
             <h2>שירן עוזרת להפוך סקרנות מעורפלת להבנה שנשארת בגוף</h2>
             <p>שירן מאור מלווה הורים שרוצות להכיר את הארוג הארוך לעומק, בלי עומס ובלי תחושת “אני אמורה להבין את זה לבד”. הסדנה בנויה כך שאפשר להרגיש, לשאול, להתנסות, ולהבין איך המנשא באמת יכול להפוך לחלק מהיום שלך.</p>
@@ -201,7 +207,7 @@
               <li><span id="workshop-date-value">חמישי, 12 במרץ 2026, מודיעין</span></li>
             </ul>
           </article>
-          <article id="experience" class="card reveal magnetic">
+          <article id="experience" class="card reveal glass-hover tilt-card">
             <p class="section-kicker">מה קורה בסדנה</p>
             <h2>לא רק להבין קשירה, אלא לחוות איך היא יושבת נכון</h2>
             <ul class="checks">
@@ -211,7 +217,7 @@
               <li>יש מקום לעצירות אמיתיות: הנקה, החתלה, הרגעה ושאלות.</li>
             </ul>
           </article>
-          <article id="learn" class="card reveal magnetic">
+          <article id="learn" class="card reveal glass-hover tilt-card">
             <p class="section-kicker">מה יוצא איתך הביתה</p>
             <h2>בסיס שאפשר לסמוך עליו גם אחרי שהסדנה נגמרת</h2>
             <div class="split-list">
@@ -229,7 +235,7 @@
               </ul>
             </div>
           </article>
-          <article id="audience" class="card reveal magnetic">
+          <article id="audience" class="card reveal glass-hover tilt-card">
             <p class="section-kicker">למי זה מתאים</p>
             <h2>למי שרוצה להרגיש שהארוג הארוך סוף סוף נהיה ברור</h2>
             <ul class="checks">
@@ -251,7 +257,7 @@
           <p class="section-intro">בלי הבטחות מוגזמות ובלי סיפורים מומצאים. רק המעבר האמיתי בין התחושה שמגיעה בהתחלה לבין מה שהסדנה נועדה לייצר.</p>
         </div>
         <div class="compare-shell reveal">
-          <div class="compare-slider" id="compareSliderShell">
+          <div class="compare-slider glass-hover tilt-card" id="compareSliderShell">
             <div class="compare-pane compare-pane-back">
               <span class="compare-label">לפני</span>
               <h3>הבד מרגיש יפה, אבל עמוס</h3>
@@ -271,6 +277,8 @@
               </ul>
             </div>
             <div class="compare-divider" id="compareDivider" aria-hidden="true"></div>
+            <div class="compare-float-label compare-float-label-back" id="compareBeforeLabel">בלבול</div>
+            <div class="compare-float-label compare-float-label-front" id="compareAfterLabel">בהירות</div>
           </div>
           <label class="compare-range-wrap" for="compareRange">
             <span>גררי כדי לראות את המעבר</span>
@@ -291,7 +299,7 @@
     <section id="trust" class="trust-section">
       <div class="container">
         <div class="trust-grid">
-          <article class="card reveal trust-side magnetic">
+          <article class="card reveal trust-side glass-hover tilt-card">
             <p class="section-kicker">לפני הרשמה</p>
             <h2>אפשר לראות, להרגיש ולבדוק אם הסדנה מדברת אלייך</h2>
             <p>בלי להמציא הוכחות. יש סרטונים, יש אינסטגרם, יש יוטיוב, ויש גם וואטסאפ אם בא לך לשאול שאלה קצרה לפני שאת משאירה פרטים.</p>
@@ -307,7 +315,7 @@
             </ul>
           </article>
           <div id="videos" class="video-stack">
-            <article class="video-card reveal magnetic">
+            <article class="video-card card reveal glass-hover tilt-card">
               <div class="video-meta">
                 <span class="video-kicker">צפייה לפני הרשמה</span>
                 <h3>כל מה שרציתם לדעת על ארוג ארוך</h3>
@@ -315,7 +323,7 @@
               </div>
               <iframe width="100%" height="auto" src="https://www.youtube.com/embed/0xgnHsZryrs" title="כל מה שרציתם לדעת על ארוג ארוך" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             </article>
-            <article class="video-card reveal magnetic">
+            <article class="video-card card reveal glass-hover tilt-card">
               <div class="video-meta">
                 <span class="video-kicker">הצצה לתרגול</span>
                 <h3>קשירה בסיסית בארוג ארוך</h3>
@@ -389,7 +397,7 @@
             </div>
           </div>
 
-          <div class="register-form-shell reveal">
+          <div class="register-form-shell reveal glass-hover tilt-card">
             <div class="register-form-aura" aria-hidden="true"></div>
             <p class="required-note" id="registerRequiredNote">שדות המסומנים ב-<span aria-hidden="true">*</span> הם שדות חובה.</p>
             <form id="leadForm" aria-describedby="registerRequiredNote registerNote registerStateCard">

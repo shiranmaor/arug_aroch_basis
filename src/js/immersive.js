@@ -1,4 +1,10 @@
 (function () {
+  const runtime = {
+    pointerX: 0,
+    pointerY: 0,
+    pointerActive: false
+  };
+
   function prefersReducedMotion() {
     return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   }
@@ -30,7 +36,7 @@
   }
 
   function initMagneticButtons() {
-    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    if (prefersReducedMotion() || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
       return;
     }
 
@@ -39,12 +45,94 @@
         const rect = node.getBoundingClientRect();
         const x = event.clientX - rect.left - rect.width / 2;
         const y = event.clientY - rect.top - rect.height / 2;
-        node.style.transform = "translate(" + (x * 0.06).toFixed(2) + "px," + (y * 0.06).toFixed(2) + "px)";
+        node.style.transform = "translate(" + (x * 0.055).toFixed(2) + "px," + (y * 0.055).toFixed(2) + "px)";
+        node.style.boxShadow = "0 28px 48px rgba(54,34,29,.18)";
       });
       node.addEventListener("pointerleave", function () {
         node.style.transform = "";
+        node.style.boxShadow = "";
       });
     });
+  }
+
+  function initTiltCards() {
+    if (prefersReducedMotion() || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+      return;
+    }
+
+    document.querySelectorAll(".tilt-card").forEach(function (card) {
+      card.addEventListener("pointermove", function (event) {
+        const rect = card.getBoundingClientRect();
+        const px = (event.clientX - rect.left) / rect.width - 0.5;
+        const py = (event.clientY - rect.top) / rect.height - 0.5;
+        const rotateY = px * -10;
+        const rotateX = py * 8;
+        card.style.transform = "perspective(1400px) rotateX(" + rotateX.toFixed(2) + "deg) rotateY(" + rotateY.toFixed(2) + "deg) translateY(-4px)";
+        card.classList.add("tilt-active");
+      });
+      card.addEventListener("pointerleave", function () {
+        card.style.transform = "";
+        card.classList.remove("tilt-active");
+      });
+    });
+  }
+
+  function initCursorAura() {
+    const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    if (prefersReducedMotion() || !finePointer) {
+      return;
+    }
+
+    const aura = document.getElementById("cursorAura");
+    const dot = document.getElementById("cursorDot");
+    if (!aura || !dot) {
+      return;
+    }
+
+    let auraX = window.innerWidth / 2;
+    let auraY = window.innerHeight / 2;
+    let dotX = auraX;
+    let dotY = auraY;
+    let mouseX = auraX;
+    let mouseY = auraY;
+
+    document.body.classList.add("cursor-active");
+
+    function tick() {
+      auraX += (mouseX - auraX) * 0.18;
+      auraY += (mouseY - auraY) * 0.18;
+      dotX += (mouseX - dotX) * 0.34;
+      dotY += (mouseY - dotY) * 0.34;
+      aura.style.transform = "translate3d(" + auraX.toFixed(2) + "px," + auraY.toFixed(2) + "px,0)";
+      dot.style.transform = "translate3d(" + dotX.toFixed(2) + "px," + dotY.toFixed(2) + "px,0)";
+      requestAnimationFrame(tick);
+    }
+
+    document.addEventListener("pointermove", function (event) {
+      mouseX = event.clientX;
+      mouseY = event.clientY;
+      runtime.pointerX = event.clientX / window.innerWidth * 2 - 1;
+      runtime.pointerY = event.clientY / window.innerHeight * 2 - 1;
+      runtime.pointerActive = true;
+      document.body.classList.add("cursor-visible");
+    }, { passive: true });
+
+    document.addEventListener("pointerleave", function () {
+      runtime.pointerActive = false;
+      document.body.classList.remove("cursor-visible", "cursor-hover", "cursor-cta");
+    });
+
+    document.querySelectorAll("a, button, input, textarea, summary, .magnetic, .tilt-card").forEach(function (node) {
+      node.addEventListener("pointerenter", function () {
+        document.body.classList.add("cursor-hover");
+        document.body.classList.toggle("cursor-cta", node.classList.contains("btn") || node.classList.contains("trust-action"));
+      });
+      node.addEventListener("pointerleave", function () {
+        document.body.classList.remove("cursor-hover", "cursor-cta");
+      });
+    });
+
+    requestAnimationFrame(tick);
   }
 
   function initDepthParallax() {
@@ -80,7 +168,10 @@
     const input = document.getElementById("compareRange");
     const front = document.getElementById("compareFront");
     const divider = document.getElementById("compareDivider");
-    if (!input || !front || !divider) {
+    const shell = document.getElementById("compareSliderShell");
+    const beforeLabel = document.getElementById("compareBeforeLabel");
+    const afterLabel = document.getElementById("compareAfterLabel");
+    if (!input || !front || !divider || !shell) {
       return;
     }
 
@@ -89,10 +180,20 @@
       const right = 100 - value;
       front.style.clipPath = "inset(0 " + right + "% 0 0)";
       divider.style.right = right + "%";
+      if (beforeLabel) {
+        beforeLabel.style.transform = "translateX(" + (Math.max(0, (50 - value) * 0.3)).toFixed(2) + "px)";
+        beforeLabel.style.opacity = value > 68 ? "0.55" : "1";
+      }
+      if (afterLabel) {
+        afterLabel.style.transform = "translateX(" + (Math.min(0, (50 - value) * 0.3)).toFixed(2) + "px)";
+        afterLabel.style.opacity = value < 32 ? "0.55" : "1";
+      }
+      shell.style.boxShadow = "0 36px 86px rgba(54,34,29,.18)";
     }
 
     update();
     input.addEventListener("input", update);
+    input.addEventListener("change", update);
   }
 
   function initGsapMotion() {
@@ -180,6 +281,7 @@
     const activeText = document.getElementById("journeyActiveText");
     const journeySection = document.getElementById("journey");
     const journeyRibbon = document.querySelector(".journey-ribbon-main");
+    const progressMarker = document.getElementById("journeyProgressMarker");
 
     function activateStep(step) {
       journeySteps.forEach(function (item) {
@@ -193,6 +295,11 @@
       }
       if (journeySection) {
         journeySection.dataset.journeyTone = step.dataset.journeyTone || "";
+      }
+      if (progressMarker) {
+        const stepsWrap = step.parentElement;
+        const top = step.offsetTop - (stepsWrap ? stepsWrap.scrollTop : 0);
+        progressMarker.style.transform = "translateY(" + Math.max(0, top).toFixed(2) + "px)";
       }
     }
 
@@ -260,9 +367,12 @@
   }
 
   window.addEventListener("DOMContentLoaded", function () {
+    window.IMMERSIVE_POINTER = runtime;
     window.lenis = initLenis();
     markRevealItems();
+    initCursorAura();
     initMagneticButtons();
+    initTiltCards();
     initDepthParallax();
     initCompareSlider();
     initGsapMotion();

@@ -46,6 +46,13 @@
   will-change:transform;
 }
 
+.magnetic,
+.tilt-card,
+.compare-slider,
+.register-form-shell{
+  transform-style:preserve-3d;
+}
+
 .state-pill,
 .state-inline-note,
 .state-card,
@@ -178,6 +185,15 @@ textarea{
   text-align:center;
 }
 
+.glass-hover{
+  transition:
+    transform var(--motion-fast) ease,
+    box-shadow var(--motion-fast) ease,
+    background var(--motion-fast) ease,
+    border-color var(--motion-fast) ease,
+    backdrop-filter var(--motion-fast) ease;
+}
+
 .video-card iframe{
   display:block;
   width:100%;
@@ -262,9 +278,18 @@ details p{
 details:hover,
 details:focus-within,
 .card:hover,
-.card:focus-within{
+.card:focus-within,
+.glass-hover:hover,
+.glass-hover:focus-within{
   transform:translateY(-2px);
   box-shadow:0 24px 44px rgba(54,34,29,.12);
+}
+
+.tilt-active{
+  box-shadow:0 36px 62px rgba(54,34,29,.18)!important;
+  border-color:rgba(178,112,88,.22)!important;
+  background:rgba(255,255,255,.72)!important;
+  backdrop-filter:blur(18px);
 }
 
 input:focus-visible,

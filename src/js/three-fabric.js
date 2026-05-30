@@ -124,21 +124,34 @@
     function render(time) {
       const t = time * 0.001;
       updateProgress();
+      const externalPointer = window.IMMERSIVE_POINTER || {};
+      const px = typeof externalPointer.pointerX === "number" ? externalPointer.pointerX : pointer.x;
+      const py = typeof externalPointer.pointerY === "number" ? externalPointer.pointerY : pointer.y;
+      const active = externalPointer.pointerActive === true;
+
+      point.position.x = 4 + px * 2.8;
+      point.position.y = 5 - py * 1.8;
+      rim.position.x = -6 - px * 1.6;
+      rim.position.y = -2 + py * 1.2;
 
       groups.forEach(function (entry, index) {
         const attr = entry.mesh.geometry.attributes.position;
         const array = attr.array;
+        const pointerInfluence = (active ? 1 : 0.55) * (1 + Math.abs(px) * 0.16);
 
         for (let i = 0; i < array.length; i += 3) {
           const x = entry.base[i];
           const y = entry.base[i + 1];
-          array[i + 2] = Math.sin(x * 0.8 + t * entry.speed + index) * entry.amplitude
-            + Math.cos(y * 1.2 + t * entry.speed * 1.1) * entry.noise;
+          array[i + 2] = (Math.sin(x * 0.8 + t * entry.speed + index) * entry.amplitude
+            + Math.cos(y * 1.2 + t * entry.speed * 1.1) * entry.noise) * pointerInfluence
+            + px * 0.18
+            + py * 0.08;
         }
 
         attr.needsUpdate = true;
-        entry.mesh.rotation.x = pointer.y * 0.12 + scrollState.progress * 0.18;
-        entry.mesh.rotation.y = pointer.x * 0.12 - scrollState.progress * 0.08;
+        entry.mesh.rotation.x = py * -0.12 + scrollState.progress * 0.18;
+        entry.mesh.rotation.y = px * 0.12 - scrollState.progress * 0.08;
+        entry.mesh.position.x = (index - 1) * 0.4 + px * 0.16;
         entry.mesh.position.y += Math.sin(t * (0.45 + index * 0.12)) * 0.0018;
       });
 
