@@ -88,6 +88,9 @@
       return;
     }
 
+    const cloth = fabric.querySelector(".cursor-wrap-fabric__cloth");
+    const fold = fabric.querySelector(".cursor-wrap-fabric__fold");
+    const tail = fabric.querySelector(".cursor-wrap-fabric__tail");
     let x = window.innerWidth / 2;
     let y = window.innerHeight / 2;
     let currentX = x;
@@ -97,34 +100,56 @@
     let angle = 0;
     let stretch = 1;
     let wave = 0;
+    let flutter = 0;
+    let flutterPhase = 0;
+    let lift = 0;
 
     function tick() {
       const dx = x - currentX;
       const dy = y - currentY;
-      currentX += dx * 0.16;
-      currentY += dy * 0.16;
-      velocityX = velocityX * 0.78 + dx * 0.16;
-      velocityY = velocityY * 0.78 + dy * 0.16;
+      currentX += dx * 0.145;
+      currentY += dy * 0.145;
+      velocityX = velocityX * 0.82 + dx * 0.14;
+      velocityY = velocityY * 0.82 + dy * 0.14;
 
-      const speed = Math.min(Math.hypot(velocityX, velocityY), 26);
+      const speed = Math.min(Math.hypot(velocityX, velocityY), 32);
       const targetAngle = Math.atan2(velocityY, velocityX) * 180 / Math.PI;
-      angle += (targetAngle - angle) * 0.14;
-      stretch += (((1 + speed * 0.012) - stretch) * 0.18);
-      wave += ((Math.sin(performance.now() * 0.012) * Math.min(speed * 0.07, 0.9)) - wave) * 0.16;
+      angle += (targetAngle - angle) * 0.12;
+      stretch += (((1 + speed * 0.018) - stretch) * 0.16);
+      flutterPhase += 0.14 + speed * 0.018;
+      flutter += ((speed * 0.42) - flutter) * 0.12;
+      wave += (((Math.sin(flutterPhase) * flutter * 0.7) + (Math.cos(flutterPhase * 0.55) * flutter * 0.28)) - wave) * 0.16;
+      lift += (((Math.sin(flutterPhase * 0.62) * Math.min(speed * 0.12, 2.2))) - lift) * 0.12;
 
-      const offsetX = 18;
-      const offsetY = -12;
+      const offsetX = 22;
+      const offsetY = -10;
       const translateX = currentX + offsetX;
       const translateY = currentY + offsetY;
-      const rotate = Math.max(-26, Math.min(26, angle * 0.32));
-      const scaleX = Math.max(0.92, Math.min(1.24, stretch));
-      const scaleY = Math.max(0.9, Math.min(1.08, 1 - speed * 0.004));
+      const rotate = Math.max(-34, Math.min(34, angle * 0.42));
+      const scaleX = Math.max(0.96, Math.min(1.34, stretch));
+      const scaleY = Math.max(0.88, Math.min(1.06, 1 - speed * 0.005));
+      const tailWave = Math.max(-16, Math.min(16, wave * 1.8));
+      const clothWave = Math.max(-9, Math.min(9, wave * 0.9));
+      const fabricLift = Math.max(-8, Math.min(8, lift));
 
       fabric.style.transform =
         "translate3d(" + translateX.toFixed(2) + "px," + translateY.toFixed(2) + "px,0) " +
         "rotate(" + rotate.toFixed(2) + "deg) " +
-        "skewX(" + wave.toFixed(2) + "deg) " +
+        "skewX(" + (clothWave * 0.35).toFixed(2) + "deg) " +
         "scale(" + scaleX.toFixed(3) + "," + scaleY.toFixed(3) + ")";
+      fabric.style.setProperty("--fabric-wave", clothWave.toFixed(2) + "deg");
+      fabric.style.setProperty("--fabric-tail-wave", tailWave.toFixed(2) + "deg");
+      fabric.style.setProperty("--fabric-lift", fabricLift.toFixed(2) + "deg");
+      fabric.style.setProperty("--fabric-glow", Math.min(speed / 18, 1).toFixed(3));
+      if (cloth) {
+        cloth.style.opacity = (0.86 + Math.min(speed * 0.008, 0.1)).toFixed(3);
+      }
+      if (fold) {
+        fold.style.opacity = (0.84 + Math.min(speed * 0.005, 0.08)).toFixed(3);
+      }
+      if (tail) {
+        tail.style.opacity = (0.58 + Math.min(speed * 0.012, 0.18)).toFixed(3);
+      }
       requestAnimationFrame(tick);
     }
 
