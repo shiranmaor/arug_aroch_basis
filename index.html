@@ -81,7 +81,7 @@
 
     /* Hero */
     header.hero{
-      background:linear-gradient(180deg,#fff3e4,#ffe4c7);
+      background:linear-gradient(180deg,#fff3e4 0%,#ffe9cf 58%,#fff0de 82%,var(--tz-50) 100%);
       color:var(--ink); text-align:center; padding:56px 16px 30px; position:relative; overflow:hidden;
     }
     .hero h1{margin:0 0 8px; font-size:clamp(28px,4.6vw,46px); font-weight:800; letter-spacing:.2px}
@@ -153,9 +153,13 @@
     .faq-body{margin-top:8px;padding-right:14px;border-right:3px solid var(--tz-200);transition:padding .2s, border-color .2s}
     details[open] .faq-body{padding-right:18px;border-right-color:var(--tz-300)}
     /* Footer */
-    footer{margin-top:32px;padding:28px 16px;background:var(--tz-800);color:#ffedd5;text-align:center}
+    footer{
+      margin-top:32px;padding:28px 16px;
+      background:linear-gradient(180deg,#d6671f 0%,#c2410c 100%);
+      color:#fff7ed;text-align:center;
+    }
     .footer-links{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-    .footer-links a{color:#ffedd5}
+    .footer-links a{color:#fff7ed}
 
     /* Success overlay – גרסה מהירה */
     .success-mask {
@@ -1371,4 +1375,3 @@ function showWaitinglistPopup() {
 
 
 </body></html>
-
