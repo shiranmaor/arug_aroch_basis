@@ -1,0 +1,166 @@
+:root{
+  --cream-50:#fff9f2;
+  --cream-100:#f8efe4;
+  --sand-200:#ead8c4;
+  --sand-300:#d9bea0;
+  --blush-200:#efd6ce;
+  --blush-300:#ddb4a9;
+  --sage-200:#c8cfbf;
+  --sage-300:#aab49d;
+  --terracotta-400:#b97863;
+  --terracotta-500:#9b614f;
+  --brown-600:#76554a;
+  --brown-700:#5e4339;
+  --brown-800:#49332c;
+  --charcoal-900:#2f2320;
+  --ink:#382926;
+  --muted:#75635d;
+  --white:#fffdf9;
+  --card:#fffaf6;
+  --card-strong:#fffdfb;
+  --bg:var(--cream-50);
+  --surface-tint:rgba(255,255,255,.68);
+  --border-soft:rgba(110,79,66,.12);
+  --border-strong:rgba(110,79,66,.18);
+  --radius-sm:14px;
+  --radius:22px;
+  --radius-lg:30px;
+  --radius-xl:40px;
+  --space-1:8px;
+  --space-2:12px;
+  --space-3:18px;
+  --space-4:24px;
+  --space-5:32px;
+  --space-6:48px;
+  --space-7:72px;
+  --shadow-soft:0 12px 32px rgba(78,54,43,.08);
+  --shadow:0 22px 56px rgba(78,54,43,.10);
+  --shadow-lg:0 34px 90px rgba(78,54,43,.12);
+  --shadow-xl:0 52px 140px rgba(49,34,29,.22);
+  --focus:0 0 0 3px rgba(185,120,99,.22);
+  --motion-ease:cubic-bezier(.22,1,.36,1);
+  --motion-ease-soft:cubic-bezier(.28,.84,.42,1);
+  --motion-fast:180ms;
+  --motion-base:520ms;
+  --motion-slow:780ms;
+  --reveal-distance:30px;
+  --tilt-x:0deg;
+  --tilt-y:0deg;
+  --parallax-shift:0px;
+  --scene-perspective:1600px;
+  --font-display:"Heebo",system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans Hebrew",sans-serif;
+  --font-body:"Heebo",system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans Hebrew",sans-serif;
+  --tz-50:var(--cream-50);
+  --tz-100:var(--cream-100);
+  --tz-200:var(--sand-200);
+  --tz-300:var(--sand-300);
+  --tz-400:var(--blush-300);
+  --tz-500:var(--terracotta-400);
+  --tz-600:var(--terracotta-500);
+  --tz-700:var(--brown-700);
+  --tz-800:var(--brown-800);
+}
+
+*{box-sizing:border-box}
+
+html,body{margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+body{
+  font-family:var(--font-body);
+  background:
+    radial-gradient(circle at top right, rgba(239,214,206,.72), rgba(239,214,206,0) 28%),
+    radial-gradient(circle at bottom left, rgba(200,207,191,.46), rgba(200,207,191,0) 30%),
+    linear-gradient(180deg, #fffaf4 0%, #fdf5ed 40%, #fff9f3 100%);
+  color:var(--ink);
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
+  min-height:100vh;
+}
+
+a{color:var(--terracotta-500);text-decoration:none}
+a:hover{text-decoration:none}
+
+h1,h2,h3{
+  font-family:var(--font-display);
+  line-height:1.18;
+  margin:0;
+}
+
+h2{
+  margin:0 0 16px;
+  font-size:clamp(28px,4vw,42px);
+  color:var(--brown-800);
+  letter-spacing:-.03em;
+}
+
+h3{
+  margin:0 0 12px;
+  color:var(--brown-700);
+  font-size:clamp(20px,2.2vw,28px);
+  letter-spacing:-.02em;
+}
+
+p{margin:0 0 1rem}
+
+.container{max-width:1160px;margin:0 auto;padding:0 20px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.muted{color:var(--muted)}
+.hr{height:1px;background:linear-gradient(90deg,transparent,rgba(110,79,66,.18),transparent);margin:22px 0}
+.center-text{text-align:center}
+
+.section-kicker{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin:0 0 14px;
+  font-size:13px;
+  font-weight:800;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--terracotta-500);
+}
+
+.section-kicker::before{
+  content:"";
+  width:32px;
+  height:1px;
+  background:linear-gradient(90deg, rgba(185,120,99,.1), rgba(185,120,99,.7));
+}
+
+.split-word{
+  display:inline-block;
+  will-change:transform,opacity,filter;
+}
+
+.skip-link{
+  position:absolute;
+  top:12px;
+  right:12px;
+  z-index:120;
+  padding:10px 14px;
+  border-radius:14px;
+  background:var(--brown-800);
+  color:#fff8ef;
+  transform:translateY(-160%);
+  transition:transform var(--motion-fast) ease;
+}
+
+.skip-link:focus{
+  transform:translateY(0);
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+
+  *,
+  *::before,
+  *::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+    scroll-behavior:auto !important;
+  }
+}

@@ -1,442 +1,391 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl"><head>
+<html lang="he" dir="rtl">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>סדנת נשיאת תינוקות עם שירן</title>
-  <meta name="description" content="סדנת נשיאת תינוקות עם שירן — בחירה, כיוונון ונשיאה בטוחה ונעימה לתינוק/ת.">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;600;800&amp;display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --tz-50:#f2fbfb;
-      --tz-100:#e0f6f6;
-      --tz-200:#c7eff0;
-      --tz-300:#ade8eb;
-      --tz-400:#7dd9de;
-      --tz-500:#54cbd3;
-      --tz-600:#36b8c2;
-      --tz-700:#1c96a2; 
-      --tz-800:#157683;
-      --ink:#163033;
-      --muted:#5f7b80;
-      --white:#fff;
-      --card:#fff;
-      --bg:var(--tz-50);
-      --radius-xl:22px;
-      --radius:14px;
-      --shadow-lg:0 18px 40px rgba(6,44,50,.10);
-      --shadow:0 10px 26px rgba(6,44,50,.08);
-      --focus:0 0 0 3px rgba(84,203,211,.35);
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0}
-    body{
-      font-family:"Heebo",system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans Hebrew",sans-serif;
-      background:var(--bg); color:var(--ink); line-height:1.7;
-      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
-    }
-    a{color:var(--tz-800);text-decoration:none}
-    a:hover{text-decoration:underline}
-
-    .container{max-width:1080px;margin:0 auto;padding:0 18px}
-    .row{display:flex;align-items:center;justify-content:space-between;gap:12px}
-
-    /* Topbar + Hamburger */
-    .topbar{
-      position:sticky; top:0; z-index:50;
-      background:rgba(242,251,251,.9); backdrop-filter: blur(8px);
-      border-bottom:1px solid var(--tz-100);
-    }
-    .brand{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--tz-800)}
-    .brand .dot{width:10px;height:10px;border-radius:50%;background:var(--tz-400);box-shadow:0 0 0 6px var(--tz-100) inset}
-    .hamburger{
-      display:flex;align-items:center;justify-content:center;
-      width:44px;height:44px;border-radius:12px;border:1px solid var(--tz-200);
-      background:#fff; cursor:pointer;
-    }
-    .hamburger span,.hamburger::before,.hamburger::after{
-      content:""; display:block; width:22px; height:2px; background:var(--tz-800); border-radius:2px
-    }
-    .hamburger::before{transform:translateY(-6px)}
-    .hamburger::after{transform:translateY(6px)}
-
-    /* Drawer */
-    .drawer{position:fixed; inset:0; z-index:60; pointer-events:none}
-    .drawer .overlay{position:absolute; inset:0; background:rgba(0,0,0,.28); opacity:0; transition:opacity .2s}
-    .drawer .panel{
-      position:absolute; top:0; left:0; width:82%; max-width:380px; height:100%;
-      background:#fff; border-left:1px solid var(--tz-100);
-      transform:translateX(-110%); transition:transform .25s; box-shadow:var(--shadow-lg);
-      padding:18px 16px 24px;
-    }
-    .drawer.open{pointer-events:auto}
-    .drawer.open .overlay{opacity:1}
-    .drawer.open .panel{transform:translateX(0)}
-    .drawer .panel h3{margin:4px 0 16px; color:var(--tz-800)}
-    .drawer .nav a{
-      display:block; padding:12px 10px; border-radius:12px; margin:6px 0;
-      background:#f7fdfd; border:1px solid var(--tz-100); color:var(--tz-800); font-weight:600;
-    }
-    .drawer .nav a:hover{background:#eefbfb}
-
-    /* Hero */
-    header.hero{
-      background:linear-gradient(180deg,#e9fafb,#d9f4f6);
-      color:var(--ink); text-align:center; padding:56px 16px 30px; position:relative; overflow:hidden;
-    }
-    .hero h1{margin:0 0 8px; font-size:clamp(28px,4.6vw,46px); font-weight:800; letter-spacing:.2px}
-    .hero p{max-width:820px;margin:0 auto 22px;font-size:clamp(16px,2.2vw,20px);color:var(--muted)}
-    .cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-    .btn{
-      display:inline-block;border:none;cursor:pointer;font-weight:700;
-      padding:14px 20px;border-radius:14px;font-size:16px;box-shadow:var(--shadow);
-      transition:transform .06s ease,box-shadow .2s ease,background .2s ease;
-    }
-    .btn:active{transform:translateY(1px)}
-    .btn-primary{background:var(--tz-800);color:#fff}
-    .btn-primary:hover{background:var(--tz-700)}
-    .btn-outline{background:#fff;color:var(--tz-800);border:2px solid var(--tz-200)}
-    .btn-outline:hover{background:#f7fdfd}
-    .hero-img{
-      width:100%; max-width:820px; margin:18px auto 0; display:block;
-      border-radius:20px; box-shadow:var(--shadow); object-fit:cover; max-height:420px; background:#e8f7f8;
-    }
-
-    /* Sections & cards */
-    section{margin:28px 0}
-    .card{background:var(--card);border-radius:var(--radius-xl);box-shadow:var(--shadow-lg);padding:26px}
-    .grid-2{display:grid;grid-template-columns:1.05fr .95fr;gap:22px}
-    @media (max-width:900px){
-      .grid-2{
-        grid-template-columns:1fr;
-        gap:0;
-      }
-    }
-    h2{margin:0 0 14px;font-size:clamp(22px,3.4vw,30px);color:var(--tz-800)}
-    h3{margin:0 0 10px;color:var(--tz-700)}
-    .hr{height:1px;background:linear-gradient(90deg,transparent,var(--tz-200),transparent);margin:18px 0}
-    .muted{color:var(--muted)}
-
-    ul.checks{list-style:none;padding:0;margin:0}
-    ul.checks li{margin:10px 0;padding-inline-start:22px;position:relative}
-    ul.checks li::before{content:"•";position:absolute;right:0;top:0;font-weight:900;color:var(--tz-600)}
-
-
-    /* Next workshop */
-    .next-box{border:1px solid var(--tz-200);background:#fff;border-radius:18px;padding:16px 18px}
-    .kv{margin:10px 0}
-    .kv .k{display:block;font-weight:800;color:var(--tz-700);margin-bottom:4px}
-    .kv .v{display:block;color:var(--ink)}
-    .next-cta{margin-top:14px}
-
-    /* Videos */
-    .video-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
-    .video{position:relative;padding-top:56.25%;border-radius:16px;overflow:hidden;background:#000}
-    .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-
-    /* Form */
-    form{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px}
-    form .full{grid-column:1/-1}
-    label{display:block;font-weight:600;margin-bottom:6px;color:var(--tz-700)}
-    input,textarea,select{
-      width:100%;padding:12px 14px;border-radius:14px;font-size:16px;
-      border:1px solid var(--tz-200);background:#fcffff;outline:none;transition:box-shadow .15s,border-color .15s;
-    }
-    input:focus,textarea:focus{box-shadow:var(--focus);border-color:var(--tz-400)}
-    textarea{min-height:110px}
-    .note{font-size:13px;color:var(--muted)}
-
-    /* FAQ indentation on open */
-    details{background:#fff;border:1px solid var(--tz-100);border-radius:12px;padding:10px 12px;margin:10px 0;transition:border-color .2s, background .2s}
-    details[open]{background:#f7fdfd;border-color:var(--tz-200)}
-    summary{cursor:pointer;font-weight:700;color:var(--tz-800);outline:none}
-    .faq-body{margin-top:8px;padding-right:14px;border-right:3px solid var(--tz-200);transition:padding .2s, border-color .2s}
-    details[open] .faq-body{padding-right:18px;border-right-color:var(--tz-300)}
-    /* Footer */
-    footer{margin-top:32px;padding:28px 16px;background:var(--tz-800);color:#d8f3f6;text-align:center}
-    .footer-links{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-    .footer-links a{color:#d8f3f6}
-
-    /* Success overlay – גרסה מהירה */
-    .success-mask {
-      position: fixed;
-      inset: 0;
-      display: flex; /* תמיד בתצוגה – רק שקיפות מוסתרת */
-      align-items: center;
-      justify-content: center;
-      background: rgba(0, 0, 0, 0.45);
-      z-index: 100;
-
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.12s ease;
-      will-change: opacity;
-    }
-
-    .success-mask.show {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .success-box {
-      background: #fff;
-      border: 1px solid var(--tz-200);
-      border-radius: 18px;
-      padding: 20px 22px;
-      box-shadow: var(--shadow-lg);
-      text-align: center;
-      max-width: 360px;
-      transform: translateY(2px);
-      transition: transform 0.12s ease;
-      will-change: transform;
-    }
-
-    .success-mask.show .success-box {
-      transform: translateY(0);
-    }
-
-    .spinner {
-      width: 28px;
-      height: 28px;
-      border: 3px solid var(--tz-200);
-      border-top-color: var(--tz-700);
-      border-radius: 50%;
-      margin: 10px auto 0;
-      animation: spin 0.75s linear infinite;
-    }
-
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    /* Social links */
-    .social-links{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-    .social-links a{
-      display:inline-flex;align-items:center;gap:10px;
-      padding:12px 16px;border-radius:14px;border:1px solid var(--tz-200);
-      background:#fff;box-shadow:var(--shadow);font-weight:700;color:var(--tz-800);
-    }
-    .social-links a:hover{background:#f7fdfd}
-    .social-links svg{width:22px;height:22px;display:block}
-
-    #social h2 { text-align: center; }
-
-
-    /* קו חוצה לתאריך כשהסדנה מלאה */
-    .line-through{
-      display:inline-block;          /* מבטיח שהקו יוצג גם על span */
-      text-decoration: line-through;
-      text-decoration-thickness: 2px;
-    }
-
-  </style>
+  <title>סדנת בסיס בארוג ארוך עם שירן מאור | נשיאה בטוחה ונעימה</title>
+  <meta name="description" content="סדנת בסיס בארוג ארוך עם שירן מאור: תרגול, התאמה אישית, סרטונים, ופרטים להצטרפות לרשימת ההמתנה למועד הבא.">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta name="theme-color" content="#fff9f2">
+  <link rel="canonical" href="https://shiranmaor.github.io/arug_aroch_basis/">
+  <meta property="og:locale" content="he_IL">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Shiran Babywearing">
+  <meta property="og:title" content="סדנת בסיס בארוג ארוך עם שירן מאור">
+  <meta property="og:description" content="תרגול, התאמה אישית, סרטונים, ופרטים להצטרפות לרשימת ההמתנה למועד הבא של סדנת הארוג הארוך.">
+  <meta property="og:url" content="https://shiranmaor.github.io/arug_aroch_basis/">
+  <meta property="og:image" content="https://shiranmaor.github.io/arug_aroch_basis/assets/images/header.jpeg">
+  <meta property="og:image:alt" content="שירן עם תינוק במנשא ארוג">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="סדנת בסיס בארוג ארוך עם שירן מאור">
+  <meta name="twitter:description" content="תרגול, התאמה אישית, סרטונים, ופרטים להצטרפות לרשימת ההמתנה למועד הבא.">
+  <meta name="twitter:image" content="https://shiranmaor.github.io/arug_aroch_basis/assets/images/header.jpeg">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="src/css/base.css">
+  <link rel="stylesheet" href="src/css/layout.css">
+  <link rel="stylesheet" href="src/css/components.css">
+  <link rel="stylesheet" href="src/css/responsive.css">
 </head>
 <body>
+  <a class="skip-link" href="#site-content">דלגי לתוכן</a>
+  <div class="fabric-ribbon fabric-ribbon-a" aria-hidden="true"></div>
+  <div class="fabric-ribbon fabric-ribbon-b" aria-hidden="true"></div>
+  <div class="fabric-ribbon fabric-ribbon-c" aria-hidden="true"></div>
 
-  <!-- Topbar -->
-  <div class="topbar">
+  <div class="topbar" role="banner">
     <div class="container row" style="padding:10px 0">
       <div class="brand"><span class="dot"></span> סדנת מנשאים • שירן</div>
       <button class="hamburger" id="openMenu" type="button" aria-label="פתח תפריט" aria-controls="drawer" aria-expanded="false"></button>
     </div>
   </div>
 
-  <!-- Drawer (hamburger menu) -->
   <div class="drawer" id="drawer" aria-hidden="true">
     <div class="overlay" id="overlay"></div>
     <aside class="panel" role="dialog" aria-modal="true" aria-labelledby="menuTitle">
       <h3 id="menuTitle">ניווט</h3>
-      <nav class="nav">
-        <a href="#about" class="menu-link">על הסדנה</a>
-        <a href="#next" class="menu-link">הסדנה הקרובה</a>
+      <nav class="nav" aria-label="ניווט ראשי">
+        <a href="#pain" class="menu-link">למי זה מרגיש מסובך</a>
+        <a href="#about" class="menu-link">איך הסדנה עוזרת</a>
+        <a href="#experience" class="menu-link">מה קורה בסדנה</a>
         <a href="#learn" class="menu-link">מה נלמד</a>
-        <a href="#register" class="menu-link">הרשמה</a>
+        <a href="#audience" class="menu-link">למי זה מתאים</a>
         <a href="#videos" class="menu-link">סרטונים</a>
-        <a href="#social" class="menu-link">עקבו אחרי</a>
         <a href="#faq" class="menu-link">שאלות נפוצות</a>
+        <a href="#register" class="menu-link">הרשמה</a>
       </nav>
     </aside>
   </div>
 
-  <!-- Hero -->
   <header class="hero">
     <div class="container">
-      <h1 id="mainTitle" style="">סדנת בסיס בארוג ארוך</h1>
-      <p>כל מה שרצית לדעת כדי להתחיל לשאת את התינוק שלך במנשא הכל כך קסום הזה&nbsp;😍</p>
-      <div class="cta-row">
-        <a class="btn btn-primary" href="#register">להרשמה ושמירת מקום</a>
-        <a class="btn btn-outline" id="whatsapp-hero" href="https://wa.me/972548188793?text=%D7%94%D7%99%D7%99%20%D7%A9%D7%99%D7%A8%D7%9F%2C%20%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%A9%D7%90%D7%9C%D7%94%20%D7%A7%D7%A6%D7%A8%D7%94%20%D7%9C%D7%92%D7%91%D7%99%20%D7%94%D7%A1%D7%93%D7%A0%D7%94%20%3A)" target="_blank" rel="noopener">שאלה מהירה בוואטסאפ</a>
+      <div class="eyebrow">סדנה רגועה וברורה להיכרות עם ארוג ארוך</div>
+      <div class="hero-orbit hero-orbit-left" aria-hidden="true" data-parallax data-parallax-speed="0.12">בלבול</div>
+      <div class="hero-orbit hero-orbit-right" aria-hidden="true" data-parallax data-parallax-speed="-0.1">ביטחון</div>
+      <div class="hero-orbit hero-orbit-bottom" aria-hidden="true" data-parallax data-parallax-speed="0.08">ידיים חופשיות</div>
+      <h1 id="mainTitle">סדנת בסיס בארוג ארוך</h1>
+      <p class="hero-lead">ללמוד לשאת בביטחון, בנוחות ובקרבה, בלי להרגיש שזה מסובך מדי ועם מקום לשאלות, לתרגול ולהתאמה אישית לך ולתינוק שלך.</p>
+      <div class="hero-highlights" aria-label="הבטחת הסדנה">
+        <span>מנשא לא אמור להיות מסובך</span>
+        <span>מהידיים העמוסות לידיים חופשיות</span>
+        <span>לשאת ברוגע, בקרבה ובנוחות</span>
       </div>
-      <img class="hero-img" src="header.jpeg" alt="תינוק במנשא עם שירן">
+      <div class="cta-row">
+        <a class="btn btn-primary" id="heroPrimaryCta" href="#register" aria-label="מעבר לטופס ההצטרפות לרשימת ההמתנה">להצטרפות לרשימת המתנה</a>
+        <a class="btn btn-outline" id="whatsapp-hero" href="https://wa.me/972548188793?text=%D7%94%D7%99%D7%99%20%D7%A9%D7%99%D7%A8%D7%9F%2C%20%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%A9%D7%90%D7%9C%D7%94%20%D7%A7%D7%A6%D7%A8%D7%94%20%D7%9C%D7%92%D7%91%D7%99%20%D7%94%D7%A1%D7%93%D7%A0%D7%94%20%3A" target="_blank" rel="noopener" aria-label="שליחת שאלה קצרה לשירן בוואטסאפ">שאלה מהירה בוואטסאפ</a>
+      </div>
+      <p class="state-pill" id="heroStateNotice" aria-live="polite">המועד שמופיע כאן כבר עבר. אפשר להצטרף לרשימת ההמתנה למועד הבא או לשאול את שירן בוואטסאפ.</p>
+      <figure class="hero-figure" data-parallax data-parallax-speed="-0.06">
+        <img class="hero-img" src="assets/images/header.jpeg" alt="שירן עם תינוק במנשא ארוג" width="1116" height="1634" fetchpriority="high" decoding="async">
+        <figcaption class="hero-caption">
+          <strong>מפגש אישי, רגוע ומעשי</strong>
+          <span>לפני ההרשמה אפשר לראות איך שירן מסבירה, לשאול בוואטסאפ ולהרגיש אם זה נכון לך.</span>
+        </figcaption>
+      </figure>
     </div>
   </header>
 
-  <main class="container">
-
-    <!-- Next workshop -->
+  <main class="container" id="site-content" tabindex="-1">
     <section id="next" class="card">
-      <h2>הסדנה הקרובה</h2>
+      <h2>כל הפרטים במקום אחד</h2>
+      <p class="section-intro">אם חשוב לך להבין מהר האם זה מתאים לך, הנה המסגרת המעשית של הסדנה לפני שממשיכים.</p>
+      <div class="state-inline-note" id="workshopStateNotice" aria-live="polite">המועד הנוכחי כבר עבר. כרגע אפשר להצטרף לרשימת ההמתנה למועד הבא.</div>
       <div class="next-box">
-        <div class="kv">
-          <span class="k">מועד</span>
-          <span class="v" id="workshop-slot"><strong></strong> • 10:00–12:30</span>
-
-        </div>
-        <div class="kv">
-          <span class="k">מיקום</span>
-          <span class="v">מודיעין (הכתובת תישלח לאחר הרשמה)</span>
-        </div>
-        <div class="kv">
-          <span class="k">עלות</span>
-          <span class="v" id="workshop-price">280 ₪</span>
+        <div class="detail-grid">
+          <div class="kv">
+            <span class="k">מועד</span>
+            <span class="v" id="workshop-slot"><strong id="workshop-slot-strong">חמישי, 12 במרץ 2026</strong> • 10:00–12:30</span>
+          </div>
+          <div class="kv">
+            <span class="k">מיקום</span>
+            <span class="v">מודיעין (הכתובת תישלח לאחר הרשמה)</span>
+          </div>
+          <div class="kv">
+            <span class="k">עלות</span>
+            <span class="v" id="workshop-price">280 ₪</span>
+          </div>
         </div>
         <div class="next-cta">
-          <a class="btn btn-primary" href="#register" aria-label="הירשם לסדנה הקרובה">להרשמה</a>
+          <a class="btn btn-primary" id="detailsPrimaryCta" href="#register" aria-label="מעבר לטופס ההצטרפות לרשימת ההמתנה">לרשימת המתנה</a>
         </div>
       </div>
     </section>
 
-    <!-- About -->
-    <section id="about" class="card grid-2">
+    <section id="pain" class="card">
+      <div class="grid-2 align-start">
+        <div>
+          <h2>זה לא אמור להרגיש כל כך מסובך</h2>
+          <p class="section-intro">אם הארוג הארוך מסקרן אותך אבל בפועל נשאר בצד, את ממש לא לבד. הרבה הורים רוצות את הקרבה, אבל נתקעות בדיוק בשלב של “איך מתחילים בכלל?”.</p>
+          <ul class="checks">
+            <li>קנית ארוג ארוך אבל לא בטוחה איך להתחיל להשתמש בו.</li>
+            <li>מרגישה שהתינוק לא יושב נכון או שהקשירה לא מספיק נוחה.</li>
+            <li>חוששת שזה מסובך מדי או שדורש יותר מדי ידיים פנויות.</li>
+            <li>רוצה לשאת בלי לחץ, בלי כאבי גב ועם יותר ביטחון ביום יום.</li>
+          </ul>
+        </div>
+        <aside class="soft-panel interactive-card">
+          <h3>ההבטחה של הסדנה</h3>
+          <p>לעזור לך להבין את הארוג הארוך בצורה פשוטה, רגועה ומעשית, כדי שתצאי עם בסיס ברור ועם תחושת “אני יכולה לעשות את זה”.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section id="journey" class="card journey-section" data-journey-tone="blush">
+      <div class="journey-shell">
+        <div class="journey-copy">
+          <p class="section-kicker">מסלול הסדנה</p>
+          <h2>מהבלבול אל הרגע שבו הגוף נרגע</h2>
+          <p class="section-intro">במקום לנסות להבין לבד מה נכון לעשות, העמוד והסדנה מובילים אותך דרך תחנות קטנות וברורות: להבין, להתאים, לתרגל, להרגיש בטוחה, ואז לפנות את הידיים למה שבאמת חשוב.</p>
+          <div class="journey-steps" aria-label="מסלול ההתקדמות בסדנה">
+            <article class="journey-step is-active" data-journey-tone="blush">
+              <span class="journey-index">01</span>
+              <h3>בלבול</h3>
+              <p>הארוג הארוך נראה יפה ומסקרן, אבל גם כזה שקל ללכת בו לאיבוד.</p>
+            </article>
+            <article class="journey-step" data-journey-tone="sand">
+              <span class="journey-index">02</span>
+              <h3>התאמה</h3>
+              <p>שירן עוזרת להבין מה נכון לגוף שלך, לתינוק שלך ולקצב האמיתי של הבית.</p>
+            </article>
+            <article class="journey-step" data-journey-tone="sage">
+              <span class="journey-index">03</span>
+              <h3>תרגול</h3>
+              <p>לא רק להבין בראש, אלא ממש לנסות, לשאול, לעצור, ולדייק יחד את הקשירה.</p>
+            </article>
+            <article class="journey-step" data-journey-tone="terracotta">
+              <span class="journey-index">04</span>
+              <h3>ביטחון</h3>
+              <p>בהדרגה מתחלף המתח בתחושה ברורה יותר של “אני יודעת מה אני עושה”.</p>
+            </article>
+            <article class="journey-step" data-journey-tone="brown">
+              <span class="journey-index">05</span>
+              <h3>ידיים חופשיות</h3>
+              <p>הקירבה נשארת, והגוף מקבל יותר חופש, נוחות ושקט בתוך היומיום.</p>
+            </article>
+          </div>
+        </div>
+        <div class="journey-visual">
+          <div class="journey-sticky">
+            <div class="journey-stage">
+              <div class="journey-ribbon" aria-hidden="true">
+                <span class="journey-ribbon-tail"></span>
+                <span class="journey-ribbon-knot"></span>
+              </div>
+              <div class="journey-glow"></div>
+              <div class="journey-caption">
+                <span class="journey-caption-kicker">התחושה שנבנית לאורך הדרך</span>
+                <strong id="journeyActiveTitle">בלבול</strong>
+                <p id="journeyActiveText">הארוג הארוך נראה יפה ומסקרן, אבל גם כזה שקל ללכת בו לאיבוד.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="card grid-2 align-start">
       <div>
-        <h2>מה קורה בסדנה?</h2>
-        <p>
-          נלמד איך עובד המנשא, איך מהדקים בצורה נכונה.
-          תלמדי איך לשאת את התינוק שלך בצורה בטיחותית בקשירה ראשונה בסיסית ובעוד קשירה מתקדמת בנשיאה קדמית.
-        </p>
+        <h2>שירן עוזרת להפוך בלבול לביטחון</h2>
+        <p>שירן מאור מלווה הורים שרוצות להכיר את הארוג הארוך לעומק, בלי הצפה ובלי לחץ. הסדנה בנויה כך שתביני איך המנשא עובד, איך מהדקים נכון, ואיך לשאת את התינוק שלך בצורה בטיחותית ונעימה.</p>
         <div class="hr"></div>
-        <h3>למי זה מתאים?</h3>
+        <p class="muted">המטרה היא לא רק ללמוד קשירה, אלא להבין איך להתאים את הארוג הארוך לגוף שלך, לתינוק שלך, ולקצב האמיתי של היומיום.</p>
+      </div>
+      <aside class="card interactive-card" style="background:#fff;border:1px solid var(--tz-200)">
+        <h3 style="margin-top:0;color:var(--tz-700)">מי מנחה את הסדנה?</h3>
+        <ul class="checks">
+          <li><strong>מנחה:</strong> שירן מאור, מדריכת נשיאה ומדריכה להתפתחות תינוקות</li>
+          <li><strong>אורך:</strong> <span id="workshop-duration">כשעתיים וחצי</span></li>
+          <li><strong>קבוצה קטנה:</strong> <span id="workshop-group-size">עד 5 משתתפות</span></li>
+          <li><strong>מיקום/תאריך:</strong> <span id="workshop-date-value">חמישי, 12 במרץ 2026, מודיעין</span></li>
+        </ul>
+        <div class="hr"></div>
+        <div style="font-weight:800;color:var(--tz-800)">סדנה קטנה, ברורה ומעשית שמאפשרת גם לשאול, גם לתרגל וגם לקבל התאמה אישית.</div>
+      </aside>
+    </section>
+
+    <section id="experience" class="card">
+      <h2>מה קורה בפועל בסדנה?</h2>
+      <p class="section-intro">זו סדנה קטנה ומעשית, עם אווירה רגועה שמאפשרת ללמוד, לעצור, לשאול ולתרגל בקצב שלך.</p>
+      <div class="grid-2 align-start">
+        <div>
+          <ul class="checks">
+            <li>נלמד צעד אחר צעד איך עובד המנשא ואיך מהדקים בצורה נכונה.</li>
+            <li>נתרגל יחד קשירה ראשונה בסיסית ועוד קשירה מתקדמת בנשיאה קדמית.</li>
+            <li>נקבל הכוונה אישית כדי להבין מה מרגיש נכון ונוח יותר בגוף שלך.</li>
+            <li>יש מקום להורות אמיתית: עצירות, האכלה, החתלה והרגעה לפי הצורך.</li>
+          </ul>
+        </div>
+        <aside class="soft-panel interactive-card">
+          <h3>איך זה מרגיש</h3>
+          <p>לא שיעור תיאורטי שמסתיים בבלבול, אלא מפגש ברור, ידידותי ומעשי שעוזר לך לצאת עם יותר שקט ויותר הבנה.</p>
+          <div class="hr"></div>
+          <p class="muted">ההרשמה מתבצעת בטופס – התשלום ייפתח לאחר מכן בפייבוקס.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section id="learn" class="card">
+      <h2>מה תלמדי ותקחי איתך</h2>
+      <p class="section-intro">כל התוכן הקיים נשמר, אבל עכשיו הוא מסודר לפי התוצאה שאת מחפשת: נשיאה בטוחה, נוחה ומובנת יותר.</p>
+      <div class="grid-2">
+        <div>
+          <h3>בטיחות, התאמה ונוחות</h3>
+          <ul class="checks">
+            <li>עקרונות בטיחות בנשיאה</li>
+            <li>התאמת המנשא לגוף שלך ולתינוק</li>
+            <li>פתרון כאבים שכיחים (כתפיים/גב/ירכיים)</li>
+            <li>איך לבחור את המנשא שהכי נכון לך</li>
+          </ul>
+        </div>
+        <div>
+          <h3>שימוש מעשי בארוג הארוך</h3>
+          <ul class="checks">
+            <li>נכיר את הבד ונבין איך משתמשים בו</li>
+            <li>נתנסה בקשירה קדמית בסיסית ומתקדמת</li>
+            <li>הכנסה/הוצאה בטוחה לבד - צעד אחר צעד</li>
+            <li>לאחר הסדנה תצטרפי לקבוצת וואטסאפ סגורה בה תוכלי לשתף ולהתייעץ ולקבל מעטפת מלאה</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="audience" class="card">
+      <h2>למי הסדנה מתאימה?</h2>
+      <p class="section-intro">אם את רוצה להרגיש יותר בטוחה עם הארוג הארוך, כנראה שתמצאי כאן בדיוק את מה שחיפשת.</p>
+      <div class="grid-2 align-start">
         <ul class="checks">
           <li>לאמהות שכבר נושאות במנשאים שונים וארוג ארוך מעניין אותן.</li>
           <li>למי שמעוניינת להכיר לעומק את המנשא המיוחד הזה שאני כל הזמן מדברת עליו.</li>
           <li>לתינוקות מעל גיל חודש (מתחת לגיל הזה אני ממליצה פגישה אישית).</li>
         </ul>
-      </div>
-      <div class="card" style="background:#fff;border:1px solid var(--tz-200)">
-        <h3 style="margin-top:0;color:var(--tz-700)">פרטי הסדנה</h3>
-        <ul class="checks">
-          <li><strong>מנחה:</strong> שירן מאור, מדריכת נשיאה ומדריכה להתפתחות תינוקות</li>
-          <li>
-            <strong>אורך:</strong>
-            <span id="workshop-duration">כשעתיים וחצי</span>
-          </li>
-          <li>
-            <strong>קבוצה קטנה:</strong>
-            <span id="workshop-group-size">עד 5 משתתפות</span>
-          </li>
-          <li>
-            <strong>מיקום/תאריך:</strong>
-            <span id="workshop-date-value" class="">22 נובמבר, מודיעין</span>
-          </li>
-
-        </ul>
-        <div class="hr"></div>
-        <div style="font-weight:800;color:var(--tz-800)">ההרשמה מתבצעת בטופס – התשלום ייפתח לאחר מכן בפייבוקס.</div>
+        <aside class="soft-panel interactive-card">
+          <h3>גם אם יש לך כבר מנשא אחר</h3>
+          <p>אפשר להגיע גם אם את כבר נושאת במנשאים אחרים ורוצה להבין האם הארוג הארוך יכול להיות נכון לך, נוח לך ומתאים לתינוק שלך.</p>
+        </aside>
       </div>
     </section>
 
-    <!-- Learn -->
-    <section id="learn" class="card">
-      <h2>מה נלמד ונתרגל</h2>
-      <div class="grid-2">
-        <ul class="checks">
-          <li>עקרונות בטיחות בנשיאה</li>
-          <li>התאמת המנשא לגוף שלך ולתינוק</li>
-          <li>נכיר את הבד ונבין איך משתמשים בו</li>
-          <li>נתנסה בקשירה קדמית בסיסית ומתקדמת</li>
-        </ul>
-        <ul class="checks">
-          <li>פתרון כאבים שכיחים (כתפיים/גב/ירכיים)</li>
-          <li>הכנסה/הוצאה בטוחה לבד - צעד אחר צעד</li>
-          <li>איך לבחור את המנשא שהכי נכון לך</li>
-          <li>לאחר הסדנה תצטרפי לקבוצת וואטסאפ סגורה בה תוכלי לשתף ולהתייעץ ולקבל מעטפת מלאה </li>
-        </ul>
+    <section id="compare" class="card compare-section">
+      <p class="section-kicker">לפני ואחרי הסדנה</p>
+      <h2>לא כי הכול משתנה ביום אחד, אלא כי משהו מתבהר</h2>
+      <p class="section-intro">הסדנה לא מבטיחה קסם. היא כן יוצרת מעבר ברור יותר בין תחושת עומס וחוסר ודאות לבין נשיאה שיש בה יותר בהירות, קרבה ונוחות.</p>
+      <div class="compare-grid">
+        <article class="compare-card compare-card-before interactive-card">
+          <span class="compare-label">לפני</span>
+          <h3>יותר עומס, יותר סימני שאלה</h3>
+          <ul class="checks">
+            <li>לא בטוחה אם התינוק יושב נכון</li>
+            <li>הבד מרגיש ארוך ומבלבל</li>
+            <li>הגוף מתכווץ במקום להירגע</li>
+            <li>נשיאה מרגישה כמו משימה במקום עזרה</li>
+          </ul>
+        </article>
+        <div class="compare-bridge" aria-hidden="true">
+          <span>←</span>
+          <div class="compare-bridge-line"></div>
+          <span>→</span>
+        </div>
+        <article class="compare-card compare-card-after interactive-card">
+          <span class="compare-label">אחרי</span>
+          <h3>יותר סדר, יותר קרבה, יותר שקט</h3>
+          <ul class="checks">
+            <li>מבינה איך להתחיל ואיך לבדוק שהכול יושב נכון</li>
+            <li>יודעת מה להתאים לעצמך ולתינוק שלך</li>
+            <li>מתרגלת קשירה עם ליווי אישי ולא לבד</li>
+            <li>מרגישה יותר ביטחון ויותר ידיים פנויות ביום יום</li>
+          </ul>
+        </article>
       </div>
     </section>
 
-    <!-- Register -->
-    <section id="register" class="card">
-      <h2>הרשמה</h2>
-      <p class="muted">מלאי פרטים ולאחר מכן תועברי אוטומטית לדף תשלום בפייבוקס.</p>
-
-      <form id="leadForm">
-        <div>
-          <label for="name">שם מלא</label>
-          <input id="name" name="name" type="text" placeholder="שם ההורה" required="">
-        </div>
-        <div>
-          <label for="phone">טלפון</label>
-          <input id="phone" name="phone" type="tel" placeholder="05X-XXXXXXX" required="">
-        </div>
-        <div class="full">
-          <label for="email">אימייל</label>
-          <input id="email" name="email" type="email" placeholder="example@mail.com" required="">
-        </div>
-
-        <input type="hidden" name="source" id="source">
-        
-        <div>
-          <label for="region">אזור מגורים</label>
-          <input id="region" name="region" type="text" required="">
-        </div>
-
-        <div>
-          <label for="baby_age">גיל התינוק/ת</label>
-          <input id="baby_age" name="baby_age" type="text" required="">
-        </div>
-
-        <div class="full">
-          <label for="carriers">באילו מנשאים את משתמשת כיום?</label>
-          <input id="carriers" name="carriers" type="text" required="">
-        </div>
-
-
-        <div class="full">
-          <label for="message">הודעה</label>
-          <textarea id="message" name="message" placeholder="דברים שחשוב לך שאדע..."></textarea>
-        </div>
-        <div class="full" style="display:flex;gap:10px;flex-wrap:wrap">
-          <button type="submit" class="btn btn-primary">שלחי והרשמי</button>
-        </div>
-        <div class="note">לאחר השליחה תועברי ישירות לתשלום בפייבוקס.</div>
-      </form>
-
-    </section>
-
-    <!-- Success overlay -->
     <div class="success-mask" id="successMask" aria-hidden="true">
-      <div class="success-box" role="alert" aria-live="assertive"></div>
+      <div class="success-box" role="alert" aria-live="assertive">
+        <div style="font-weight:800;color:var(--tz-800);font-size:18px;margin-bottom:10px">המועד שמופיע בעמוד כבר עבר</div>
+        <p style="margin:0 0 14px;color:var(--ink);line-height:1.5">אפשר להשאיר פרטים לרשימת ההמתנה למועד הבא, או לשאול את שירן שאלה קצרה בוואטסאפ :)</p>
+        <button id="closePopup" class="btn btn-primary" style="margin-top:10px">חזרה לדף</button>
+      </div>
     </div>
 
-<!-- Videos -->
-  <section id="videos" class="card">
-    <h2>סרטונים</h2>
-    <div class="video-grid">
-
-      <!-- סרטון ראשון -->
-      <div class="video-item">
-        <h3 style="text-align:center; color:var(--tz-700); margin-bottom:10px;">כל מה שרציתם לדעת על ארוג ארוך</h3>
-        <iframe width="100%" height="auto" src="https://www.youtube.com/embed/0xgnHsZryrs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="">
-        </iframe>
+    <section id="videos" class="card">
+      <div class="media-intro-grid">
+        <div>
+          <h2>רוצה לראות ולהרגיש לפני שנפגשות?</h2>
+          <p class="section-intro">שני הסרטונים כאן נותנים טעימה מהדרך שבה שירן מסבירה ומהבהירות שאפשר לקבל גם עם מנשא שנראה מורכב בהתחלה.</p>
+        </div>
+        <aside class="soft-panel trust-panel">
+          <h3>מה אפשר לבדוק לפני שנרשמות</h3>
+          <ul class="checks trust-checks">
+            <li>לראות איך שירן מלמדת ומסבירה צעד אחר צעד.</li>
+            <li>להבין אם הקצב, הסגנון והגישה מרגישים לך נכונים.</li>
+            <li>לשאול בוואטסאפ שאלה אישית לפני שמחליטות.</li>
+            <li>להגיע עם שאלות ולקבל התאמה אישית במפגש עצמו.</li>
+          </ul>
+        </aside>
       </div>
-
-      <!-- סרטון שני -->
-      <div class="video-item">
-        <h3 style="text-align:center; color:var(--tz-700); margin-bottom:10px;">קשירה בסיסית בארוג ארוך</h3>
-        <iframe width="100%" height="auto" src="https://www.youtube.com/embed/MlP0Z0ENVU4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="">
-        </iframe>
+      <div class="video-grid">
+        <div class="video-item interactive-card">
+          <div class="video-meta">
+            <span class="video-kicker">צפי לפני הרשמה</span>
+            <h3>כל מה שרציתם לדעת על ארוג ארוך</h3>
+            <p>סרטון שמסביר את הבסיס ונותן תחושה ראשונה לגבי הדרך שבה שירן עושה סדר גם בנושא שנראה מורכב.</p>
+          </div>
+          <iframe width="100%" height="auto" src="https://www.youtube.com/embed/0xgnHsZryrs" title="כל מה שרציתם לדעת על ארוג ארוך" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+        <div class="video-item interactive-card">
+          <div class="video-meta">
+            <span class="video-kicker">טעימה מההדרכה</span>
+            <h3>קשירה בסיסית בארוג ארוך</h3>
+            <p>סרטון שממחיש את האופי המעשי של ההדרכה ואת הדרך שבה אפשר ללמוד צעד צעד בלי לחץ.</p>
+          </div>
+          <iframe width="100%" height="auto" src="https://www.youtube.com/embed/MlP0Z0ENVU4" title="קשירה בסיסית בארוג ארוך" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
       </div>
+      <div class="hr"></div>
+      <div id="social" aria-label="עקבו אחרי">
+        <h3 style="text-align:center">מחכה לכן גם ברשת ובשיחה ישירה</h3>
+        <p class="section-intro center-text">אפשר להמשיך להכיר, לצפות בתכנים נוספים, לשאול שאלה קצרה או לעקוב אחרי עוד הדרכה והשראה גם מחוץ לסדנה.</p>
+        <div class="trust-actions" aria-label="אפשרויות בדיקה לפני הרשמה">
+          <a class="trust-action interactive-card" id="whatsapp-trust" href="https://wa.me/972548188793?text=%D7%94%D7%99%D7%99%20%D7%A9%D7%99%D7%A8%D7%9F%2C%20%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%A9%D7%90%D7%9C%D7%94%20%D7%A7%D7%A6%D7%A8%D7%94%20%D7%9C%D7%92%D7%91%D7%99%20%D7%94%D7%A1%D7%93%D7%A0%D7%94%20%3A" target="_blank" rel="noopener" aria-label="שאלי את שירן שאלה קצרה בוואטסאפ">
+            <strong>לשאול בוואטסאפ</strong>
+            <span>אם יש לך שאלה על התאמה, גיל, קצב או מנשא קיים, אפשר לשאול לפני שנרשמות.</span>
+          </a>
+          <a class="trust-action interactive-card" href="https://www.instagram.com/shiran.babywearing/" target="_blank" rel="noopener" aria-label="מעבר לאינסטגרם של שירן">
+            <strong>לעקוב באינסטגרם</strong>
+            <span>להכיר את הקול, הגישה והתכנים של שירן גם בין מפגש למפגש.</span>
+          </a>
+          <a class="trust-action interactive-card" href="https://www.youtube.com/@shiran.babywearing" target="_blank" rel="noopener" aria-label="מעבר לערוץ היוטיוב של שירן">
+            <strong>להעמיק ביוטיוב</strong>
+            <span>לראות עוד תוכן הדרכתי ולבדוק אם הדרך הזו מרגישה בהירה ונעימה לך.</span>
+          </a>
+        </div>
+        <div class="social-links">
+          <a href="https://www.instagram.com/shiran.babywearing/" target="_blank" rel="noopener" aria-label="אינסטגרם">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A5.5 5.5 0 1 1 6.5 13 5.51 5.51 0 0 1 12 7.5zm0 2A3.5 3.5 0 1 0 15.5 13 3.5 3.5 0 0 0 12 9.5zm5.75-3a1.25 1.25 0 1 1-1.25 1.25A1.25 1.25 0 0 1 17.75 6.5z"></path></svg>
+            לאינסטגרם
+          </a>
+          <a href="https://www.youtube.com/@shiran.babywearing" target="_blank" rel="noopener" aria-label="יוטיוב">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3.1 3.1 0 0 0-2.2-2.2C19.3 3.5 12 3.5 12 3.5s-7.3 0-9.3.5A3.1 3.1 0 0 0 .5 6.2 32 32 0 0 0 0 12a32 32 0 0 0 .5 5.8 3.1 3.1 0 0 0 2.2 2.2c2 .5 9.3.5 9.3.5s7.3 0 9.3-.5a3.1 3.1 0 0 0 2.2-2.2A32 32 0 0 0 24 12a32 32 0 0 0-.5-5.8zM9.75 15.5v-7l6 3.5-6 3.5z"></path></svg>
+            ליוטיוב
+          </a>
+        </div>
+        <div class="future-media-note" aria-label="נכסי מדיה עתידיים">
+          <div>
+            <h3>בהמשך יתווספו כאן גם תמונות אמיתיות מהעולם של שירן</h3>
+            <p>כרגע העמוד נשען על התמונה הקיימת, הסרטונים והערוצים הפעילים. כשהחומרים יהיו זמינים, זה המקום המיועד להרחיב את התחושה של המפגש בלי להשתמש בחומרים לא אמיתיים.</p>
+          </div>
+          <div class="placeholder-grid" aria-hidden="true">
+            <div class="placeholder-card">שירן בזמן הדרכה</div>
+            <div class="placeholder-card">תרגול עם הורה ותינוק</div>
+            <div class="placeholder-card">תקריב של הבד והקשירה</div>
+            <div class="placeholder-card">אווירה רגועה של המפגש</div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    </div>
-  </section>
-
-
-
-    <!-- FAQ -->
     <section id="faq" class="card">
-      <h2>שאלות נפוצות</h2>
+      <h2>שאלות נפוצות לפני הרשמה</h2>
       <details>
         <summary>האם צריך להביא מנשא?</summary>
         <div class="faq-body">אין צורך, רק אם יש לך ומעוניינת ללמוד עליו. יהיו בסדנה מספיק מנשאים להתנסות וגם לרכישה.</div>
@@ -455,142 +404,92 @@
       </details>
     </section>
 
-
-    <!-- Social: Instagram & YouTube -->
-    <section id="social" class="card" aria-label="עקבו אחרי">
-      <h2>מחכה לכן גם ברשת</h2>
-      <div class="social-links">
-        <!-- Instagram -->
-        <a href="https://www.instagram.com/shiran.babywearing/" target="_blank" rel="noopener" aria-label="אינסטגרם">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A5.5 5.5 0 1 1 6.5 13 5.51 5.51 0 0 1 12 7.5zm0 2A3.5 3.5 0 1 0 15.5 13 3.5 3.5 0 0 0 12 9.5zm5.75-3a1.25 1.25 0 1 1-1.25 1.25A1.25 1.25 0 0 1 17.75 6.5z"></path>
-          </svg>
-          לאינסטגרם
-        </a>
-
-        <!-- YouTube -->
-        <a href="https://www.youtube.com/@shiran.babywearing" target="_blank" rel="noopener" aria-label="יוטיוב">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M23.5 6.2a3.1 3.1 0 0 0-2.2-2.2C19.3 3.5 12 3.5 12 3.5s-7.3 0-9.3.5A3.1 3.1 0 0 0 .5 6.2 32 32 0 0 0 0 12a32 32 0 0 0 .5 5.8 3.1 3.1 0 0 0 2.2 2.2c2 .5 9.3.5 9.3.5s7.3 0 9.3-.5a3.1 3.1 0 0 0 2.2-2.2A32 32 0 0 0 24 12a32 32 0 0 0-.5-5.8zM9.75 15.5v-7l6 3.5-6 3.5z"></path>
-          </svg>
-          ליוטיוב
-        </a>
+    <section id="register" class="card register-climax">
+      <div class="grid-2 align-start register-grid">
+        <div class="register-support-panel soft-panel">
+          <p class="section-kicker">הסיום הטבעי של המסלול</p>
+          <h2 id="registerTitle">השאירי פרטים למועד הבא</h2>
+          <p class="section-intro" id="registerIntro">המועד שמופיע כאן כבר עבר. אפשר להשאיר פרטים לרשימת ההמתנה, ושירן תחזור אלייך כשהמועד הבא ייפתח.</p>
+          <div class="state-card" id="registerStateCard" aria-live="polite"><strong>אין כרגע מועד פתוח להרשמה.</strong><br>הפרטים שתשאירי כאן יישמרו לרשימת ההמתנה, ושירן תחזור אלייך לגבי המועד הבא.</div>
+          <div class="next-box compact-box">
+            <div class="kv">
+              <span class="k">מועד</span>
+              <span class="v"><strong id="register-date">חמישי, 12 במרץ 2026</strong> • 10:00–12:30</span>
+            </div>
+            <div class="kv">
+              <span class="k">מיקום</span>
+              <span class="v">מודיעין (הכתובת תישלח לאחר הרשמה)</span>
+            </div>
+            <div class="kv">
+              <span class="k">עלות</span>
+              <span class="v" id="register-price">280 ₪</span>
+            </div>
+          </div>
+          <div class="register-help-list" aria-label="מה קורה אחרי שמשאירות פרטים">
+            <div class="register-help-item">שירן מקבלת את הפרטים שלך ורואה לאיזה מועד את מחכה.</div>
+            <div class="register-help-item">כשהמועד הבא ייפתח, היא תחזור אלייך עם כל הפרטים.</div>
+            <div class="register-help-item">אם יש שאלה קצרה, אפשר לכתוב לה כבר עכשיו בוואטסאפ.</div>
+            <div class="register-help-item">כרגע אין מעבר לתשלום, כי המועד שמופיע בעמוד כבר עבר.</div>
+          </div>
+          <div class="register-support-footer">
+            <a class="btn btn-outline" href="https://wa.me/972548188793?text=%D7%94%D7%99%D7%99%20%D7%A9%D7%99%D7%A8%D7%9F%2C%20%D7%90%D7%A0%D7%99%20%D7%A8%D7%95%D7%A6%D7%94%20%D7%9C%D7%A9%D7%90%D7%95%D7%9C%20%D7%A9%D7%90%D7%9C%D7%94%20%D7%A2%D7%9C%20%D7%94%D7%9E%D7%95%D7%A2%D7%93%20%D7%94%D7%91%D7%90%20%D7%A9%D7%9C%20%D7%94%D7%A1%D7%93%D7%A0%D7%94%20%3A)" id="whatsapp-register-side" target="_blank" rel="noopener" aria-label="שליחת שאלה לשירן לגבי המועד הבא">שאלה קצרה לשירן בוואטסאפ</a>
+            <p class="register-support-note">אם את מתלבטת אם הסדנה מתאימה לך, אפשר להשאיר פרטים בטופס או לכתוב לשירן ולקבל כיוון אישי.</p>
+          </div>
+        </div>
+        <div class="register-form-shell">
+          <p class="required-note" id="registerRequiredNote">שדות המסומנים ב-<span aria-hidden="true">*</span> הם שדות חובה.</p>
+          <form id="leadForm" aria-describedby="registerRequiredNote registerNote registerStateCard">
+            <div>
+              <label for="name">שם מלא <span class="required-mark" aria-hidden="true">*</span></label>
+              <input id="name" name="name" type="text" placeholder="שם ההורה" autocomplete="name" required>
+            </div>
+            <div>
+              <label for="phone">טלפון <span class="required-mark" aria-hidden="true">*</span></label>
+              <input id="phone" name="phone" type="tel" placeholder="05X-XXXXXXX" autocomplete="tel" inputmode="tel" required>
+            </div>
+            <div class="full">
+              <label for="email">אימייל <span class="required-mark" aria-hidden="true">*</span></label>
+              <input id="email" name="email" type="email" placeholder="example@mail.com" autocomplete="email" inputmode="email" required>
+            </div>
+            <input type="hidden" name="source" id="source">
+            <div>
+              <label for="region">אזור מגורים <span class="required-mark" aria-hidden="true">*</span></label>
+              <input id="region" name="region" type="text" autocomplete="address-level2" required>
+            </div>
+            <div>
+              <label for="baby_age">גיל התינוק/ת <span class="required-mark" aria-hidden="true">*</span></label>
+              <input id="baby_age" name="baby_age" type="text" required>
+            </div>
+            <div class="full">
+              <label for="carriers">באילו מנשאים את משתמשת כיום? <span class="required-mark" aria-hidden="true">*</span></label>
+              <input id="carriers" name="carriers" type="text" required>
+            </div>
+            <div class="full">
+              <label for="message">הודעה</label>
+              <textarea id="message" name="message" placeholder="דברים שחשוב לך שאדע..."></textarea>
+            </div>
+            <div class="full" style="display:flex;gap:10px;flex-wrap:wrap">
+              <button type="submit" class="btn btn-primary" id="registerSubmitButton" aria-label="שליחת הפרטים להצטרפות לרשימת ההמתנה"><span id="submitButtonText">שלחי והצטרפי לרשימת ההמתנה</span></button>
+              <a class="btn btn-outline" href="https://wa.me/972548188793?text=%D7%94%D7%99%D7%99%20%D7%A9%D7%99%D7%A8%D7%9F%2C%20%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%A9%D7%90%D7%9C%D7%94%20%D7%A7%D7%A6%D7%A8%D7%94%20%D7%9C%D7%92%D7%91%D7%99%20%D7%94%D7%A1%D7%93%D7%A0%D7%94%20%3A" id="whatsapp-register" target="_blank" rel="noopener" aria-label="שאלי את שירן שאלה על המועד הבא">יש לי שאלה על המועד הבא</a>
+            </div>
+            <div class="note" id="registerNote">לאחר השליחה לא תועברי לתשלום. שירן תחזור אלייך לגבי המועד הבא.</div>
+          </form>
+        </div>
       </div>
     </section>
-
-
   </main>
 
   <footer>
     <div class="container">
       <p><strong>שירן – סדנת נשיאת תינוקות</strong></p>
       <div class="footer-links">
-        <a id="whatsapp-footer" href="https://wa.me/972548188793?text=%D7%94%D7%99%D7%99%20%D7%A9%D7%99%D7%A8%D7%9F%2C%20%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%A9%D7%90%D7%9C%D7%94%20%D7%A7%D7%A6%D7%A8%D7%94%20%D7%9C%D7%92%D7%91%D7%99%20%D7%94%D7%A1%D7%93%D7%A0%D7%94%20%3A)" target="_blank" rel="noopener">וואטסאפ</a>
-        <a id="tel-link" href="tel:0548188793">טלפון: 054-8188793</a>
-        <a id="mail-link" href="mailto:shiranmaor.k@gmail.com">shiranmaor.k@gmail.com</a>
+        <a id="whatsapp-footer" href="https://wa.me/972548188793?text=%D7%94%D7%99%D7%99%20%D7%A9%D7%99%D7%A8%D7%9F%2C%20%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%A9%D7%90%D7%9C%D7%94%20%D7%A7%D7%A6%D7%A8%D7%94%20%D7%9C%D7%92%D7%91%D7%99%20%D7%94%D7%A1%D7%93%D7%A0%D7%94%20%3A" target="_blank" rel="noopener" aria-label="שליחת הודעת וואטסאפ לשירן">וואטסאפ</a>
+        <a id="tel-link" href="tel:0548188793" aria-label="חיוג לשירן 054-8188793">טלפון: 054-8188793</a>
+        <a id="mail-link" href="mailto:shiranmaor.k@gmail.com" aria-label="שליחת אימייל לשירן">shiranmaor.k@gmail.com</a>
       </div>
       <div style="opacity:.85;margin-top:8px;font-size:13px">© כל הזכויות שמורות • שירן מאור</div>
     </div>
   </footer>
-
-  <script>
-
-    // 🗓️ תיאור מועד הסדנה — משתנה אחד שמשמש גם להצגה וגם לעיבוד
-    const WORKSHOP_DATE_TEXT = "חמישי, 12 במרץ 2026"; 
-
-
-    // סקריפט זיהוי מקור ההגשה
-    document.addEventListener("DOMContentLoaded", function() {
-      const sourceField = document.getElementById('source');
-      if (sourceField) {
-        sourceField.value = window.location.href;
-      }
-
-      // 🗓️ עדכון התאריך בכל המקומות בעמוד
-      const dateEl1 = document.getElementById("workshop-date-value");
-      const dateEl2 = document.querySelector(".next-box .v strong");
-      if (dateEl1) dateEl1.textContent = WORKSHOP_DATE_TEXT + ", מודיעין";
-      if (dateEl2) dateEl2.textContent = WORKSHOP_DATE_TEXT;
-    });
-
-  </script>
-
-
-  <script>
-    // Drawer
-    const openBtn = document.getElementById('openMenu');
-    const drawer  = document.getElementById('drawer');
-    const overlay = document.getElementById('overlay');
-    if (openBtn && drawer && overlay) {
-      function lockScroll(lock){ document.body.style.overflow = lock ? 'hidden' : ''; }
-      function setExpanded(exp){
-        openBtn.setAttribute('aria-expanded', String(exp));
-        drawer.setAttribute('aria-hidden', String(!exp));
-      }
-      function openDrawer(){ drawer.classList.add('open'); setExpanded(true); lockScroll(true); }
-      function closeDrawer(){ drawer.classList.remove('open'); setExpanded(false); lockScroll(false); }
-      openBtn.addEventListener('click', (e)=>{ e.preventDefault(); drawer.classList.contains('open') ? closeDrawer() : openDrawer(); });
-      overlay.addEventListener('click', closeDrawer);
-      document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape'){ closeDrawer(); } });
-      document.querySelectorAll('.menu-link').forEach(link=>{
-        link.addEventListener('click', (e)=>{
-          const id = link.getAttribute('href').slice(1);
-          const el = document.getElementById(id);
-          if(el){
-            e.preventDefault(); closeDrawer();
-            setTimeout(()=>window.scrollTo({top: el.getBoundingClientRect().top + window.scrollY - 70, behavior:'smooth'}), 150);
-          }
-        });
-      });
-      document.querySelectorAll('a[href^="#"]:not(.menu-link)').forEach(a=>{
-        a.addEventListener('click', function(e){
-          const id = this.getAttribute('href').slice(1);
-          const el = document.getElementById(id);
-          if(el){ e.preventDefault(); window.scrollTo({top: el.getBoundingClientRect().top + window.scrollY - 70, behavior:'smooth'}); }
-        });
-      });
-    }
-
-    // YouTube embeds (lazy)
-    document.querySelectorAll('.video[data-ytid]').forEach(v=>{
-      const id = v.getAttribute('data-ytid');
-      const iframe = document.createElement('iframe');
-      iframe.src = "https://www.youtube.com/embed/" + encodeURIComponent(id) + "?rel=0&modestbranding=1";
-      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
-      iframe.referrerPolicy = "strict-origin-when-cross-origin";
-      iframe.loading = "lazy";
-      v.appendChild(iframe);
-    });
-
-    // שכבת "תודה! מעבירה אותך לתשלום…" + השהייה 2 שניות ואז מעבר לפייבוקס
-    // function showThanks(){
-    //   const m = document.getElementById('successMask');
-    //   if(m){ m.classList.add('show'); m.setAttribute('aria-hidden','false'); }
-    // }
-    function delayedPaybox(){
-      setTimeout(function(){
-        window.location.href = "https://links.payboxapp.com/mBeE0QlucXb";
-      }, 2000); // 2 שניות
-    }
-  </script>
-
-  <script>
-  (function () {
-    const PHONE = "972548188793"; // מספר בינלאומי ללא +
-    const workshopTitle = document.querySelector('.hero h1')?.textContent.trim() || '';
-    const MSG = `היי שירן, יש לי שאלה קצרה לגבי הסדנה "${workshopTitle}" :)`;
-    const url = "https://wa.me/" + PHONE + "?text=" + encodeURIComponent(MSG);
-
-    ["whatsapp-hero", "whatsapp-footer"].forEach(function (id) {
-      var a = document.getElementById(id);
-      if (a) {
-        a.href = url;
-        a.target = "_blank";
-        a.rel = "noopener";
-      }
-    });
-  })();
-  </script>
 
   <script type="application/ld+json">
   {
@@ -602,774 +501,11 @@
     "inLanguage":"he"
   }
   </script>
-
-  <script>
-  // === קונפיג: אותה כתובת Apps Script כמו בדף השני ===
-  const API_URL = "https://script.google.com/macros/s/AKfycbzQc0VWstGrox3SfVkTYNsXMzGwph-8xsb2SXrkOu3AdZNNCoUB6mrCa0HWoDoTNISq/exec";
-  
-
-  // === דגל סגירת הרשמה ידני ===
-  // שנה ל-true כדי "לסגור" ידנית את ההרשמה (להתנהג כאילו הסדנה מלאה)
-  let FORCE_CLOSE = false;
-
-  // תמיכה גם דרך ה-URL:
-  // ?closed=1 או ?closed=true או ?closed=on  -> יסגור
-  // ?closed=0 או ?closed=false או ?closed=off -> יפתח
-  (function () {
-    try {
-      const v = new URLSearchParams(location.search).get("closed");
-      if (v != null) {
-        const s = String(v).toLowerCase();
-        if (["1","true","yes","on"].includes(s))  { FORCE_CLOSE = true; }
-        if (["0","false","no","off"].includes(s)) { FORCE_CLOSE = false; }
-      }
-    } catch (e) {}
-  })();
-
-
-
-  // === מזהה ייחודי לדף לפי התאריך המוצג בעמוד ===
-  (function () {
-    const baseId = "arug_aroch_basis";
-    const el = document.getElementById("workshop-date-value"); // למשל: "22 באוקטובר, מודיעין"
-    let PAGE_ID = baseId;
-
-    if (el) {
-      const raw = WORKSHOP_DATE_TEXT; // משתמשים במשתנה הקבוע למעלה
-
-      // עזר: הסרת ניקוד וקידומות חיבור (ב/ל/ה/מ/ו) מתחילת מילה
-      const stripNikud = s => s.replace(/[\u0591-\u05C7]/g, "");
-      const normalizeHeb = s => stripNikud(s).replace(/[^\u0590-\u05FF0-9\s,.\-–—/]/g, "");
-      const normToken = s => normalizeHeb(s).replace(/^[בלמהו]?/, "").trim();
-
-      // מפה לחודשים (כולל "מרס")
-      const months = {
-        "ינואר": 1, "פברואר": 2, "מרץ": 3, "מרס": 3, "אפריל": 4,
-        "מאי": 5, "יוני": 6, "יולי": 7, "אוגוסט": 8,
-        "ספטמבר": 9, "אוקטובר": 10, "נובמבר": 11, "דצמבר": 12
-      };
-
-      // פרסון בטוח: חפש קודם יום (1–31) ואז חודש עברי
-      let day = null, monthNum = null;
-
-      const tokens = raw.split(/[\s,.\-–—/]+/);
-      for (let i = 0; i < tokens.length; i++) {
-        const tok = tokens[i];
-        // יום: המספר הראשון בטווח 1..31
-        if (day == null) {
-          const m = tok.match(/^\d{1,2}$/);
-          if (m) {
-            const n = parseInt(m[0], 10);
-            if (n >= 1 && n <= 31) day = n;
-          }
-        }
-        // חודש: מילה עברית אחרי נירמול וקיצוץ קידומת
-        if (monthNum == null) {
-          const t = normToken(tok);
-          if (months[t]) monthNum = months[t];
-        }
-        if (day != null && monthNum != null) break;
-      }
-
-      // שנה מפורשת: רק 4 ספרות 20xx (לא דו-ספרתי כדי לא לבלוע "22" של היום)
-      let year = null;
-      const year4 = raw.match(/\b20\d{2}\b/);
-      if (year4) {
-        year = parseInt(year4[0], 10);
-      } else {
-        year = new Date().getFullYear();
-      }
-
-      if (day != null && monthNum != null && year != null) {
-        const dd = String(day).padStart(2, "0");
-        const mm = String(monthNum).padStart(2, "0");
-        const yy = String(year).slice(-2);
-        PAGE_ID = `${baseId}_${dd}_${mm}_${yy}`;
-      }
-    }
-
-    // לפרסום גלובלי
-    window.PAGE_ID = PAGE_ID;
-  })();
-
-
-
-  // --- עזר: קריאת תאריך הסדנה מהטקסט ובדיקה אם עבר (לא כולל היום) ---
-  //   // בדיקה אם הסדנה כבר עברה בעת טעינת הדף
-function parseWorkshopDateFromText(text) {
-  const stripNikud = s => s.replace(/[\u0591-\u05C7]/g, "");
-  const normalizeHeb = s => stripNikud(s).replace(/[^\u0590-\u05FF0-9\s,.\-–—/]/g, "");
-  const normToken = s => normalizeHeb(s).replace(/^[בלמהו]?/, "").trim();
-
-  const months = {
-    "ינואר":1,"פברואר":2,"מרץ":3,"מרס":3,"אפריל":4,
-    "מאי":5,"יוני":6,"יולי":7,"אוגוסט":8,
-    "ספטמבר":9,"אוקטובר":10,"נובמבר":11,"דצמבר":12
-  };
-
-  let day=null, monthNum=null, year=null;
-  const tokens = text.split(/[\s,.\-–—/]+/);
-
-  for (let i=0;i<tokens.length;i++){
-    if (day==null) {
-      const m=tokens[i].match(/^\d{1,2}$/);
-      if (m) { const n=+m[0]; if (n>=1 && n<=31) day=n; }
-    }
-    if (monthNum==null) {
-      const t=normToken(tokens[i]);
-      if (months[t]) monthNum=months[t];
-    }
-    if (day!=null && monthNum!=null) break;
-  }
-
-  const year4 = text.match(/\b20\d{2}\b/);
-  if (year4) {
-    year = +year4[0];
-  } else {
-    year = year4 ? +year4[0] : (new Date()).getFullYear();
-  }
-
-  if (day!=null && monthNum!=null && year!=null) {
-    return new Date(year, monthNum-1, day);
-  }
-  return null;
-}
-
-function isWorkshopPast() {
-  const el = document.getElementById('workshop-date-value');
-  if (!el) return false;
-  const dt = parseWorkshopDateFromText((el.textContent||"").trim());
-  if (!dt) return false;
-
-  const now = new Date();
-  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  const ws   = new Date(dt.getFullYear(), dt.getMonth(), dt.getDate());
-
-  // אם היום גדול מהתאריך של הסדנה ⇒ הסדנה עברה; אם זה אותו יום — עדיין מותר
-  today.setHours(0, 0, 0, 0);
-  ws.setHours(0, 0, 0, 0);
-
-  return today.getTime() > ws.getTime();
-}
-
-
-
-  // שכבת מסך עם טקסט מותאם (משתמשת ב-successMask הקיים שלך)
-  // function showMaskText(text) {
-  //   const mask = document.getElementById('successMask');
-  //   if (!mask) return;
-  //   const msgEl = mask.querySelector('.success-box > div:first-child');
-  //   if (msgEl) msgEl.textContent = text;
-  //   mask.classList.add('show');
-  //   mask.setAttribute('aria-hidden', 'false');
-  // }
-
-  function showMaskText(text) {
-    const mask = document.getElementById('successMask');
-    if (!mask) return;
-
-    const box = mask.querySelector('.success-box');
-    if (!box) return;
-
-    // נשתמש באלמנט עוגן קבוע לתוכן ההודעה
-    let msgEl = box.querySelector('#successMsg');
-    if (!msgEl) {
-      box.innerHTML = `
-        <div id="successMsg" style="font-weight:800;color:var(--tz-800);font-size:18px;margin-bottom:10px"></div>
-        <p style="margin:0 0 14px;color:var(--ink);line-height:1.5">
-          רגע קטן ואני מעבירה אותך לתשלום...
-        </p>
-        <div class="spinner" aria-hidden="true"></div>
-      `;
-      msgEl = box.querySelector('#successMsg');
-    }
-
-    msgEl.textContent = text;
-    mask.classList.add('show');
-    mask.setAttribute('aria-hidden', 'false');
-  }
-
-
-  function showThanks() {
-    showMaskText('תודה! מעבירה אותך לתשלום…');
-  }
-
-  // JSONP לספירת הרשמות לדף (עוקף CORS)
-  function getRegistrationCount(pageId) {
-    return new Promise((resolve, reject) => {
-      const cbName = 'countCb_' + Date.now() + '_' + Math.floor(Math.random()*1e6);
-      window[cbName] = function (data) {
-        try { resolve(Number(data && data.count || 0)); } finally {
-          delete window[cbName];
-          s.remove();
-        }
-      };
-      const s = document.createElement('script');
-      s.src = API_URL + '?fn=count&page_id=' + encodeURIComponent(pageId) + '&callback=' + cbName;
-      s.onerror = () => { delete window[cbName]; reject(new Error('count load error')); };
-      document.head.appendChild(s);
-    });
-  }
-
-  // הצגת חלון קופץ כשהסדנה מלאה
-  function showFullPopup() {
-    const mask = document.getElementById('successMask');
-    if (!mask) return;
-
-    const box = mask.querySelector('.success-box');
-    if (!box) return;
-
-    // מנקים תוכן קודם
-    box.innerHTML = `
-      <div style="font-weight:800;color:var(--tz-800);font-size:18px;margin-bottom:10px">
-        ההרשמה לסדנה הסתיימה
-      </div>
-      <p style="margin:0 0 14px;color:var(--ink);line-height:1.5">
-        ניתן להשאיר פרטים לסדנה הבאה ואצור איתך קשר :)
-      </p>
-      <button id="closePopup" class="btn btn-primary" style="margin-top:10px">
-        חזרה לדף
-      </button>
-    `;
-
-    mask.classList.add('show');
-    mask.setAttribute('aria-hidden', 'false');
-
-    const closeBtn = box.querySelector('#closePopup');
-    if (closeBtn) {
-      closeBtn.addEventListener('click', () => {
-        mask.classList.remove('show');
-        mask.setAttribute('aria-hidden', 'true');
-      });
-    }
-  }
-
-
-  // חלון קופץ כשהתאריך כבר עבר
-  // בדיקה אם תאריך הסדנה עבר
-function showPastPopup() 
-{
-  const mask = document.getElementById('successMask');
-  if (!mask) return;
-
-  const box = mask.querySelector('.success-box');
-  if (!box) return;
-
-  box.innerHTML = `
-    <div style="font-weight:800;color:var(--tz-800);font-size:18px;margin-bottom:10px">
-      תאריך הסדנה עבר
-    </div>
-    <p style="margin:0 0 14px;color:var(--ink);line-height:1.5">
-      יכולה להשאיר פרטים ואצור איתך קשר :)
-    </p>
-    <button id="closePopup" class="btn btn-primary" style="margin-top:10px">
-      חזרה לדף
-    </button>
-  `;
-
-  mask.classList.add('show');
-  mask.setAttribute('aria-hidden', 'false');
-
-  const closeBtn = box.querySelector('#closePopup');
-  if (closeBtn) {
-    closeBtn.addEventListener('click', () => {
-      mask.classList.remove('show');
-      mask.setAttribute('aria-hidden', 'true');
-    });
-  }
-}
-
-
-
-function showWaitinglistPopup() {
-  const mask = document.getElementById('successMask');
-  if (!mask) return;
-  const box = mask.querySelector('.success-box');
-  if (!box) return;
-
-  box.innerHTML = `
-    <div style="font-weight:800;color:var(--tz-800);font-size:18px;margin-bottom:10px">
-      תודה! שמרתי את הפרטים שלך.
-    </div>
-    <p style="margin:0 0 14px;color:var(--ink);line-height:1.5">
-      אכתוב לך כשיפתח מועד חדש :)
-    </p>
-    <button id="closePopup" class="btn btn-primary" style="margin-top:10px">
-      חזרה לדף
-    </button>
-  `;
-  mask.classList.add('show');
-  mask.setAttribute('aria-hidden', 'false');
-
-  const closeBtn = box.querySelector('#closePopup');
-  if (closeBtn) {
-    closeBtn.addEventListener('click', () => {
-      mask.classList.remove('show');
-      mask.setAttribute('aria-hidden', 'true');
-    });
-  }
-}
-
-
-
-
-
-    window.addEventListener("DOMContentLoaded", async () => {
-    try {
-      const dateValueEl = document.getElementById('workshop-date-value');
-      const topDateEl  = document.querySelector('.next-box .v strong');
-
-      // 1. אם התאריך עבר → קו חוצה + פופאפ "תאריך עבר"
-      if (isWorkshopPast()) {
-        if (dateValueEl) dateValueEl.classList.add('line-through');
-        if (topDateEl)   topDateEl.classList.add('line-through');
-        showPastPopup();
-        return;
-      }
-
-      // 2. אם FORCE_CLOSE דולק → התנהגות של "מלא"
-      if (FORCE_CLOSE) {
-        if (dateValueEl) dateValueEl.classList.add('line-through');
-        if (topDateEl)   topDateEl.classList.add('line-through');
-        showFullPopup();
-        return;
-      }
-
-      // 3. אחרת: כרגיל — בדיקת כמות (5 נרשמות ומעלה)
-      const count = await getRegistrationCount(PAGE_ID);
-      if (count >= 4) {
-        if (dateValueEl) dateValueEl.classList.add('line-through');
-        if (topDateEl)   topDateEl.classList.add('line-through');
-        showFullPopup();
-      } else {
-        if (dateValueEl) dateValueEl.classList.remove('line-through');
-        if (topDateEl)   topDateEl.classList.remove('line-through');
-      }
-    } catch (err) {
-      console.warn('count check failed', err);
-    }
-  });
-
-
-
-
-  // רישום צפייה בדף בעת טעינה
-  window.addEventListener("DOMContentLoaded", () => {
-    fetch(API_URL, {
-      method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify({ type: "pageview", page_id: PAGE_ID })
-    });
-  });
-
-  
-  // לוגיקת ההרשמה עם הגבלת 5
-(function () {
-  const form = document.getElementById("leadForm");
-  if (!form) return;
-
-  form.addEventListener("submit", async function (e) {
-    e.preventDefault(); // לא שולחים עדיין — בודקים מקום
-
-    const fd = new FormData(form);
-    const name    = (fd.get("name")    || "").toString();
-    const phone   = (fd.get("phone")   || "").toString();
-    const email   = (fd.get("email")   || "").toString();
-    const region   = (fd.get("region")   || "").toString();
-    const baby_age = (fd.get("baby_age") || "").toString();
-    const carriers = (fd.get("carriers") || "").toString();
-    const message = (fd.get("message") || "").toString();
-
-    const source  = (fd.get("source")  || "").toString();
-
-
-    try {
-      // אם התאריך עבר – שולחים לרשימת המתנה, אבל מציגים את הפופאפ מיד
-      if (isWorkshopPast()) 
-      {
-        const dateValueEl = document.getElementById('workshop-date-value');
-        if (dateValueEl) dateValueEl.classList.add('line-through');
-        const topDateEl = document.querySelector('.next-box .v strong');
-        if (topDateEl) topDateEl.classList.add('line-through');
-        // מציג מיד (ללא המתנה לרשת)
-        showWaitinglistPopup();
-
-        // שליחה “ברקע”: קודם sendBeacon (מהיר ולא חוסם), ואם אין – fetch בלי await
-        const payload = JSON.stringify({
-          type: "waitinglist",
-          page_id: PAGE_ID,
-          name, phone, email, message, region, baby_age, carriers
-        });
-
-        if (navigator.sendBeacon) {
-          const blob = new Blob([payload], { type: "text/plain;charset=utf-8" });
-          navigator.sendBeacon(API_URL, blob);
-        } else {
-          fetch(API_URL, {
-            method: "POST",
-            mode: "no-cors",
-            headers: { "Content-Type": "text/plain;charset=utf-8" },
-            body: payload
-          }).catch(()=>{});
-        }
-
-        return; // לא ממשיכים לפייבוקס
-      }
-
-
-      // אם FORCE_CLOSE דולק – מתנהגות כאילו הסדנה מלאה
-    if (FORCE_CLOSE) {
-      const dateValueEl = document.getElementById('workshop-date-value');
-      const topDateEl   = document.querySelector('.next-box .v strong');
-      if (dateValueEl) dateValueEl.classList.add('line-through');
-      if (topDateEl)   topDateEl.classList.add('line-through');
-
-      // פופאפ "שמרתי את הפרטים שלך" (רשימת המתנה)
-      showWaitinglistPopup();
-
-      // שולחות ל-waitinglist, בלי מעבר לפייבוקס
-      const payload = JSON.stringify({
-        type: "waitinglist",
-        page_id: PAGE_ID,
-        name, phone, email, message, region, baby_age, carriers
-      });
-
-      if (navigator.sendBeacon) {
-        const blob = new Blob([payload], { type: "text/plain;charset=utf-8" });
-        navigator.sendBeacon(API_URL, blob);
-      } else {
-        fetch(API_URL, {
-          method: "POST",
-          mode: "no-cors",
-          headers: { "Content-Type": "text/plain;charset=utf-8" },
-          body: payload
-        }).catch(()=>{});
-      }
-
-      return; // לא ממשיכים לפייבוקס
-    }
-
-
-
-      // 🟢 מציגים "בודקת זמינות…" ואז ממשיכים
-      showMaskText('בודקת זמינות…');
-
-      // 1️⃣ בודקים כמה כבר נרשמו
-      const count = await getRegistrationCount(PAGE_ID);
-
-      if (count >= 5) 
-      {
-        // 🟣 הסדנה מלאה — מציגים חלון תודה ושומרים לרשימת המתנה
-        const mask = document.getElementById('successMask');
-        if (mask) {
-          const box = mask.querySelector('.success-box');
-          if (box) {
-            box.innerHTML = `
-              <div style="font-weight:800;color:var(--tz-800);font-size:18px;margin-bottom:10px">
-                תודה! שמרתי את הפרטים שלך.
-              </div>
-              <p style="margin:0 0 14px;color:var(--ink);line-height:1.5">
-                אכתוב לך כשיפתח מועד חדש :)
-              </p>
-              <button id="closePopup" class="btn btn-primary" style="margin-top:10px">
-                חזרה לדף
-              </button>
-            `;
-            mask.classList.add('show');
-            mask.setAttribute('aria-hidden', 'false');
-
-            const closeBtn = box.querySelector('#closePopup');
-            if (closeBtn) {
-              closeBtn.addEventListener('click', () => {
-                mask.classList.remove('show');
-                mask.setAttribute('aria-hidden', 'true');
-              });
-            }
-          }
-        }
-
-        // שומר לרשימת המתנה
-        await fetch(API_URL, {
-          method: "POST",
-          mode: "no-cors",
-          headers: { "Content-Type": "text/plain;charset=utf-8" },
-          body: JSON.stringify({
-            type: "waitinglist",
-            page_id: PAGE_ID,
-            name, phone, email, message, region, baby_age, carriers
-          })
-        });
-        return; // לא ממשיכים לפייבוקס
-      }
-      else {
-        showThanks();    // "תודה! מעבירה אותך לתשלום…"
-        delayedPaybox(); // מעבירה לפייבוקס אחרי 2 שניות
-    }
-
-      await fetch(API_URL, {
-        method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify({
-          type: "registration",
-          page_id: PAGE_ID,
-          name, phone, email, message, region, baby_age, carriers
-        })
-      });
-
-
-    } catch (err) {
-      console.error('count error', err);
-      showThanks();
-      delayedPaybox();
-    }
-  });
-})();
-
-
-</script>
-
-
-<script>
-(function(){
-  const params = new URLSearchParams(window.location.search);
-  if (params.get("edit") !== "1") return;
-
-  const titleEl = document.querySelector(".hero h1");
-  if (!titleEl) return;
-
-  titleEl.contentEditable = "true";
-  titleEl.style.outline = "2px dashed #888";
-  titleEl.style.outlineOffset = "4px";
-
-  // כל השדות התוכניים שנרצה לאפשר לעריכה חיה
-  [
-    "workshop-slot",        // מועד ושעות
-    "workshop-price",       // עלות
-    "workshop-duration",    // אורך הסדנה
-    "workshop-group-size",   // קבוצה קטנה: עד X משתתפות
-    "workshop-date-value"   // מיקום/תאריך: לדוגמה "22 אוקטובר, מודיעין"
-  ].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.contentEditable = "true";
-      el.style.outline = "2px dashed #888";
-      el.style.outlineOffset = "4px";
-    }
-  });
-
-
-  // ממשק בסיסי לעריכה ושמירה
-  const panel = document.createElement("div");
-  panel.id = "__adminPanel";
-  panel.style.position = "fixed";
-  panel.style.bottom = "20px";
-  panel.style.left = "20px";
-  panel.style.zIndex = "9999";
-  panel.style.background = "#fff";
-  panel.style.padding = "10px 14px";
-  panel.style.border = "1px solid #ccc";
-  panel.style.borderRadius = "10px";
-  panel.style.boxShadow = "0 4px 10px rgba(0,0,0,0.1)";
-  panel.innerHTML = `
-    <label style="display:block;margin-bottom:8px">
-      GitHub Token:
-      <input id="ghToken" type="password" placeholder="ghp_..." style="width:250px">
-    </label>
-    <label style="display:block;margin-bottom:8px">
-      Repo path (user/repo):
-      <input id="ghRepo" placeholder="username/repo-name" style="width:250px">
-    </label>
-    <label style="display:block;margin-bottom:8px">
-      Branch:
-      <input id="ghBranch" value="main" style="width:120px">
-    </label>
-    <label style="display:block;margin-bottom:8px">
-      <input type="checkbox" id="forceCloseToggle">
-      סגור הרשמה ידנית (FORCE_CLOSE)
-    </label>
-    <button id="saveBtn" style="background:#157683;color:white;border:none;padding:8px 16px;border-radius:6px;font-weight:bold;cursor:pointer">
-      שמור שינויים
-    </button>
-    <div id="status" style="margin-top:6px;color:#333;font-size:13px"></div>
-  `;
-  document.body.appendChild(panel);
-
-  // חיבור ה-checkbox ל-FORCE_CLOSE
-  const forceToggle = document.getElementById("forceCloseToggle");
-  if (forceToggle) {
-    forceToggle.checked = FORCE_CLOSE === true;
-    forceToggle.addEventListener("change", () => {
-      FORCE_CLOSE = forceToggle.checked;
-    });
-  }
-
-  async function saveToGitHub() 
-  {
-    const token  = document.getElementById("ghToken").value.trim();
-    const repo   = document.getElementById("ghRepo").value.trim();
-    const branch = document.getElementById("ghBranch").value.trim();
-    const status = document.getElementById("status");
-    const isClosed = document.getElementById("forceCloseToggle")?.checked === true;
-
-    if (!token || !repo) {
-      alert("חייבים למלא Token ו-repo (username/repo)");
-      return;
-    }
-
-    status.textContent = "📤 שולח שינויים ל-GitHub...";
-
-    try {
-      // 1. נביא את הקובץ הקיים כדי לקבל SHA
-      const path = "index.html";
-      const url  = `https://api.github.com/repos/${repo}/contents/${path}`;
-      const res  = await fetch(url + `?ref=${branch}`, {
-        headers: { Authorization: "token " + token }
-      });
-      const json = await res.json();
-      if (!json.sha) throw new Error("לא התקבל SHA מהשרת");
-
-      // 2. בונים עותק נקי של ה־DOM ושומרים (לא נוגעים בדום החי)
-      const doc = document.documentElement.cloneNode(true);
-
-      // מסירים את פאנל הניהול מהעותק
-      const panelClone = doc.querySelector("#__adminPanel");
-      if (panelClone && panelClone.parentNode) panelClone.parentNode.removeChild(panelClone);
-
-      // מנקים את הכותרת מעריכה בעותק
-      const titleClone = doc.querySelector("#mainTitle");
-      if (titleClone) {
-        titleClone.removeAttribute("contenteditable");
-        titleClone.style.outline = "";
-        titleClone.style.outlineOffset = "";
-      }
-
-      // מנקים גם את שורת המועד מעריכה בעותק
-      const slotClone = doc.querySelector("#workshop-slot");
-      if (slotClone) {
-        slotClone.removeAttribute("contenteditable");
-        slotClone.style.outline = "";
-        slotClone.style.outlineOffset = "";
-      }
-
-    // מנקים גם את המחיר מעריכה בעותק
-    const priceClone = doc.querySelector("#workshop-price");
-    if (priceClone) {
-      priceClone.removeAttribute("contenteditable");
-      priceClone.style.outline = "";
-      priceClone.style.outlineOffset = "";
-    }
-
-      // מנקים גם את משך הסדנה מעריכה בעותק
-      const durationClone = doc.querySelector("#workshop-duration");
-      if (durationClone) {
-        durationClone.removeAttribute("contenteditable");
-        durationClone.style.outline = "";
-        durationClone.style.outlineOffset = "";
-      }
-
-      // מנקים גם את גודל הקבוצה מעריכה בעותק
-      const groupClone = doc.querySelector("#workshop-group-size");
-      if (groupClone) {
-        groupClone.removeAttribute("contenteditable");
-        groupClone.style.outline = "";
-        groupClone.style.outlineOffset = "";
-      }
-
-      // מנקים גם את המיקום/תאריך מעריכה בעותק
-      const dateValClone = doc.querySelector("#workshop-date-value");
-      if (dateValClone) {
-        dateValClone.removeAttribute("contenteditable");
-        dateValClone.style.outline = "";
-        dateValClone.style.outlineOffset = "";
-      }
-
-
-
-      // מסירים הזרקות של תוספי דפדפן מהעותק
-      const extSelectors = [
-        'script[src^="chrome-extension://"]',
-        'link[href^="chrome-extension://"]',
-        'link#dark-mode-custom-link',
-        'link#dark-mode-general-link',
-        'style#dark-mode-custom-style',
-        'style#dark-mode-native-style',
-        'style#dark-mode-native-sheet'
-      ];
-      extSelectors.forEach(sel => doc.querySelectorAll(sel).forEach(n => n.remove()));
-
-      // מנקים אטריביוטים שנוספו ע"י תוספים
-      doc.querySelectorAll("*").forEach(el => {
-        ["bis_skin_checked", "bis_register"].forEach(a => {
-          if (el.hasAttribute(a)) el.removeAttribute(a);
-        });
-        [...el.attributes].forEach(attr => {
-          if (attr.name.startsWith("__processed_")) el.removeAttribute(attr.name);
-        });
-      });
-
-      // מסירים קו-חוצה שנשמר בטעות
-      doc.querySelectorAll(".line-through").forEach(el => el.classList.remove("line-through"));
-
-      // מסירים value עם '?edit=1' מהשדה הסמוי
-      const srcInput = doc.querySelector("#source");
-      if (srcInput) srcInput.removeAttribute("value");
-
-      // מעדכן את הערך של FORCE_CLOSE בתוך ה-HTML המשוכפל
-      const allScripts = doc.querySelectorAll("script");
-      allScripts.forEach(scr => {
-        if (scr.textContent.includes("let FORCE_CLOSE")) {
-          scr.textContent = scr.textContent.replace(
-            /let FORCE_CLOSE\s*=\s*(true|false)\s*;/,
-            "let FORCE_CLOSE = " + (isClosed ? "true" : "false") + ";"
-          );
-        }
-      });
-
-
-      // עכשיו מצלמים את הדף הנקי (כולל ה-DOCTYPE)
-      const html = "<!DOCTYPE html>\n" + doc.outerHTML;
-      const base64 = btoa(unescape(encodeURIComponent(html)));
-
-
-      // 3. מעלים commit חדש
-      const body = {
-        message: "עדכון תוכן דף (עריכה דרך האתר)",
-        content: base64,
-        branch,
-        sha: json.sha
-      };
-
-      const putRes = await fetch(url, {
-        method: "PUT",
-        headers: {
-          Authorization: "token " + token,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(body)
-      });
-
-      const putJson = await putRes.json();
-
-      if (putJson.commit) {
-        status.textContent = "✅ נשמר בהצלחה! commit " + putJson.commit.sha.substring(0,7);
-      } else {
-        throw putJson;
-      }
-    } catch (err) {
-      console.error(err);
-      status.textContent = "❌ שגיאה: " + (err.message || JSON.stringify(err));
-    }
-  }
-
-  document.getElementById("saveBtn").onclick = saveToGitHub;
-})();
-</script>
-
-
-
-
-</body></html>
-
-
+  <script src="src/js/config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+  <script src="src/js/main.js"></script>
+  <script src="src/js/registration.js"></script>
+  <script src="src/js/admin-edit.js"></script>
+</body>
+</html>
