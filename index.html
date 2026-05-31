@@ -941,7 +941,7 @@ function showWaitinglistPopup() {
 
       // 3. אחרת: כרגיל — בדיקת כמות (5 נרשמות ומעלה)
       const count = await getRegistrationCount(PAGE_ID);
-      if (count >= 4) {
+      if (count >= 5) {
         if (dateValueEl) dateValueEl.classList.add('line-through');
         if (topDateEl)   topDateEl.classList.add('line-through');
         showFullPopup();

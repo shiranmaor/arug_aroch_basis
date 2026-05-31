@@ -1,5 +1,12 @@
 # Change Log
 
+## 2026-05-31
+
+- Fixed an inconsistency in `index.html` workshop registration capacity logic.
+- Confirmed the intended workshop limit remains 5 participants, matching the visible text `עד 5 משתתפות`.
+- Corrected the page-load availability check from `count >= 4` to `count >= 5` so the workshop no longer appears full one registration too early.
+- Left the submit-time logic unchanged because it already used the correct `count >= 5` threshold for switching from paid registration to waiting-list handling.
+
 ## 2026-05-30
 
 - Converted the landing page color system from turquoise/teal to a light-orange palette across CSS variables, direct fills, gradients, focus states, shadows, and JS-injected inline styles.
